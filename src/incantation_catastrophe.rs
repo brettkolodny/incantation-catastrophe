@@ -1,0 +1,2 @@
+pub const GAMEPLAY_AREA_WIDTH: f32 = 1080.;
+pub const GAMEPLAY_AREA_HEIGHT: f32 = 720.;
