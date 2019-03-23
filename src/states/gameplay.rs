@@ -10,7 +10,7 @@ use amethyst::renderer::{
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
 
 use crate::incantation_catastrophe::{
-  load_sprite_sheet, GameplayItem, Player, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
+  load_sprite_sheet, GameplayItem, Player, Speed, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
 };
 
 pub struct GameplayState;
@@ -56,8 +56,8 @@ fn initialize_camera(_world: &mut World) {
 
 fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
   let mut local_transform = Transform::default();
-  local_transform.set_xyz(GAMEPLAY_AREA_HEIGHT / 2., GAMEPLAY_AREA_WIDTH / 2., 0.);
-  local_transform.set_scale(50., 50., 50.);
+  local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
+  local_transform.set_scale(10., 25., 1.);
 
   let sprite_render = {
     SpriteRender {
@@ -71,6 +71,7 @@ fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle
     .with(sprite_render)
     .with(local_transform)
     .with(Player::new())
+    .with(Speed::new(1.))
     .with(GameplayItem)
     .build();
 }

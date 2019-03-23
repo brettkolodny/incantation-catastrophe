@@ -27,9 +27,13 @@ fn main() -> amethyst::Result<()> {
             .with_pass(DrawUi::new()),
     );
 
+    let binding_path = format!("{}/resources/bindings_config.ron", application_root_dir());
+    let input_bundle = InputBundle::<String, String>::new().with_bindings_from_file(binding_path)?;
+
     let game_data = GameDataBuilder::default()
         .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor())?
         .with_bundle(TransformBundle::new())?
+        .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<String, String>::new())?
         .with(systems::PlayerMoveSystem, "player_move", &[]);
     let mut game = Application::new("./", GameplayState, game_data)?;

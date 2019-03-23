@@ -1,12 +1,12 @@
 use amethyst::assets::{AssetStorage, Loader};
-use amethyst::ecs::prelude::{Component, DenseVecStorage, NullStorage};
+use amethyst::ecs::prelude::{Component, DenseVecStorage, NullStorage, VecStorage};
 use amethyst::prelude::*;
 use amethyst::renderer::{
   PngFormat, SpriteSheet, SpriteSheetFormat, SpriteSheetHandle, Texture, TextureMetadata,
 };
 
-pub const GAMEPLAY_AREA_WIDTH: f32 = 1080.;
-pub const GAMEPLAY_AREA_HEIGHT: f32 = 720.;
+pub const GAMEPLAY_AREA_WIDTH: f32 = 720.;
+pub const GAMEPLAY_AREA_HEIGHT: f32 = 1080.;
 
 pub fn load_sprite_sheet(
   _world: &mut World,
@@ -60,4 +60,19 @@ impl Player {
 
 impl Component for Player {
   type Storage = DenseVecStorage<Self>;
+}
+
+#[derive(Default)]
+pub struct Speed {
+  pub speed: f32,
+}
+
+impl Speed {
+  pub fn new(speed: f32) -> Speed {
+    Speed { speed }
+  }
+}
+
+impl Component for Speed {
+  type Storage = VecStorage<Self>;
 }
