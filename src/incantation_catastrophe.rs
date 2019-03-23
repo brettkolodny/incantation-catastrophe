@@ -5,8 +5,8 @@ use amethyst::renderer::{
   PngFormat, SpriteSheet, SpriteSheetFormat, SpriteSheetHandle, Texture, TextureMetadata,
 };
 
-pub const GAMEPLAY_AREA_WIDTH: f32 = 720.;
-pub const GAMEPLAY_AREA_HEIGHT: f32 = 1080.;
+pub const GAMEPLAY_AREA_WIDTH: f32 = 1080.;
+pub const GAMEPLAY_AREA_HEIGHT: f32 = 720.;
 
 pub fn load_sprite_sheet(
   _world: &mut World,
