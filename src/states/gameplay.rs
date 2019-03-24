@@ -62,7 +62,7 @@ fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle
   let sprite_render = {
     SpriteRender {
       sprite_sheet: _sprite_sheet_handle,
-      sprite_number: 1,
+      sprite_number: 0,
     }
   };
 
@@ -71,7 +71,7 @@ fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle
     .with(sprite_render)
     .with(local_transform)
     .with(Player::new())
-    .with(Speed::new(10.))
+    .with(Speed::new(5.))
     .with(GameplayItem)
     .build();
 }
