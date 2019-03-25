@@ -10,7 +10,7 @@ use amethyst::renderer::{
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
 
 use crate::incantation_catastrophe::{
-  load_sprite_sheet, GameplayItem, Player, Speed, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
+  load_sprite_sheet, GameplayItem, Player, Speed, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, CurrentDirection
 };
 
 pub struct GameplayState;
@@ -72,6 +72,7 @@ fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle
     .with(local_transform)
     .with(Player::new())
     .with(Speed::new(5.))
+    .with(CurrentDirection::new())
     .with(GameplayItem)
     .build();
 }

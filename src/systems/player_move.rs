@@ -2,7 +2,7 @@ use amethyst::core::Transform;
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 use amethyst::input::InputHandler;
 
-use crate::incantation_catastrophe::{Player, Speed};
+use crate::incantation_catastrophe::{CurrentDirection, Player, Speed};
 
 pub struct PlayerMoveSystem;
 
@@ -10,12 +10,15 @@ impl<'s> System<'s> for PlayerMoveSystem {
   type SystemData = (
     WriteStorage<'s, Transform>,
     ReadStorage<'s, Speed>,
+    WriteStorage<'s, CurrentDirection>,
     ReadStorage<'s, Player>,
     Read<'s, InputHandler<String, String>>,
   );
 
-  fn run(&mut self, (mut transforms, speeds, players, input): Self::SystemData) {
-    for (transform, speed, _) in (&mut transforms, &speeds, &players).join() {
+  fn run(&mut self, (mut transforms, speeds, mut directions, players, input): Self::SystemData) {
+    for (transform, direction, speed, _) in
+      (&mut transforms, &mut directions, &speeds, &players).join()
+    {
       let horizontal_movement = input.axis_value("horizontal");
       let vertical_movement = input.axis_value("vertical");
 
@@ -37,14 +40,18 @@ impl<'s> System<'s> for PlayerMoveSystem {
 
       if change_x > 0. {
         transform.set_rotation_euler(0., 0., 1.5708);
+        direction.turn_right();
       } else if change_x < 0. {
         transform.set_rotation_euler(0., 0., 4.71239);
+        direction.turn_left();
       }
 
       if change_y > 0. {
         transform.set_rotation_euler(0., 0., 0.);
+        direction.turn_up();
       } else if change_y < 0. {
         transform.set_rotation_euler(0., 0., 3.14159);
+        direction.turn_down();
       }
 
       if change_y != 0. && change_x != 0. {
