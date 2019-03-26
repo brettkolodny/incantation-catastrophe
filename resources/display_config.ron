@@ -1,6 +1,6 @@
 (
   title: "Incantation Catastrophe",
-  dimensions: Some((1080, 720)),
+  dimensions: Some((1920, 1080)),
   max_dimensions: None,
   min_dimensions: None,
   fullscreen: false,

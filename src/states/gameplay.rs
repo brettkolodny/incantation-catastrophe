@@ -1,16 +1,11 @@
-use amethyst::assets::{AssetStorage, Loader};
 use amethyst::core::transform::Transform;
-use amethyst::ecs::prelude::{Component, DenseVecStorage, Entity, Join, NullStorage};
-use amethyst::input::is_key_down;
 use amethyst::prelude::*;
-use amethyst::renderer::{
-  Camera, Flipped, PngFormat, Projection, SpriteRender, SpriteSheet, SpriteSheetFormat,
-  SpriteSheetHandle, Texture, TextureMetadata, VirtualKeyCode,
-};
-use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
+use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle};
+
+use crate::incantation_catastrophe::player::initialize_player;
 
 use crate::incantation_catastrophe::{
-  load_sprite_sheet, GameplayItem, Player, Speed, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, CurrentDirection
+  load_sprite_sheet, Background, GameplayItem, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
 };
 
 pub struct GameplayState;
@@ -30,6 +25,13 @@ impl SimpleState for GameplayState {
       "textures/pong_spritesheet.ron",
     );
 
+    let arena_sprite_sheet_handle = load_sprite_sheet(
+      world,
+      "textures/arena_sprite.png",
+      "textures/arena_sprite.ron",
+    );
+
+    initialize_arena(world, arena_sprite_sheet_handle);
     initialize_player(world, sprite_sheet_handle);
     initialize_camera(world);
   }
@@ -54,10 +56,9 @@ fn initialize_camera(_world: &mut World) {
     .build();
 }
 
-fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
+pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
   let mut local_transform = Transform::default();
   local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
-  local_transform.set_scale(10., 10., 1.);
 
   let sprite_render = {
     SpriteRender {
@@ -70,9 +71,7 @@ fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle
     .create_entity()
     .with(sprite_render)
     .with(local_transform)
-    .with(Player::new())
-    .with(Speed::new(5.))
-    .with(CurrentDirection::new())
     .with(GameplayItem)
+    .with(Background)
     .build();
 }
