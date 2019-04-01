@@ -14,6 +14,7 @@ pub struct Player {
   pub width: f32,
   pub height: f32,
   pub time_since_shot: f32,
+  pub cooldown: f32,
 }
 
 impl Player {
@@ -22,6 +23,7 @@ impl Player {
       width: 1.,
       height: 200.,
       time_since_shot: 3.,
+      cooldown: 0.25,
     }
   }
 

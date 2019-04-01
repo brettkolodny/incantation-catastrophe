@@ -40,7 +40,12 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with(systems::PlayerMoveSystem, "player_move", &[])
         .with(systems::BoundarySystem, "boundary", &["player_move"])
-        .with(systems::PlayerShootSystem, "player_shoot", &["player_move"]);
+        .with(systems::PlayerShootSystem, "player_shoot", &["player_move"])
+        .with(
+            systems::ProjectileMoveSystem,
+            "projectile_move",
+            &["player_shoot"],
+        );
     let mut game = Application::new("./", GameplayState {}, game_data)?;
 
     game.run();

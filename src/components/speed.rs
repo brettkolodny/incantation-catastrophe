@@ -12,7 +12,7 @@ impl Speed {
 
 impl Default for Speed {
   fn default() -> Speed {
-    Speed { speed: 10. }
+    Speed { speed: 1000. }
   }
 }
 

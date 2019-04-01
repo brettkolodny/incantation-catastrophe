@@ -1,6 +1,7 @@
-use amethyst::ecs::{Component, NullStorage}
+use amethyst::ecs::{Component, NullStorage};
 
-pub struct Projectile{};
+#[derive(Default)]
+pub struct Projectile;
 
 impl Component for Projectile {
   type Storage = NullStorage<Self>;

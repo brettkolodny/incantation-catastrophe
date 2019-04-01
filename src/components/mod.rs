@@ -7,5 +7,5 @@ pub use self::{
   direction::{CurrentDirection, Direction},
   player::Player,
   speed::Speed,
-  tags::{Background, GameplayItem, PlayerProjectile},
+  tags::{Background, GameplayItem, PlayerProjectile, Projectile},
 };
