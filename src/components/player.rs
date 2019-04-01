@@ -1,9 +1,15 @@
-use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::core::transform::Transform;
+use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::prelude::*;
-use amethyst::renderer::{ SpriteRender, SpriteSheetHandle };
+use amethyst::renderer::{SpriteRender, SpriteSheetHandle};
 
-use crate::incantation_catastrophe::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, speed::Speed, GameplayItem, current_direction::CurrentDirection};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT,
+  GAMEPLAY_AREA_WIDTH
+};
+
+use crate::components::tags::GameplayItem;
+
+use crate::components::{CurrentDirection, Speed};
 
 #[derive(Default)]
 pub struct Player {
@@ -18,13 +24,8 @@ impl Player {
       height: 200.,
     }
   }
-}
 
-impl Component for Player {
-  type Storage = DenseVecStorage<Self>;
-}
-
-pub fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
+  pub fn initialize(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
   let mut local_transform = Transform::default();
   local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
   local_transform.set_scale(10., 10., 1.);
@@ -45,4 +46,9 @@ pub fn initialize_player(_world: &mut World, _sprite_sheet_handle: SpriteSheetHa
     .with(CurrentDirection::new())
     .with(GameplayItem)
     .build();
+}
+}
+
+impl Component for Player {
+  type Storage = DenseVecStorage<Self>;
 }

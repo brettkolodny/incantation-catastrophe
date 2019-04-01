@@ -1,8 +1,11 @@
 use amethyst::core::Transform;
 use amethyst::ecs::{Entities, Join, ReadStorage, System};
 
-use crate::incantation_catastrophe::{
-  Background, GameplayItem, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
+use crate::utility::{
+  GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
+};
+use crate::components::{
+  GameplayItem, Background,
 };
 
 pub struct BoundarySystem;
@@ -26,7 +29,9 @@ impl<'s> System<'s> for BoundarySystem {
         + (entity_y - (GAMEPLAY_AREA_HEIGHT / 2.)).powi(2)
         > radius.powi(2)
       {
-        entities.delete(entity);
+        if let Err(e) = entities.delete(entity) {
+          println!("{}", e);
+        }
       }
     }
   }

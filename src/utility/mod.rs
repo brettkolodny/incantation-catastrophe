@@ -1,9 +1,4 @@
-pub mod current_direction;
-pub mod player;
-pub mod speed;
-
 use amethyst::assets::{AssetStorage, Loader};
-use amethyst::ecs::prelude::{Component, NullStorage};
 use amethyst::prelude::*;
 use amethyst::renderer::{
   PngFormat, SpriteSheet, SpriteSheetFormat, SpriteSheetHandle, Texture, TextureMetadata,
@@ -11,20 +6,6 @@ use amethyst::renderer::{
 
 pub const GAMEPLAY_AREA_WIDTH: f32 = 1920.;
 pub const GAMEPLAY_AREA_HEIGHT: f32 = 1080.;
-
-#[derive(Default)]
-pub struct GameplayItem;
-
-impl Component for GameplayItem {
-  type Storage = NullStorage<Self>;
-}
-
-#[derive(Default)]
-pub struct Background;
-
-impl Component for Background {
-  type Storage = NullStorage<Self>;
-}
 
 pub fn load_sprite_sheet(
   _world: &mut World,

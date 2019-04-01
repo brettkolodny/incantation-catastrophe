@@ -2,13 +2,15 @@ use amethyst::core::transform::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle};
 
-use crate::incantation_catastrophe::player::initialize_player;
+use crate::components::{Player, GameplayItem, Background};
 
-use crate::incantation_catastrophe::{
-  load_sprite_sheet, Background, GameplayItem, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
+use crate::utility::{
+  load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
 };
 
-pub struct GameplayState;
+pub struct GameplayState {
+  pub spritesheet_handle: Option<SpriteSheetHandle>,
+}
 
 impl SimpleState for GameplayState {
   fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
@@ -19,11 +21,11 @@ impl SimpleState for GameplayState {
     world.register::<SpriteRender>();
     world.register::<SpriteSheetHandle>();
 
-    let sprite_sheet_handle = load_sprite_sheet(
+    self.spritesheet_handle = Some(load_sprite_sheet(
       world,
       "textures/pong_spritesheet.png",
       "textures/pong_spritesheet.ron",
-    );
+    ));
 
     let arena_sprite_sheet_handle = load_sprite_sheet(
       world,
@@ -32,7 +34,7 @@ impl SimpleState for GameplayState {
     );
 
     initialize_arena(world, arena_sprite_sheet_handle);
-    initialize_player(world, sprite_sheet_handle);
+    Player::initialize(world, self.spritesheet_handle.clone().unwrap());
     initialize_camera(world);
   }
 

@@ -9,9 +9,10 @@ use amethyst::renderer::{
 use amethyst::ui::{DrawUi, UiBundle};
 use amethyst::utils::application_root_dir;
 
-mod incantation_catastrophe;
 mod states;
 mod systems;
+mod components;
+mod utility;
 
 use crate::states::GameplayState;
 
@@ -39,7 +40,7 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with(systems::PlayerMoveSystem, "player_move", &[])
         .with(systems::BoundarySystem, "boundary", &[]);
-    let mut game = Application::new("./", GameplayState, game_data)?;
+    let mut game = Application::new("./", GameplayState{ spritesheet_handle: None }, game_data)?;
 
     game.run();
 
