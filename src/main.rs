@@ -9,9 +9,9 @@ use amethyst::renderer::{
 use amethyst::ui::{DrawUi, UiBundle};
 use amethyst::utils::application_root_dir;
 
+mod components;
 mod states;
 mod systems;
-mod components;
 mod utility;
 
 use crate::states::GameplayState;
@@ -39,8 +39,9 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<String, String>::new())?
         .with(systems::PlayerMoveSystem, "player_move", &[])
-        .with(systems::BoundarySystem, "boundary", &[]);
-    let mut game = Application::new("./", GameplayState{ spritesheet_handle: None }, game_data)?;
+        .with(systems::BoundarySystem, "boundary", &["player_move"])
+        .with(systems::PlayerShootSystem, "player_shoot", &["player_move"]);
+    let mut game = Application::new("./", GameplayState {}, game_data)?;
 
     game.run();
 

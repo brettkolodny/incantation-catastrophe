@@ -2,30 +2,30 @@ use amethyst::core::transform::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle};
 
-use crate::components::{Player, GameplayItem, Background};
+use crate::components::{Background, GameplayItem, Player};
 
-use crate::utility::{
-  load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
-};
+use crate::utility::{load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
-pub struct GameplayState {
-  pub spritesheet_handle: Option<SpriteSheetHandle>,
-}
+pub struct GameplayState;
 
 impl SimpleState for GameplayState {
   fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
     let world = _data.world;
-    world.register::<Camera>();
-    world.register::<Transform>();
-    world.register::<GameplayItem>();
-    world.register::<SpriteRender>();
-    world.register::<SpriteSheetHandle>();
+    world.add_resource(SpriteSheet::default());
 
-    self.spritesheet_handle = Some(load_sprite_sheet(
+    let spritesheet_handle = Some(load_sprite_sheet(
       world,
       "textures/pong_spritesheet.png",
       "textures/pong_spritesheet.ron",
     ));
+
+    world.write_resource::<SpriteSheet>().sprite_sheet = Some(spritesheet_handle.unwrap());
+
+    let spritesheet = world
+      .read_resource::<SpriteSheet>()
+      .sprite_sheet
+      .clone()
+      .unwrap();
 
     let arena_sprite_sheet_handle = load_sprite_sheet(
       world,
@@ -34,12 +34,22 @@ impl SimpleState for GameplayState {
     );
 
     initialize_arena(world, arena_sprite_sheet_handle);
-    Player::initialize(world, self.spritesheet_handle.clone().unwrap());
+    Player::initialize(world, spritesheet.clone());
     initialize_camera(world);
   }
 
   fn update(&mut self, _data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
     Trans::None
+  }
+}
+
+pub struct SpriteSheet {
+  pub sprite_sheet: Option<SpriteSheetHandle>,
+}
+
+impl Default for SpriteSheet {
+  fn default() -> Self {
+    SpriteSheet { sprite_sheet: None }
   }
 }
 

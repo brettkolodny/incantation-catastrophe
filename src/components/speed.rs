@@ -1,6 +1,5 @@
 use amethyst::ecs::prelude::{Component, VecStorage};
 
-#[derive(Default)]
 pub struct Speed {
   pub speed: f32,
 }
@@ -8,6 +7,12 @@ pub struct Speed {
 impl Speed {
   pub fn new(speed: f32) -> Speed {
     Speed { speed }
+  }
+}
+
+impl Default for Speed {
+  fn default() -> Speed {
+    Speed { speed: 10. }
   }
 }
 

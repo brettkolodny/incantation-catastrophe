@@ -1,12 +1,15 @@
 use amethyst::ecs::prelude::{Component, VecStorage};
 
+#[derive(Copy, Clone)]
 pub struct CurrentDirection {
-  current_direction: Direction,
-  }
+  pub current_direction: Direction,
+}
 
 impl CurrentDirection {
   pub fn new() -> Self {
-    CurrentDirection{ current_direction: Direction::default()}
+    CurrentDirection {
+      current_direction: Direction::default(),
+    }
   }
 
   pub fn turn_up(&mut self) {
@@ -30,7 +33,8 @@ impl Component for CurrentDirection {
   type Storage = VecStorage<Self>;
 }
 
-enum Direction {
+#[derive(Copy, Clone)]
+pub enum Direction {
   Up,
   Down,
   Left,

@@ -2,9 +2,7 @@ use amethyst::core::Transform;
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 use amethyst::input::InputHandler;
 
-use crate::components::{
-  CurrentDirection, Player, Speed,
-};
+use crate::components::{CurrentDirection, Player, Speed};
 
 pub struct PlayerMoveSystem;
 
