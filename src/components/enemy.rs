@@ -7,18 +7,10 @@ pub struct Enemy {
 }
 
 impl Enemy {
-  fn new(height: f32, width: f32, health: u32) -> Self {
-    Enemy {
-      height,
-      width,
-      health,
-    }
-  }
-
   pub fn pawn() -> Self {
     Enemy {
-      height: 10.,
-      width: 10.,
+      height: 64.,
+      width: 64.,
       health: 1,
     }
   }

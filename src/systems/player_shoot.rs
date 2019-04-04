@@ -7,9 +7,11 @@ use amethyst::renderer::SpriteRender;
 use crate::components::{
   CurrentDirection, GameplayItem, Player, PlayerProjectile, Projectile, Speed,
 };
-use crate::states::SpriteSheet;
+use crate::resources::SpriteSheet;
 
-pub struct PlayerShootSystem;
+pub struct PlayerShootSystem {
+  pub is_shooting: bool,
+}
 
 impl<'s> System<'s> for PlayerShootSystem {
   type SystemData = (
@@ -48,9 +50,10 @@ impl<'s> System<'s> for PlayerShootSystem {
       let mut player_transforms_directions = Vec::<(Transform, CurrentDirection)>::new();
 
       for (mut player, transform, direction) in (&mut players, &transforms, &directions).join() {
-        if player.time_since_shot >= player.cooldown {
+        if !self.is_shooting {
           player_transforms_directions.push((transform.clone(), direction.clone()));
           player.time_since_shot = 0.;
+          self.is_shooting = true;
         } else {
           player.time_since_shot += time.delta_seconds();
         }
@@ -59,22 +62,25 @@ impl<'s> System<'s> for PlayerShootSystem {
       let sprite_render = {
         SpriteRender {
           sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-          sprite_number: 1,
+          sprite_number: 3,
         }
       };
 
-      for (transform, direction) in player_transforms_directions {
+      for (mut transform, direction) in player_transforms_directions {
+        transform.set_scale(0.75, 0.75, 1.);
         entities
           .build_entity()
           .with(GameplayItem::default(), &mut gameplay_items)
           .with(PlayerProjectile::default(), &mut player_projectiles)
-          .with(Projectile::default(), &mut projectiles)
+          .with(Projectile::new(24., 24.), &mut projectiles)
           .with(transform, &mut transforms)
           .with(direction, &mut directions)
           .with(sprite_render.clone(), &mut sprite_renders)
           .with(Speed::default(), &mut speeds)
           .build();
       }
+    } else {
+      self.is_shooting = false;
     }
   }
 }

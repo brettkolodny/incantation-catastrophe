@@ -39,10 +39,10 @@ impl<'s> System<'s> for PlayerMoveSystem {
       };
 
       if change_x > 0. {
-        transform.set_rotation_euler(0., 0., 1.5708);
+        transform.set_rotation_euler(0., 0., 4.71239);
         direction.turn_right();
       } else if change_x < 0. {
-        transform.set_rotation_euler(0., 0., 4.71239);
+        transform.set_rotation_euler(0., 0., 1.5708);
         direction.turn_left();
       }
 

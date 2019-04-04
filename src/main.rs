@@ -10,6 +10,7 @@ use amethyst::ui::{DrawUi, UiBundle};
 use amethyst::utils::application_root_dir;
 
 mod components;
+mod resources;
 mod states;
 mod systems;
 mod utility;
@@ -40,12 +41,26 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with(systems::PlayerMoveSystem, "player_move", &[])
         .with(systems::BoundarySystem, "boundary", &["player_move"])
-        .with(systems::PlayerShootSystem, "player_shoot", &["player_move"])
+        .with(
+            systems::PlayerShootSystem { is_shooting: false },
+            "player_shoot",
+            &["player_move"],
+        )
         .with(
             systems::ProjectileMoveSystem,
             "projectile_move",
             &["player_shoot"],
-        );
+        )
+        .with(
+            systems::PawnSpawnSystem {
+                spawn_timer: 1.,
+                time_since_spawn: 0.,
+            },
+            "pawn_spawn",
+            &[],
+        )
+        .with(systems::PawnMoveSystem, "pawn_move", &["pawn_spawn"])
+        .with(systems::EnemyHitSystem, "enemy_hit", &["player_shoot"]);
     let mut game = Application::new("./", GameplayState {}, game_data)?;
 
     game.run();

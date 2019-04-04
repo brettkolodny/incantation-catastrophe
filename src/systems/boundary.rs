@@ -1,12 +1,8 @@
 use amethyst::core::Transform;
 use amethyst::ecs::{Entities, Join, ReadStorage, System};
 
-use crate::utility::{
-  GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH,
-};
-use crate::components::{
-  GameplayItem, Background,
-};
+use crate::components::{Background, GameplayItem};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 pub struct BoundarySystem;
 
@@ -30,7 +26,7 @@ impl<'s> System<'s> for BoundarySystem {
         > radius.powi(2)
       {
         if let Err(e) = entities.delete(entity) {
-          println!("{}", e);
+          dbg!(e);
         }
       }
     }

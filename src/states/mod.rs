@@ -1,3 +1,3 @@
 mod gameplay;
 
-pub use self::gameplay::{GameplayState, SpriteSheet};
+pub use self::gameplay::{GameplayState};

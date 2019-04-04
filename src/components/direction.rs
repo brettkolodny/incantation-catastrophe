@@ -6,12 +6,6 @@ pub struct CurrentDirection {
 }
 
 impl CurrentDirection {
-  pub fn new() -> Self {
-    CurrentDirection {
-      current_direction: Direction::default(),
-    }
-  }
-
   pub fn turn_up(&mut self) {
     self.current_direction = Direction::Up;
   }
@@ -26,6 +20,14 @@ impl CurrentDirection {
 
   pub fn turn_right(&mut self) {
     self.current_direction = Direction::Right;
+  }
+}
+
+impl Default for CurrentDirection {
+  fn default() -> Self {
+    CurrentDirection {
+      current_direction: Direction::default(),
+    }
   }
 }
 

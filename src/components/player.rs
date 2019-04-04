@@ -30,12 +30,12 @@ impl Player {
   pub fn initialize(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
     local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
-    local_transform.set_scale(10., 10., 1.);
+    local_transform.set_scale(2., 2., 1.);
 
     let sprite_render = {
       SpriteRender {
         sprite_sheet: _sprite_sheet_handle,
-        sprite_number: 0,
+        sprite_number: 2,
       }
     };
 
@@ -45,7 +45,7 @@ impl Player {
       .with(local_transform)
       .with(Player::new())
       .with(Speed::new(5.))
-      .with(CurrentDirection::new())
+      .with(CurrentDirection::default())
       .with(GameplayItem)
       .build();
   }

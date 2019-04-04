@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 amethyst = "0.10.0"
 nalgebra = "0.17.3"
+rand = "0.6.5"
