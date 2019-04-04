@@ -18,17 +18,23 @@ impl<'s> System<'s> for EnemyHitSystem {
     &mut self,
     (transforms, projectiles, player_projectiles, mut enemies, entities): Self::SystemData,
   ) {
-    for (projectile_transform, projectile, _) in
-      (&transforms, &projectiles, &player_projectiles).join()
+    for (projectile_transform, projectile, _, projectile_entity) in
+      (&transforms, &projectiles, &player_projectiles, &entities).join()
     {
-      for (enemy_transform, mut enemy, entity) in (&transforms, &mut enemies, &entities).join() {
+      for (enemy_transform, mut enemy, enemy_entity) in
+        (&transforms, &mut enemies, &entities).join()
+      {
         if did_hit((projectile, projectile_transform), (enemy, enemy_transform)) {
           enemy.health -= 1;
 
           if enemy.health <= 0 {
-            if let Err(e) = entities.delete(entity) {
+            if let Err(e) = entities.delete(enemy_entity) {
               dbg!(e);
             }
+          }
+
+          if let Err(e) = entities.delete(projectile_entity) {
+            dbg!(e);
           }
         }
       }

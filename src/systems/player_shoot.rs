@@ -72,7 +72,7 @@ impl<'s> System<'s> for PlayerShootSystem {
           .build_entity()
           .with(GameplayItem::default(), &mut gameplay_items)
           .with(PlayerProjectile::default(), &mut player_projectiles)
-          .with(Projectile::new(24., 24.), &mut projectiles)
+          .with(Projectile::new(16., 16.), &mut projectiles)
           .with(transform, &mut transforms)
           .with(direction, &mut directions)
           .with(sprite_render.clone(), &mut sprite_renders)

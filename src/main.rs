@@ -53,7 +53,7 @@ fn main() -> amethyst::Result<()> {
         )
         .with(
             systems::PawnSpawnSystem {
-                spawn_timer: 1.,
+                spawn_timer: 3.,
                 time_since_spawn: 0.,
             },
             "pawn_spawn",
