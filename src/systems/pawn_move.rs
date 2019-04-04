@@ -15,17 +15,18 @@ impl<'s> System<'s> for PawnMoveSystem {
   );
 
   fn run(&mut self, (players, pawns, speeds, mut transforms, time): Self::SystemData) {
-    let player_transform = (&players, &transforms).join().nth(0).unwrap().1.clone();
+    if let Some((_, player_transform)) = (&players, &transforms).join().nth(0) {
+      let player_transform = player_transform.clone();
+      for (pawn_transform, pawn_speed, _) in (&mut transforms, &speeds, &pawns).join() {
+        let player_vector = player_transform.translation();
+        let pawn_vector = pawn_transform.translation();
 
-    for (pawn_transform, pawn_speed, _) in (&mut transforms, &speeds, &pawns).join() {
-      let player_vector = player_transform.translation();
-      let pawn_vector = pawn_transform.translation();
+        let new_vector = player_vector - pawn_vector;
+        let new_vector = nalgebra::base::Matrix::normalize(&new_vector);
+        let new_vector = nalgebra::Unit::new_unchecked(new_vector);
 
-      let new_vector = player_vector - pawn_vector;
-      let new_vector = nalgebra::base::Matrix::normalize(&new_vector);
-      let new_vector = nalgebra::Unit::new_unchecked(new_vector);
-
-      pawn_transform.move_along_global(new_vector, time.delta_seconds() * pawn_speed.speed);
+        pawn_transform.move_along_global(new_vector, time.delta_seconds() * pawn_speed.speed);
+      }
     }
   }
 }
