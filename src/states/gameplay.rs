@@ -2,7 +2,7 @@ use amethyst::core::transform::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle};
 
-use crate::components::{Background, GameplayItem, Player};
+use crate::components::{Background, GameplayItem, Player, Size};
 use crate::resources::SpriteSheet;
 use crate::utility::{load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
@@ -69,5 +69,6 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
     .with(local_transform)
     .with(GameplayItem)
     .with(Background)
+    .with(Size::new(1000., 1000.))
     .build();
 }

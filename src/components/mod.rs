@@ -1,15 +1,22 @@
 mod direction;
 mod enemy;
 mod player;
+mod projectile;
+mod size;
 mod speed;
 mod tags;
-mod projectile;
 
 pub use self::{
   direction::{CurrentDirection, Direction},
   enemy::Enemy,
   player::Player,
-  speed::Speed,
   projectile::Projectile,
-  tags::{Background, GameplayItem, PlayerProjectile, Pawn},
+  size::Size,
+  speed::Speed,
+  tags::{Background, Bishop, GameplayItem, Pawn, PlayerProjectile},
 };
+
+pub trait Dimensions {
+  fn get_width(&self) -> f32;
+  fn get_height(&self) -> f32;
+}

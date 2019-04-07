@@ -3,7 +3,7 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, Pawn, Speed};
+use crate::components::{CurrentDirection, Enemy, Pawn, Size, Speed};
 use crate::resources::SpriteSheet;
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
@@ -16,6 +16,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
   type SystemData = (
     WriteStorage<'s, Transform>,
     WriteStorage<'s, Speed>,
+    WriteStorage<'s, Size>,
     WriteStorage<'s, CurrentDirection>,
     WriteStorage<'s, Pawn>,
     WriteStorage<'s, Enemy>,
@@ -30,6 +31,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
     (
       mut transforms,
       mut speeds,
+      mut sizes,
       mut directions,
       mut pawns,
       mut enemies,
@@ -63,6 +65,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
         .with(local_transform, &mut transforms)
         .with(sprite_render, &mut sprite_renders)
         .with(CurrentDirection::default(), &mut directions)
+        .with(Size::new(32., 32.), &mut sizes)
         .with(Speed::new(100.), &mut speeds)
         .with(Pawn, &mut pawns)
         .with(Enemy::pawn(), &mut enemies)

@@ -5,7 +5,7 @@ use amethyst::input::InputHandler;
 use amethyst::renderer::SpriteRender;
 
 use crate::components::{
-  CurrentDirection, GameplayItem, Player, PlayerProjectile, Projectile, Speed,
+  CurrentDirection, GameplayItem, Player, PlayerProjectile, Projectile, Speed, Size,
 };
 use crate::resources::SpriteSheet;
 
@@ -21,6 +21,7 @@ impl<'s> System<'s> for PlayerShootSystem {
     WriteStorage<'s, Player>,
     WriteStorage<'s, Transform>,
     WriteStorage<'s, Speed>,
+    WriteStorage<'s, Size>,
     WriteStorage<'s, CurrentDirection>,
     WriteStorage<'s, SpriteRender>,
     Read<'s, SpriteSheet>,
@@ -38,6 +39,7 @@ impl<'s> System<'s> for PlayerShootSystem {
       mut players,
       mut transforms,
       mut speeds,
+      mut sizes,
       mut directions,
       mut sprite_renders,
       spritesheet,
@@ -72,7 +74,8 @@ impl<'s> System<'s> for PlayerShootSystem {
           .build_entity()
           .with(GameplayItem::default(), &mut gameplay_items)
           .with(PlayerProjectile::default(), &mut player_projectiles)
-          .with(Projectile::new(16., 16.), &mut projectiles)
+          .with(Projectile, &mut projectiles)
+          .with(Size::new(16., 16.), &mut sizes)
           .with(transform, &mut transforms)
           .with(direction, &mut directions)
           .with(sprite_render.clone(), &mut sprite_renders)

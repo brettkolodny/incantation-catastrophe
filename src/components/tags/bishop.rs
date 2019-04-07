@@ -1,8 +1,10 @@
 use amethyst::ecs::{Component, DenseVecStorage};
 
 #[derive(Default)]
-pub struct Projectile;
+pub struct Bishop {
+  pub time_since_move: f32,
+}
 
-impl Component for Projectile {
+impl Component for Bishop {
   type Storage = DenseVecStorage<Self>;
 }

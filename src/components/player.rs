@@ -7,12 +7,10 @@ use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 use crate::components::tags::GameplayItem;
 
-use crate::components::{CurrentDirection, Speed};
+use crate::components::{CurrentDirection, Size, Speed};
 
 #[derive(Default)]
 pub struct Player {
-  pub width: f32,
-  pub height: f32,
   pub time_since_shot: f32,
   pub cooldown: f32,
 }
@@ -20,8 +18,6 @@ pub struct Player {
 impl Player {
   pub fn new() -> Player {
     Player {
-      width: 1.,
-      height: 200.,
       time_since_shot: 3.,
       cooldown: 0.25,
     }
@@ -45,6 +41,7 @@ impl Player {
       .with(local_transform)
       .with(Player::new())
       .with(Speed::new(5.))
+      .with(Size::new(200., 1.))
       .with(CurrentDirection::default())
       .with(GameplayItem)
       .build();
