@@ -69,10 +69,11 @@ fn main() -> amethyst::Result<()> {
         )
         .with(systems::PawnMoveSystem, "pawn_move", &["pawn_spawn"])
         .with(
-            systems::BishopMoveSystem { move_timer: 3. },
+            systems::BishopMoveSystem { move_timer: 4. },
             "bishop_move",
             &["bishop_spawn"],
         )
+        .with(systems::BishopShootSystem, "bishop_shoot", &[])
         .with(systems::EnemyHitSystem, "enemy_hit", &["player_shoot"]);
     let mut game = Application::new("./", GameplayState {}, game_data)?;
 

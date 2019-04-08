@@ -49,7 +49,7 @@ impl<'s> System<'s> for PlayerShootSystem {
     ): Self::SystemData,
   ) {
     if let Some(true) = input.action_is_down("shoot") {
-      let mut player_transforms_directions = Vec::<(Transform, CurrentDirection)>::new();
+      let mut player_transforms_directions: Vec<(Transform, CurrentDirection)> = Vec::new();
 
       for (mut player, transform, direction) in (&mut players, &transforms, &directions).join() {
         if !self.is_shooting {

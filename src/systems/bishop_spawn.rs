@@ -1,5 +1,5 @@
 use amethyst::core::{
-  nalgebra::{base::Matrix, Unit, Vector3},
+  nalgebra::{Unit, Vector3},
   Time, Transform,
 };
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
@@ -58,12 +58,12 @@ impl<'s> System<'s> for BishopSpawnSystem {
       bishop_transform.move_global(circle_vector);
 
       let center_vector = Vector3::new(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
-      
-      let spawn_vector = Matrix::normalize(&(center_vector - circle_vector));
-      
+
+      let spawn_vector = center_vector - circle_vector;
+
       let distance = rand::thread_rng().gen_range(0, GAMEPLAY_AREA_HEIGHT as i32) as f32;
 
-      bishop_transform.move_along_global(Unit::new_unchecked(spawn_vector), distance);
+      bishop_transform.move_along_global(Unit::new_normalize(spawn_vector), distance);
 
       let sprite_render = {
         SpriteRender {
@@ -74,7 +74,14 @@ impl<'s> System<'s> for BishopSpawnSystem {
 
       entities
         .build_entity()
-        .with(Bishop { time_since_move: 0. }, &mut bishops)
+        .with(
+          Bishop {
+            time_since_move: 0.,
+            time_since_shot: 2.,
+            shot_cooldown: 4.,
+          },
+          &mut bishops,
+        )
         .with(Enemy::bishop(), &mut enemies)
         .with(Size::new(32., 32.), &mut sizes)
         .with(bishop_transform, &mut transforms)

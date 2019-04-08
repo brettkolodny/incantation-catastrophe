@@ -33,6 +33,9 @@ impl<'s> System<'s> for ProjectileMoveSystem {
         Direction::Left => {
           transform.set_x(projectile_loc.x - (speed.speed * time.delta_seconds()));
         }
+        Direction::Custom(vector) => {
+          transform.move_along_global(vector, time.delta_seconds() * speed.speed);
+        }
       }
     }
   }

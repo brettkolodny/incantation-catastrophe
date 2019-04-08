@@ -1,3 +1,4 @@
+use amethyst::core::nalgebra::{Unit, Vector3};
 use amethyst::ecs::prelude::{Component, VecStorage};
 
 #[derive(Copy, Clone)]
@@ -21,6 +22,12 @@ impl CurrentDirection {
   pub fn turn_right(&mut self) {
     self.current_direction = Direction::Right;
   }
+
+  pub fn custom(current_direction: Unit<Vector3<f32>>) -> Self {
+    CurrentDirection {
+      current_direction: Direction::Custom(current_direction),
+    }
+  }
 }
 
 impl Default for CurrentDirection {
@@ -41,6 +48,7 @@ pub enum Direction {
   Down,
   Left,
   Right,
+  Custom(Unit<Vector3<f32>>),
 }
 
 impl Default for Direction {
