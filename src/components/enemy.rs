@@ -1,19 +1,8 @@
-use amethyst::ecs::{Component, DenseVecStorage};
+use amethyst::ecs::{Component, NullStorage};
 
-pub struct Enemy {
-  pub health: i32,
-}
-
-impl Enemy {
-  pub fn pawn() -> Self {
-    Enemy { health: 1 }
-  }
-
-  pub fn bishop() -> Self {
-    Enemy { health: 3 }
-  }
-}
+#[derive(Default)]
+pub struct Enemy;
 
 impl Component for Enemy {
-  type Storage = DenseVecStorage<Self>;
+    type Storage = NullStorage<Self>;
 }

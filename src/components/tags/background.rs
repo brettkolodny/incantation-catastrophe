@@ -4,5 +4,5 @@ use amethyst::ecs::{Component, NullStorage};
 pub struct Background;
 
 impl Component for Background {
-  type Storage = NullStorage<Self>;
+    type Storage = NullStorage<Self>;
 }

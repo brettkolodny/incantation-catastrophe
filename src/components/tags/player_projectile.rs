@@ -4,5 +4,5 @@ use amethyst::ecs::{Component, NullStorage};
 pub struct PlayerProjectile;
 
 impl Component for PlayerProjectile {
-  type Storage = NullStorage<Self>;
+    type Storage = NullStorage<Self>;
 }

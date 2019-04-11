@@ -4,5 +4,5 @@ use amethyst::ecs::{Component, NullStorage};
 pub struct Pawn;
 
 impl Component for Pawn {
-  type Storage = NullStorage<Self>;
+    type Storage = NullStorage<Self>;
 }

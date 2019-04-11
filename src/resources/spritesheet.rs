@@ -1,11 +1,11 @@
-use amethyst::renderer::{SpriteSheetHandle};
+use amethyst::renderer::SpriteSheetHandle;
 
 pub struct SpriteSheet {
-  pub sprite_sheet: Option<SpriteSheetHandle>,
+    pub sprite_sheet: Option<SpriteSheetHandle>,
 }
 
 impl Default for SpriteSheet {
-  fn default() -> Self {
-    SpriteSheet { sprite_sheet: None }
-  }
+    fn default() -> Self {
+        SpriteSheet { sprite_sheet: None }
+    }
 }
