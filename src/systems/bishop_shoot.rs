@@ -1,9 +1,9 @@
 use amethyst::core::{nalgebra::Unit, Time, Transform};
-use amethyst::ecs::{Entities, Join, Read, ReadStorage, System, WriteStorage};
+use amethyst::ecs::{Entities, Join, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
-use crate::components::{Bishop, CurrentDirection, GameplayItem, Player, Projectile, Speed};
-use crate::resources::SpriteSheet;
+use crate::components::{Bishop, CurrentDirection, GameplayItem, Projectile, Speed};
+use crate::resources::{PlayerResource, SpriteSheet};
 
 pub struct BishopShootSystem;
 
@@ -17,7 +17,7 @@ impl<'s> System<'s> for BishopShootSystem {
         WriteStorage<'s, SpriteRender>,
         WriteStorage<'s, GameplayItem>,
         Read<'s, SpriteSheet>,
-        ReadStorage<'s, Player>,
+        Read<'s, PlayerResource>,
         Read<'s, Time>,
         Entities<'s>,
     );
@@ -33,13 +33,13 @@ impl<'s> System<'s> for BishopShootSystem {
             mut sprite_renders,
             mut gameplay_items,
             spritesheet,
-            players,
+            player,
             time,
             entities,
         ): Self::SystemData,
     ) {
-        if let Some((_, player_transform)) = (&players, &transforms).join().nth(0) {
-            let player_transform = player_transform.clone();
+        if let Some(player) = player.player {
+            let player_transform = transforms.get(player).unwrap().clone();
             let mut bishop_transforms: Vec<Transform> = Vec::default();
             for (bishop, transform) in (&mut bishops, &transforms).join() {
                 if bishop.time_since_shot >= bishop.shot_cooldown {

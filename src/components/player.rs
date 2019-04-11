@@ -3,11 +3,9 @@ use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::prelude::*;
 use amethyst::renderer::{SpriteRender, SpriteSheetHandle};
 
+use crate::components::{tags::GameplayItem, CurrentDirection, Health, Size, Speed};
+use crate::resources::PlayerResource;
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
-
-use crate::components::{tags::GameplayItem, Health};
-
-use crate::components::{CurrentDirection, Size, Speed};
 
 #[derive(Default)]
 pub struct Player {
@@ -23,19 +21,19 @@ impl Player {
         }
     }
 
-    pub fn initialize(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
+    pub fn initialize(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
         let mut local_transform = Transform::default();
         local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
         local_transform.set_scale(1., 1., 1.);
 
         let sprite_render = {
             SpriteRender {
-                sprite_sheet: _sprite_sheet_handle,
+                sprite_sheet: sprite_sheet_handle,
                 sprite_number: 2,
             }
         };
 
-        _world
+        let player = Some(world
             .create_entity()
             .with(sprite_render)
             .with(local_transform)
@@ -45,7 +43,9 @@ impl Player {
             .with(CurrentDirection::default())
             .with(GameplayItem)
             .with(Health::default())
-            .build();
+            .build());
+
+        world.add_resource(PlayerResource { player });
     }
 }
 
