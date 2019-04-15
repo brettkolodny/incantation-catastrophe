@@ -3,7 +3,7 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, Pawn, Size, Speed, Health};
+use crate::components::{CurrentDirection, Enemy, Health, Pawn, Size, Speed};
 use crate::resources::SpriteSheet;
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 

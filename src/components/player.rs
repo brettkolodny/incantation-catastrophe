@@ -33,17 +33,19 @@ impl Player {
             }
         };
 
-        let player = Some(world
-            .create_entity()
-            .with(sprite_render)
-            .with(local_transform)
-            .with(Player::new())
-            .with(Speed::new(5.))
-            .with(Size::new(200., 1.))
-            .with(CurrentDirection::default())
-            .with(GameplayItem)
-            .with(Health::default())
-            .build());
+        let player = Some(
+            world
+                .create_entity()
+                .with(sprite_render)
+                .with(local_transform)
+                .with(Player::new())
+                .with(Speed::new(5.))
+                .with(Size::new(50., 50.))
+                .with(CurrentDirection::default())
+                .with(GameplayItem)
+                .with(Health::default())
+                .build(),
+        );
 
         world.add_resource(PlayerResource { player });
     }

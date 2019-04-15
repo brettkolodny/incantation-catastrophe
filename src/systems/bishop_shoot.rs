@@ -2,7 +2,7 @@ use amethyst::core::{nalgebra::Unit, Time, Transform};
 use amethyst::ecs::{Entities, Join, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
-use crate::components::{Bishop, CurrentDirection, GameplayItem, Projectile, Speed};
+use crate::components::{Bishop, CurrentDirection, GameplayItem, Projectile, Size, Speed};
 use crate::resources::{PlayerResource, SpriteSheet};
 
 pub struct BishopShootSystem;
@@ -13,6 +13,7 @@ impl<'s> System<'s> for BishopShootSystem {
         WriteStorage<'s, Projectile>,
         WriteStorage<'s, Transform>,
         WriteStorage<'s, Speed>,
+        WriteStorage<'s, Size>,
         WriteStorage<'s, CurrentDirection>,
         WriteStorage<'s, SpriteRender>,
         WriteStorage<'s, GameplayItem>,
@@ -29,6 +30,7 @@ impl<'s> System<'s> for BishopShootSystem {
             mut projectiles,
             mut transforms,
             mut speeds,
+            mut sizes,
             mut directions,
             mut sprite_renders,
             mut gameplay_items,
@@ -70,6 +72,7 @@ impl<'s> System<'s> for BishopShootSystem {
                     .with(Projectile, &mut projectiles)
                     .with(CurrentDirection::custom(direction), &mut directions)
                     .with(Speed::new(500.), &mut speeds)
+                    .with(Size::new(52., 52.), &mut sizes)
                     .with(sprite_render.clone(), &mut sprite_renders)
                     .with(GameplayItem, &mut gameplay_items)
                     .build();

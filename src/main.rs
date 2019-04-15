@@ -39,17 +39,22 @@ fn main() -> amethyst::Result<()> {
         .with_bundle(TransformBundle::new())?
         .with_bundle(input_bundle)?
         .with_bundle(UiBundle::<String, String>::new())?
-        .with(systems::PlayerMoveSystem, "player_move", &[])
-        .with(systems::BoundarySystem, "boundary", &["player_move"])
+        .with(systems::PlayerDeathSystem, "player_death", &[])
+        .with(systems::PlayerMoveSystem, "player_move", &["player_death"])
+        .with(
+            systems::BoundarySystem,
+            "boundary",
+            &["player_move", "player_death"],
+        )
         .with(
             systems::PlayerShootSystem { is_shooting: false },
             "player_shoot",
-            &["player_move"],
+            &["player_move", "player_death"],
         )
         .with(
             systems::ProjectileMoveSystem,
             "projectile_move",
-            &["player_shoot"],
+            &["player_shoot", "player_death"],
         )
         .with(
             systems::PawnSpawnSystem {
@@ -57,7 +62,7 @@ fn main() -> amethyst::Result<()> {
                 time_since_spawn: 0.,
             },
             "pawn_spawn",
-            &[],
+            &["player_death"],
         )
         .with(
             systems::BishopSpawnSystem {
@@ -65,16 +70,25 @@ fn main() -> amethyst::Result<()> {
                 time_since_spawn: 0.,
             },
             "bishop_spawn",
-            &[],
+            &["player_death"],
         )
         .with(systems::PawnMoveSystem, "pawn_move", &["pawn_spawn"])
         .with(
             systems::BishopMoveSystem { move_timer: 4. },
             "bishop_move",
-            &["bishop_spawn"],
+            &["bishop_spawn", "player_death"],
         )
-        .with(systems::BishopShootSystem, "bishop_shoot", &[])
-        .with(systems::EnemyHitSystem, "enemy_hit", &["player_shoot"]);
+        .with(
+            systems::BishopShootSystem,
+            "bishop_shoot",
+            &["player_death"],
+        )
+        .with(systems::EnemyHitSystem, "enemy_hit", &["player_shoot"])
+        .with(
+            systems::PlayerHitSystem::default(),
+            "player_hit",
+            &["pawn_move", "bishop_shoot", "player_death"],
+        );
     let mut game = Application::new("./", GameplayState {}, game_data)?;
 
     game.run();

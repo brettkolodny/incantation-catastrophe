@@ -10,11 +10,11 @@ mod tags;
 pub use self::{
     direction::{CurrentDirection, Direction},
     enemy::Enemy,
+    health::Health,
     player::Player,
     projectile::Projectile,
     size::Size,
     speed::Speed,
-    health::Health,
     tags::{Background, Bishop, GameplayItem, Pawn, PlayerProjectile},
 };
 
