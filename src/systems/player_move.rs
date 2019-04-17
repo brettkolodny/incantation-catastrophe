@@ -29,7 +29,6 @@ impl<'s> System<'s> for PlayerMoveSystem {
                     0.
                 }
             };
-
             let mut change_y: f32 = {
                 if let Some(amount) = vertical_movement {
                     speed.speed * amount as f32

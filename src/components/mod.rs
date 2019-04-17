@@ -1,21 +1,15 @@
-mod direction;
+mod attribute;
 mod enemy;
-mod health;
 mod player;
 mod projectile;
-mod size;
-mod speed;
 mod tags;
 
 pub use self::{
-    direction::{CurrentDirection, Direction},
-    enemy::Enemy,
-    health::Health,
     player::Player,
-    projectile::Projectile,
-    size::Size,
-    speed::Speed,
-    tags::{Background, Bishop, GameplayItem, Pawn, PlayerProjectile},
+    projectile::{Projectile, PlayerProjectile},
+    tags::{Background, GameplayItem},
+    enemy::{Pawn, Bishop, Enemy},
+    attribute::*,
 };
 
 pub trait Dimensions {

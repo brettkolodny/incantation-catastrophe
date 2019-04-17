@@ -9,8 +9,8 @@ use crate::utility::{load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDT
 pub struct GameplayState;
 
 impl SimpleState for GameplayState {
-    fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
-        let world = _data.world;
+    fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        let world = data.world;
 
         let spritesheet_handle = Some(load_sprite_sheet(
             world,

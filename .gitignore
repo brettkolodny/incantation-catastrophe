@@ -1,2 +1,5 @@
 /target
 **/*.rs.bk
+Incantation-Catastrophe.iml
+.DS_Store
+/.idea
