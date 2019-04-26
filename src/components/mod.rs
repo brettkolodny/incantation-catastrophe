@@ -5,11 +5,11 @@ mod projectile;
 mod tags;
 
 pub use self::{
-    player::Player,
-    projectile::{Projectile, PlayerProjectile},
-    tags::{Background, GameplayItem},
-    enemy::{Pawn, Bishop, Enemy},
     attribute::*,
+    enemy::{Bishop, Enemy, Pawn, Rook},
+    player::Player,
+    projectile::{PlayerProjectile, Projectile},
+    tags::{Background, GameplayItem},
 };
 
 pub trait Dimensions {

@@ -16,6 +16,10 @@ impl Health {
     pub fn bishop() -> Self {
         Health { health: 3 }
     }
+
+    pub fn rook() -> Self {
+        Health { health: 8 }
+    }
 }
 
 impl Default for Health {

@@ -72,7 +72,16 @@ fn main() -> amethyst::Result<()> {
             "bishop_spawn",
             &["player_death"],
         )
+        .with(
+            systems::RookSpawnSystem {
+                spawn_timer: 15.,
+                time_since_spawn: 0.,
+            },
+            "rook_spawn",
+            &[],
+        )
         .with(systems::PawnMoveSystem, "pawn_move", &["pawn_spawn"])
+        .with(systems::RookMoveSystem, "rook_move", &["rook_spawn"])
         .with(
             systems::BishopMoveSystem { move_timer: 4. },
             "bishop_move",

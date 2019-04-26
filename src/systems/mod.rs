@@ -1,20 +1,19 @@
-mod bishop_move;
-mod bishop_shoot;
-mod bishop_spawn;
 mod boundary;
 mod enemy_hit;
-mod pawn_move;
-mod pawn_spawn;
+mod move_systems;
 mod player_death;
 mod player_hit;
-mod player_move;
-mod player_shoot;
 mod projectile_move;
+mod shoot_systems;
+mod spawn_systems;
 
 pub use self::{
-    bishop_move::BishopMoveSystem, bishop_shoot::BishopShootSystem,
-    bishop_spawn::BishopSpawnSystem, boundary::BoundarySystem, enemy_hit::EnemyHitSystem,
-    pawn_move::PawnMoveSystem, pawn_spawn::PawnSpawnSystem, player_death::PlayerDeathSystem,
-    player_hit::PlayerHitSystem, player_move::PlayerMoveSystem, player_shoot::PlayerShootSystem,
+    boundary::BoundarySystem,
+    enemy_hit::EnemyHitSystem,
+    move_systems::{BishopMoveSystem, PawnMoveSystem, PlayerMoveSystem, RookMoveSystem},
+    player_death::PlayerDeathSystem,
+    player_hit::PlayerHitSystem,
     projectile_move::ProjectileMoveSystem,
+    shoot_systems::{BishopShootSystem, PlayerShootSystem},
+    spawn_systems::{BishopSpawnSystem, PawnSpawnSystem, RookSpawnSystem},
 };
