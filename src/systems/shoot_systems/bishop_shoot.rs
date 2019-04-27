@@ -3,7 +3,7 @@ use amethyst::ecs::{Entities, Join, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
 use crate::components::{Bishop, CurrentDirection, GameplayItem, Projectile, Size, Speed};
-use crate::resources::{PlayerResource, SpriteSheet, CurrentState};
+use crate::resources::{CurrentState, PlayerResource, SpriteSheet};
 
 pub struct BishopShootSystem;
 
@@ -61,7 +61,7 @@ impl<'s> System<'s> for BishopShootSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 3,
+                    sprite_number: 6,
                 }
             };
 

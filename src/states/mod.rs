@@ -1,5 +1,5 @@
+mod gameover;
 mod gameplay;
-mod main_menu;
 mod pause;
 
-pub use self::{gameplay::GameplayState, pause::PauseState};
+pub use self::{gameplay::GameplayState, pause::PauseState, gameover::GameOverState};

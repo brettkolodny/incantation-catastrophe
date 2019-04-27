@@ -33,7 +33,7 @@ impl Player {
         let sprite_render = {
             SpriteRender {
                 sprite_sheet: sprite_sheet_handle,
-                sprite_number: 2,
+                sprite_number: 4,
             }
         };
 

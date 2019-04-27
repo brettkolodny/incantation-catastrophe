@@ -1,9 +1,9 @@
 use amethyst::core::{timing::Time, Transform};
-use amethyst::ecs::{Join, Read, ReadStorage, System, Write, WriteStorage};
+use amethyst::ecs::{Entities, Join, Read, ReadStorage, System, Write, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
 use crate::components::{Background, Health, Player, PlayerProjectile, Size};
-use crate::resources::PlayerResource;
+use crate::resources::{Hearts, PlayerResource};
 use crate::utility::did_hit;
 
 pub struct PlayerHitSystem {
@@ -33,6 +33,8 @@ impl<'s> System<'s> for PlayerHitSystem {
         ReadStorage<'s, Background>,
         WriteStorage<'s, Health>,
         WriteStorage<'s, SpriteRender>,
+        Write<'s, Hearts>,
+        Entities<'s>,
     );
 
     fn run(
@@ -47,6 +49,8 @@ impl<'s> System<'s> for PlayerHitSystem {
             backgrounds,
             mut healths,
             mut sprite_render,
+            mut hearts,
+            entities,
         ): Self::SystemData,
     ) {
         if let Some(player) = player.player {
@@ -63,8 +67,13 @@ impl<'s> System<'s> for PlayerHitSystem {
                 .join()
             {
                 if !self.player_immune && did_hit(player_info, (&size, &transform)) {
+                    let current_hearts = &mut hearts.hearts;
                     player_health.health -= 1;
                     self.player_immune = true;
+
+                    if let Err(e) = entities.delete(current_hearts.pop().unwrap()) {
+                        dbg!(e);
+                    }
                 }
             }
 
@@ -74,9 +83,9 @@ impl<'s> System<'s> for PlayerHitSystem {
                 if self.time_since_hit % 0.5 >= 0.25 {
                     let sprite_number = player_sprite_render.sprite_number;
                     if sprite_number == 1 {
-                        player_sprite_render.sprite_number = 2;
+                        //player_sprite_render.sprite_number = 2;
                     } else {
-                        player_sprite_render.sprite_number = 1;
+                        //player_sprite_render.sprite_number = 1;
                     }
                 }
                 if self.time_since_hit >= self.player_immune_time {
@@ -84,7 +93,7 @@ impl<'s> System<'s> for PlayerHitSystem {
                     self.time_since_hit = 0.;
                 }
             } else {
-                player_sprite_render.sprite_number = 2;
+                //player_sprite_render.sprite_number = 2;
             }
         }
     }

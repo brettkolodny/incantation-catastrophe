@@ -67,7 +67,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
                 let sprite_render = {
                     SpriteRender {
                         sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                        sprite_number: 2,
+                        sprite_number: 4,
                     }
                 };
 
