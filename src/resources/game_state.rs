@@ -17,13 +17,12 @@ pub struct CurrentState {
 impl Default for CurrentState {
     fn default() -> Self {
         CurrentState {
-            current_state: GameState::Gameplay,
+            current_state: GameState::MainMenu,
         }
     }
 }
 
 impl CurrentState {
-
     pub fn pause(&mut self) {
         self.current_state = GameState::Pause;
     }

@@ -11,6 +11,8 @@ use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 pub struct Player {
     pub time_since_shot: f32,
     pub cooldown: f32,
+    pub player_immune: bool,
+    pub player_immune_time: f32,
 }
 
 impl Player {
@@ -18,6 +20,8 @@ impl Player {
         Player {
             time_since_shot: 3.,
             cooldown: 0.25,
+            player_immune: false,
+            player_immune_time: 3.,
         }
     }
 

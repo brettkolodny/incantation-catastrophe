@@ -1,11 +1,8 @@
 mod background;
 mod gameplay_item;
+mod main_menu_item;
 mod pause_item;
 
-pub use self::{
-    background::Background, gameplay_item::GameplayItem, pause_item::PauseItem,
-};
+pub use self::{background::Background, gameplay_item::GameplayItem, pause_item::PauseItem, main_menu_item::MainMenuItem};
 
-pub trait Tag {
-
-}
+pub trait Tag {}

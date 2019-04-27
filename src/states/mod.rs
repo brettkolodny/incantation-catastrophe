@@ -2,4 +2,4 @@ mod gameplay;
 mod main_menu;
 mod pause;
 
-pub use self::{gameplay::GameplayState, main_menu::MainMenuState, pause::PauseState};
+pub use self::{gameplay::GameplayState, pause::PauseState};

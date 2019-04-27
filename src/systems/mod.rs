@@ -4,6 +4,7 @@ mod knight_push;
 mod move_systems;
 mod player_death;
 mod player_hit;
+mod player_immune_system;
 mod projectile_move;
 mod shoot_systems;
 mod spawn_systems;
@@ -11,6 +12,7 @@ mod spawn_systems;
 pub use self::{
     boundary::BoundarySystem,
     enemy_hit::EnemyHitSystem,
+    knight_push::KnightPushSystem,
     move_systems::{
         BishopMoveSystem, KnightMoveSystem, PawnMoveSystem, PlayerMoveSystem, RookMoveSystem,
     },
@@ -19,5 +21,4 @@ pub use self::{
     projectile_move::ProjectileMoveSystem,
     shoot_systems::{BishopShootSystem, PlayerShootSystem},
     spawn_systems::{BishopSpawnSystem, KnightSpawnSystem, PawnSpawnSystem, RookSpawnSystem},
-    knight_push::KnightPushSystem,
 };

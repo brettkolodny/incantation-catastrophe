@@ -22,7 +22,6 @@ impl SimpleState for GameplayState {
 
         world.write_resource::<SpriteSheet>().sprite_sheet = Some(spritesheet_handle.unwrap());
         world.add_resource(ScoreResource { score: 0 });
-        world.add_resource(CurrentState::default());
 
         let spritesheet = world
             .read_resource::<SpriteSheet>()
@@ -31,8 +30,8 @@ impl SimpleState for GameplayState {
             .unwrap();
 
         initialize_arena(world, spritesheet.clone());
-        Player::initialize(world, spritesheet.clone());
         initialize_camera(world);
+        Player::initialize(world, spritesheet.clone());
     }
 
     fn handle_event(&mut self, data: StateData<GameData>, event: StateEvent) -> SimpleTrans {

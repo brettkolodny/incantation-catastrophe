@@ -1,5 +1,6 @@
 use amethyst::core::{timing::Time, Transform};
-use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
+use amethyst::ecs::{Join, Read, ReadStorage, System, Write, WriteStorage};
+use amethyst::renderer::SpriteRender;
 
 use crate::components::{Background, Health, Player, PlayerProjectile, Size};
 use crate::resources::PlayerResource;
@@ -24,18 +25,29 @@ impl Default for PlayerHitSystem {
 impl<'s> System<'s> for PlayerHitSystem {
     type SystemData = (
         Read<'s, Time>,
-        Read<'s, PlayerResource>,
+        Write<'s, PlayerResource>,
         ReadStorage<'s, Transform>,
         ReadStorage<'s, Size>,
         ReadStorage<'s, PlayerProjectile>,
-        ReadStorage<'s, Player>,
+        WriteStorage<'s, Player>,
         ReadStorage<'s, Background>,
         WriteStorage<'s, Health>,
+        WriteStorage<'s, SpriteRender>,
     );
 
     fn run(
         &mut self,
-        (time, player, transforms, sizes, player_projectiles, players, backgrounds, mut healths): Self::SystemData,
+        (
+            time,
+            player,
+            transforms,
+            sizes,
+            player_projectiles,
+            players,
+            backgrounds,
+            mut healths,
+            mut sprite_render,
+        ): Self::SystemData,
     ) {
         if let Some(player) = player.player {
             let player_info = { (sizes.get(player).unwrap(), transforms.get(player).unwrap()) };
@@ -56,12 +68,23 @@ impl<'s> System<'s> for PlayerHitSystem {
                 }
             }
 
+            let mut player_sprite_render = sprite_render.get_mut(player).unwrap();
             if self.player_immune {
                 self.time_since_hit += time.delta_seconds();
+                if self.time_since_hit % 0.5 >= 0.25 {
+                    let sprite_number = player_sprite_render.sprite_number;
+                    if sprite_number == 1 {
+                        player_sprite_render.sprite_number = 2;
+                    } else {
+                        player_sprite_render.sprite_number = 1;
+                    }
+                }
                 if self.time_since_hit >= self.player_immune_time {
                     self.player_immune = false;
                     self.time_since_hit = 0.;
                 }
+            } else {
+                player_sprite_render.sprite_number = 2;
             }
         }
     }
