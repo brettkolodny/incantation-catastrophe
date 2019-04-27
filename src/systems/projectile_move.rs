@@ -2,6 +2,7 @@ use amethyst::core::{timing::Time, Transform};
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 
 use crate::components::{CurrentDirection, Direction, Projectile, Speed};
+use crate::resources::CurrentState;
 
 pub struct ProjectileMoveSystem;
 
@@ -12,9 +13,17 @@ impl<'s> System<'s> for ProjectileMoveSystem {
         ReadStorage<'s, Speed>,
         ReadStorage<'s, CurrentDirection>,
         Read<'s, Time>,
+        Read<'s, CurrentState>,
     );
 
-    fn run(&mut self, (mut transforms, projectiles, speeds, directions, time): Self::SystemData) {
+    fn run(
+        &mut self,
+        (mut transforms, projectiles, speeds, directions, time, state): Self::SystemData,
+    ) {
+        if state.is_paused() {
+            return;
+        }
+
         for (_, transform, speed, direction) in
             (&projectiles, &mut transforms, &speeds, &directions).join()
         {

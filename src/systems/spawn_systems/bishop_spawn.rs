@@ -7,7 +7,7 @@ use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
 use crate::components::{Bishop, Enemy, Health, Size};
-use crate::resources::SpriteSheet;
+use crate::resources::{CurrentState, SpriteSheet};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 pub struct BishopSpawnSystem {
@@ -26,6 +26,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
         Read<'s, SpriteSheet>,
         Read<'s, Time>,
         Entities<'s>,
+        Read<'s, CurrentState>,
     );
 
     fn run(
@@ -40,8 +41,13 @@ impl<'s> System<'s> for BishopSpawnSystem {
             spritesheet,
             time,
             entities,
+            state,
         ): Self::SystemData,
     ) {
+        if state.is_paused() {
+            return;
+        }
+        
         if self.time_since_spawn >= self.spawn_timer {
             let radius = (GAMEPLAY_AREA_HEIGHT) / 2.;
             let angle = rand::thread_rng().gen_range(0, 360) as f32;

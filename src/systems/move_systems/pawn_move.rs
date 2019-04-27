@@ -2,7 +2,7 @@ use amethyst::core::{nalgebra, timing::Time, Transform};
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 
 use crate::components::{CurrentDirection, Pawn, Speed};
-use crate::resources::PlayerResource;
+use crate::resources::{CurrentState, PlayerResource};
 
 pub struct PawnMoveSystem;
 
@@ -14,12 +14,17 @@ impl<'s> System<'s> for PawnMoveSystem {
         WriteStorage<'s, CurrentDirection>,
         WriteStorage<'s, Transform>,
         Read<'s, Time>,
+        Read<'s, CurrentState>,
     );
 
     fn run(
         &mut self,
-        (player, pawns, speeds, mut directions, mut transforms, time): Self::SystemData,
+        (player, pawns, speeds, mut directions, mut transforms, time, state): Self::SystemData,
     ) {
+        if state.is_paused() {
+            return;
+        }
+
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
             for (pawn_transform, pawn_speed, direction, _) in

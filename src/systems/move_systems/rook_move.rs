@@ -2,7 +2,7 @@ use amethyst::core::{nalgebra, timing::Time, Transform};
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 
 use crate::components::{CurrentDirection, Rook, Speed};
-use crate::resources::PlayerResource;
+use crate::resources::{CurrentState, PlayerResource};
 
 pub struct RookMoveSystem;
 
@@ -14,12 +14,17 @@ impl<'s> System<'s> for RookMoveSystem {
         WriteStorage<'s, CurrentDirection>,
         WriteStorage<'s, Transform>,
         Read<'s, Time>,
+        Read<'s, CurrentState>,
     );
 
     fn run(
         &mut self,
-        (player, rooks, speeds, mut directions, mut transforms, time): Self::SystemData,
+        (player, rooks, speeds, mut directions, mut transforms, time, state): Self::SystemData,
     ) {
+        if state.is_paused() {
+            return;
+        }
+
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
             for (rook_transform, rook_speed, direction, _) in

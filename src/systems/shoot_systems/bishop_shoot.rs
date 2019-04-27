@@ -3,7 +3,7 @@ use amethyst::ecs::{Entities, Join, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
 use crate::components::{Bishop, CurrentDirection, GameplayItem, Projectile, Size, Speed};
-use crate::resources::{PlayerResource, SpriteSheet};
+use crate::resources::{PlayerResource, SpriteSheet, CurrentState};
 
 pub struct BishopShootSystem;
 
@@ -21,6 +21,7 @@ impl<'s> System<'s> for BishopShootSystem {
         Read<'s, PlayerResource>,
         Read<'s, Time>,
         Entities<'s>,
+        Read<'s, CurrentState>,
     );
 
     fn run(
@@ -38,8 +39,13 @@ impl<'s> System<'s> for BishopShootSystem {
             player,
             time,
             entities,
+            state,
         ): Self::SystemData,
     ) {
+        if state.is_paused() {
+            return;
+        }
+
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
             let mut bishop_transforms: Vec<Transform> = Vec::default();

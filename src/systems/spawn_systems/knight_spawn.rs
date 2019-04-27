@@ -4,7 +4,7 @@ use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
 use crate::components::{CurrentDirection, Enemy, GameplayItem, Knight, Size, Speed};
-use crate::resources::{PlayerResource, SpriteSheet};
+use crate::resources::{CurrentState, PlayerResource, SpriteSheet};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 pub struct KnightSpawnSystem {
@@ -26,6 +26,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
         Read<'s, PlayerResource>,
         Read<'s, Time>,
         Entities<'s>,
+        Read<'s, CurrentState>,
     );
 
     fn run(
@@ -43,8 +44,13 @@ impl<'s> System<'s> for KnightSpawnSystem {
             player,
             time,
             entities,
+            state,
         ): Self::SystemData,
     ) {
+        if state.is_paused() {
+            return;
+        }
+
         if self.time_since_spawn >= self.spawn_timer {
             if let Some(player) = player.player {
                 let radius = (GAMEPLAY_AREA_HEIGHT) / 2.;

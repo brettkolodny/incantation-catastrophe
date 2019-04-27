@@ -7,7 +7,7 @@ use amethyst::renderer::SpriteRender;
 use crate::components::{
     CurrentDirection, GameplayItem, Player, PlayerProjectile, Projectile, Size, Speed,
 };
-use crate::resources::SpriteSheet;
+use crate::resources::{SpriteSheet, CurrentState};
 
 pub struct PlayerShootSystem {
     pub is_shooting: bool,
@@ -28,6 +28,7 @@ impl<'s> System<'s> for PlayerShootSystem {
         Entities<'s>,
         Read<'s, InputHandler<String, String>>,
         Read<'s, Time>,
+        Read<'s, CurrentState>,
     );
 
     fn run(
@@ -46,8 +47,13 @@ impl<'s> System<'s> for PlayerShootSystem {
             entities,
             input,
             time,
+            state,
         ): Self::SystemData,
     ) {
+        if state.is_paused() {
+            return;
+        }
+        
         if let Some(true) = input.action_is_down("shoot") {
             let mut player_transforms_directions: Vec<(Transform, CurrentDirection)> = Vec::new();
 

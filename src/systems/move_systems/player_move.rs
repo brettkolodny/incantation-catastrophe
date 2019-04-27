@@ -3,6 +3,7 @@ use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 use amethyst::input::InputHandler;
 
 use crate::components::{CurrentDirection, Player, Speed};
+use crate::resources::CurrentState;
 
 pub struct PlayerMoveSystem;
 
@@ -13,9 +14,17 @@ impl<'s> System<'s> for PlayerMoveSystem {
         WriteStorage<'s, CurrentDirection>,
         ReadStorage<'s, Player>,
         Read<'s, InputHandler<String, String>>,
+        Read<'s, CurrentState>,
     );
 
-    fn run(&mut self, (mut transforms, speeds, mut directions, players, input): Self::SystemData) {
+    fn run(
+        &mut self,
+        (mut transforms, speeds, mut directions, players, input, state): Self::SystemData,
+    ) {
+        if state.is_paused() {
+            return;
+        }
+
         for (transform, direction, speed, _) in
             (&mut transforms, &mut directions, &speeds, &players).join()
         {

@@ -67,3 +67,39 @@ pub fn did_hit(object_1: (&Size, &Transform), object_2: (&Size, &Transform)) -> 
 
     true
 }
+
+// pub fn initialize_text_middle<T>(world: &mut World, x: f32, y: f32, text: &str, tag: T)
+// where
+//     T: Component,
+// {
+//     let font = world.read_resource::<Loader>().load(
+//         "font/square.ttf",
+//         TtfFormat,
+//         Default::default(),
+//         (),
+//         &world.read_resource(),
+//     );
+
+//     let text_transform = UiTransform::new(
+//         "PAUSE".to_string(),
+//         Anchor::Middle,
+//         0.,
+//         0.,
+//         1.,
+//         200.,
+//         50.,
+//         0,
+//     );
+
+//     world
+//         .create_entity()
+//         .with(text_transform)
+//         .with(UiText::new(
+//             font,
+//             "PAUSE".to_string(),
+//             [1., 1., 1., 1.],
+//             50.,
+//         ))
+//         .with(tag)
+//         .build();
+// }

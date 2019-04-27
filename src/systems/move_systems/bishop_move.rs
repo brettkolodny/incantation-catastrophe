@@ -7,6 +7,7 @@ use amethyst::ecs::{Join, Read, System, WriteStorage};
 use rand::Rng;
 
 use crate::components::Bishop;
+use crate::resources::CurrentState;
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 pub struct BishopMoveSystem {
@@ -18,9 +19,13 @@ impl<'s> System<'s> for BishopMoveSystem {
         WriteStorage<'s, Transform>,
         WriteStorage<'s, Bishop>,
         Read<'s, Time>,
+        Read<'s, CurrentState>,
     );
 
-    fn run(&mut self, (mut transforms, mut bishops, time): Self::SystemData) {
+    fn run(&mut self, (mut transforms, mut bishops, time, state): Self::SystemData) {
+        if state.is_paused() {
+            return;
+        }
         for (mut bishop, transform) in (&mut bishops, &mut transforms).join() {
             if bishop.time_since_move >= self.move_timer {
                 let radius = GAMEPLAY_AREA_HEIGHT / 2.;

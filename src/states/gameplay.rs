@@ -1,9 +1,11 @@
 use amethyst::core::transform::Transform;
+use amethyst::input::is_key_down;
 use amethyst::prelude::*;
-use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle};
+use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle, VirtualKeyCode};
 
 use crate::components::{Background, GameplayItem, Player, Size};
-use crate::resources::{PlayerResource, ScoreResource, SpriteSheet};
+use crate::resources::{CurrentState, PlayerResource, ScoreResource, SpriteSheet};
+use crate::states::PauseState;
 use crate::utility::{load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 pub struct GameplayState;
@@ -20,6 +22,7 @@ impl SimpleState for GameplayState {
 
         world.write_resource::<SpriteSheet>().sprite_sheet = Some(spritesheet_handle.unwrap());
         world.add_resource(ScoreResource { score: 0 });
+        world.add_resource(CurrentState::default());
 
         let spritesheet = world
             .read_resource::<SpriteSheet>()
@@ -30,6 +33,17 @@ impl SimpleState for GameplayState {
         initialize_arena(world, spritesheet.clone());
         Player::initialize(world, spritesheet.clone());
         initialize_camera(world);
+    }
+
+    fn handle_event(&mut self, data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
+        if let StateEvent::Window(event) = &event {
+            if is_key_down(&event, VirtualKeyCode::Escape) {
+                let mut game_state = data.world.write_resource::<CurrentState>();
+                game_state.pause();
+                return Trans::Push(Box::new(PauseState));
+            }
+        }
+        Trans::None
     }
 
     fn update(&mut self, data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {

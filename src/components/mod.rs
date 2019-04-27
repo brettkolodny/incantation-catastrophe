@@ -9,5 +9,5 @@ pub use self::{
     enemy::{Bishop, Enemy, Knight, Pawn, Rook},
     player::Player,
     projectile::{PlayerProjectile, Projectile},
-    tags::{Background, GameplayItem},
+    tags::{Background, GameplayItem, PauseItem, Tag},
 };
