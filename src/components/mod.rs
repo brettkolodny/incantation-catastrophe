@@ -6,13 +6,8 @@ mod tags;
 
 pub use self::{
     attribute::*,
-    enemy::{Bishop, Enemy, Pawn, Rook},
+    enemy::{Bishop, Enemy, Knight, Pawn, Rook},
     player::Player,
     projectile::{PlayerProjectile, Projectile},
     tags::{Background, GameplayItem},
 };
-
-pub trait Dimensions {
-    fn get_width(&self) -> f32;
-    fn get_height(&self) -> f32;
-}

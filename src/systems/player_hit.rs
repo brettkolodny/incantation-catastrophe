@@ -40,7 +40,6 @@ impl<'s> System<'s> for PlayerHitSystem {
         if let Some(player) = player.player {
             let player_info = { (sizes.get(player).unwrap(), transforms.get(player).unwrap()) };
             let mut player_health = healths.get_mut(player).unwrap();
-            dbg!(player_health.health);
 
             for (size, transform, _, _, _) in (
                 &sizes,
@@ -52,14 +51,12 @@ impl<'s> System<'s> for PlayerHitSystem {
                 .join()
             {
                 if !self.player_immune && did_hit(player_info, (&size, &transform)) {
-                    dbg!("Player was hit!");
                     player_health.health -= 1;
                     self.player_immune = true;
                 }
             }
 
             if self.player_immune {
-                dbg!("Player is Immune");
                 self.time_since_hit += time.delta_seconds();
                 if self.time_since_hit >= self.player_immune_time {
                     self.player_immune = false;

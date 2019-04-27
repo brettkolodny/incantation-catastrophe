@@ -56,6 +56,7 @@ fn main() -> amethyst::Result<()> {
             "projectile_move",
             &["player_shoot", "player_death"],
         )
+        //Spawn systems
         .with(
             systems::PawnSpawnSystem {
                 spawn_timer: 1.5,
@@ -80,6 +81,16 @@ fn main() -> amethyst::Result<()> {
             "rook_spawn",
             &[],
         )
+        .with(
+            systems::KnightSpawnSystem {
+                spawn_timer: 20.,
+                time_since_spawn: 0.,
+            },
+            "knight_spawn",
+            &[],
+        )
+        //Move systems
+        .with(systems::KnightMoveSystem, "knight_move", &["knight_spawn"])
         .with(systems::PawnMoveSystem, "pawn_move", &["pawn_spawn"])
         .with(systems::RookMoveSystem, "rook_move", &["rook_spawn"])
         .with(
@@ -87,12 +98,14 @@ fn main() -> amethyst::Result<()> {
             "bishop_move",
             &["bishop_spawn", "player_death"],
         )
+        //Shoot systems
         .with(
             systems::BishopShootSystem,
             "bishop_shoot",
             &["player_death"],
         )
         .with(systems::EnemyHitSystem, "enemy_hit", &["player_shoot"])
+        .with(systems::KnightPushSystem, "knight_push", &["knight_move"])
         .with(
             systems::PlayerHitSystem::default(),
             "player_hit",

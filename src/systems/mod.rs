@@ -1,5 +1,6 @@
 mod boundary;
 mod enemy_hit;
+mod knight_push;
 mod move_systems;
 mod player_death;
 mod player_hit;
@@ -10,10 +11,13 @@ mod spawn_systems;
 pub use self::{
     boundary::BoundarySystem,
     enemy_hit::EnemyHitSystem,
-    move_systems::{BishopMoveSystem, PawnMoveSystem, PlayerMoveSystem, RookMoveSystem},
+    move_systems::{
+        BishopMoveSystem, KnightMoveSystem, PawnMoveSystem, PlayerMoveSystem, RookMoveSystem,
+    },
     player_death::PlayerDeathSystem,
     player_hit::PlayerHitSystem,
     projectile_move::ProjectileMoveSystem,
     shoot_systems::{BishopShootSystem, PlayerShootSystem},
-    spawn_systems::{BishopSpawnSystem, PawnSpawnSystem, RookSpawnSystem},
+    spawn_systems::{BishopSpawnSystem, KnightSpawnSystem, PawnSpawnSystem, RookSpawnSystem},
+    knight_push::KnightPushSystem,
 };

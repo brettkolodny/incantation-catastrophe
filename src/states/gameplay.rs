@@ -3,7 +3,7 @@ use amethyst::prelude::*;
 use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle};
 
 use crate::components::{Background, GameplayItem, Player, Size};
-use crate::resources::SpriteSheet;
+use crate::resources::{PlayerResource, ScoreResource, SpriteSheet};
 use crate::utility::{load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 pub struct GameplayState;
@@ -19,6 +19,7 @@ impl SimpleState for GameplayState {
         ));
 
         world.write_resource::<SpriteSheet>().sprite_sheet = Some(spritesheet_handle.unwrap());
+        world.add_resource(ScoreResource { score: 0 });
 
         let spritesheet = world
             .read_resource::<SpriteSheet>()
@@ -31,7 +32,13 @@ impl SimpleState for GameplayState {
         initialize_camera(world);
     }
 
-    fn update(&mut self, _data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
+    fn update(&mut self, data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
+        let player = data.world.read_resource::<PlayerResource>();
+        if let None = player.player {
+            let score = data.world.read_resource::<ScoreResource>();
+            println!("Your score was: {}!", score.score);
+            return Trans::Quit;
+        }
         Trans::None
     }
 }
