@@ -75,7 +75,7 @@ fn initialize_camera(_world: &mut World) {
 
 pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
-    local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., -100.);
+    local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., -1000.);
     local_transform.set_scale(1.5, 1.5, 1.);
 
     let sprite_render = {
