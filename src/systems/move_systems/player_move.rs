@@ -1,6 +1,7 @@
 use amethyst::core::Transform;
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 use amethyst::input::InputHandler;
+use std::f32::consts::{FRAC_PI_2, PI};
 
 use crate::components::{CurrentDirection, Player, Speed};
 use crate::resources::CurrentState;
@@ -47,10 +48,10 @@ impl<'s> System<'s> for PlayerMoveSystem {
             };
 
             if change_x > 0. {
-                transform.set_rotation_euler(0., 0., 4.71239);
+                transform.set_rotation_euler(0., 0., PI + FRAC_PI_2);
                 direction.turn_right();
             } else if change_x < 0. {
-                transform.set_rotation_euler(0., 0., 1.5708);
+                transform.set_rotation_euler(0., 0., FRAC_PI_2);
                 direction.turn_left();
             }
 
@@ -58,7 +59,7 @@ impl<'s> System<'s> for PlayerMoveSystem {
                 transform.set_rotation_euler(0., 0., 0.);
                 direction.turn_up();
             } else if change_y < 0. {
-                transform.set_rotation_euler(0., 0., 3.14159);
+                transform.set_rotation_euler(0., 0., PI);
                 direction.turn_down();
             }
 

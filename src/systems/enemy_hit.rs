@@ -56,7 +56,7 @@ impl<'s> System<'s> for EnemyHitSystem {
                 ) {
                     enemy_health.health -= 1;
 
-                    if enemy_health.health <= 0 {
+                    if enemy_health.health == 0 {
                         if let Some(_) = pawns.get(enemy_entity) {
                             score.score += 1;
                         } else if let Some(_) = bishops.get(enemy_entity) {

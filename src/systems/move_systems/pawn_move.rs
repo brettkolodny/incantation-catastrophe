@@ -1,5 +1,6 @@
 use amethyst::core::{nalgebra, timing::Time, Transform};
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
+use std::f32::consts::{FRAC_PI_2, PI};
 
 use crate::components::{CurrentDirection, Pawn, Speed};
 use crate::resources::{CurrentState, PlayerResource};
@@ -40,10 +41,10 @@ impl<'s> System<'s> for PawnMoveSystem {
                 if new_vector.x.abs() > new_vector.y.abs() {
                     if new_vector.x < 0. {
                         direction.turn_right();
-                        pawn_transform.set_rotation_euler(0., 0., 4.71239);
+                        pawn_transform.set_rotation_euler(0., 0., PI + FRAC_PI_2);
                     } else {
                         direction.turn_left();
-                        pawn_transform.set_rotation_euler(0., 0., 1.5708);
+                        pawn_transform.set_rotation_euler(0., 0., FRAC_PI_2);
                     }
                 } else {
                     if new_vector.y < 0. {
@@ -51,7 +52,7 @@ impl<'s> System<'s> for PawnMoveSystem {
                         pawn_transform.set_rotation_euler(0., 0., 0.);
                     } else {
                         direction.turn_down();
-                        pawn_transform.set_rotation_euler(0., 0., 3.14159);
+                        pawn_transform.set_rotation_euler(0., 0., PI);
                     }
                 }
 

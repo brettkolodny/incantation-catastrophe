@@ -17,7 +17,7 @@ impl<'s> System<'s> for PlayerDeathSystem {
             let player_health = Health::default();
             let player_health = health.get(player_entity).unwrap_or(&player_health);
 
-            if player_health.health <= 0 {
+            if player_health.health == 0 {
                 player.player = None;
                 if let Err(e) = entities.delete(player_entity) {
                     dbg!(e);
