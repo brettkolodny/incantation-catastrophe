@@ -31,19 +31,19 @@ impl<'s> System<'s> for KnightMoveSystem {
 
             match direction.current_direction {
                 Direction::Up => {
-                    transform.set_y(knight_loc.y + (speed.speed * time.delta_seconds()));
+                    transform.set_translation_y(knight_loc.y + (speed.speed * time.delta_seconds()));
                 }
                 Direction::Down => {
-                    transform.set_y(knight_loc.y - (speed.speed * time.delta_seconds()));
+                    transform.set_translation_y(knight_loc.y - (speed.speed * time.delta_seconds()));
                 }
                 Direction::Right => {
-                    transform.set_x(knight_loc.x + (speed.speed * time.delta_seconds()));
+                    transform.set_translation_x(knight_loc.x + (speed.speed * time.delta_seconds()));
                 }
                 Direction::Left => {
-                    transform.set_x(knight_loc.x - (speed.speed * time.delta_seconds()));
+                    transform.set_translation_x(knight_loc.x - (speed.speed * time.delta_seconds()));
                 }
                 Direction::Custom(vector) => {
-                    transform.move_along_global(vector, time.delta_seconds() * speed.speed);
+                    transform.prepend_translation_along(vector, time.delta_seconds() * speed.speed);
                 }
             }
         }

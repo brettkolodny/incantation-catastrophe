@@ -4,5 +4,6 @@ mod pawn_spawn;
 mod rook_spawn;
 
 pub use self::{
-    bishop_spawn::BishopSpawnSystem, pawn_spawn::PawnSpawnSystem, rook_spawn::RookSpawnSystem, knight_spawn::KnightSpawnSystem,
+    bishop_spawn::BishopSpawnSystem, knight_spawn::KnightSpawnSystem, pawn_spawn::PawnSpawnSystem,
+    rook_spawn::RookSpawnSystem,
 };

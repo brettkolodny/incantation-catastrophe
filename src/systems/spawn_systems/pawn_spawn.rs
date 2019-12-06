@@ -59,7 +59,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
             );
 
             let mut local_transform = Transform::default();
-            local_transform.set_xyz(x, y, 0.);
+            local_transform.set_translation_xyz(x, y, 0.);
 
             let sprite_render = {
                 SpriteRender {

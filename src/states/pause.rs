@@ -1,8 +1,7 @@
 use amethyst::assets::Loader;
 use amethyst::ecs::Join;
-use amethyst::input::is_key_down;
+use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
-use amethyst::renderer::VirtualKeyCode;
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
 
 use crate::components::PauseItem;

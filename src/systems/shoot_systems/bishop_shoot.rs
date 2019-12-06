@@ -1,4 +1,4 @@
-use amethyst::core::{nalgebra::Unit, Time, Transform};
+use amethyst::core::{math::{Unit, Vector3}, Time, Transform};
 use amethyst::ecs::{Entities, Join, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
@@ -71,7 +71,7 @@ impl<'s> System<'s> for BishopShootSystem {
                     Unit::new_normalize(new_direction)
                 };
 
-                transform.set_scale(2., 2., 1.);
+                transform.set_scale(Vector3::new(2., 2., 1.));
                 entities
                     .build_entity()
                     .with(transform, &mut transforms)

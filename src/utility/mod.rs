@@ -2,7 +2,7 @@ use amethyst::assets::{AssetStorage, Loader};
 use amethyst::core::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::{
-    PngFormat, SpriteSheet, SpriteSheetFormat, SpriteSheetHandle, Texture, TextureMetadata,
+    sprite::SpriteSheetHandle, rendy::texture::image::ImageFormat::PNG, SpriteSheet, SpriteSheetFormat, Texture
 };
 
 use crate::components::Size;
@@ -20,8 +20,7 @@ pub fn load_sprite_sheet(
         let texture_storage = _world.read_resource::<AssetStorage<Texture>>();
         loader.load(
             _sprite_sheet,
-            PngFormat,
-            TextureMetadata::srgb_scale(),
+            PNG,
             (),
             &texture_storage,
         )
