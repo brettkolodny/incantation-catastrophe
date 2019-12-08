@@ -7,7 +7,7 @@
 			y:0,
 			width:829,
 			height:804,
-			offsets:None,
+			offsets:Some((10., 0)),
 		),
 		(
 			x:0,

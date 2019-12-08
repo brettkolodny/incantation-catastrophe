@@ -54,14 +54,8 @@ fn initialize_score_text(world: &mut World, score: u32) {
     );
 
     let text_transform = UiTransform::new(
-        "INCANTATION CATASTROPHE".to_string(),
-        Anchor::Middle,
-        Anchor::Middle,
-        0.,
-        1.,
-        1000.,
-        50.,
-        0.,
+        "SCORE".to_string(), Anchor::Middle, Anchor::Middle,
+                0., 0., 1., 200., 50.,
     );
 
     world

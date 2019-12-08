@@ -49,14 +49,8 @@ fn initialize_pause_text(world: &mut World) {
     );
 
     let text_transform = UiTransform::new(
-        "PAUSE".to_string(),
-        Anchor::Middle,
-        Anchor::Middle,
-        0.,
-        1.,
-        200.,
-        50.,
-        0.,
+        "PAUSE".to_string(), Anchor::Middle, Anchor::Middle,
+                0., 0., 1., 200., 50.,
     );
 
     world
