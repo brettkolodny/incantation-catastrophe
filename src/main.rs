@@ -27,7 +27,10 @@ fn main() -> amethyst::Result<()> {
     let resources = app_root.join("resources");
     let display_config = resources.join("display_config.ron");
 
-    let binding_path = format!("{}/resources/bindings_config.ron", application_root_dir().unwrap().to_str().unwrap());
+    let binding_path = format!(
+        "{}/resources/bindings_config.ron",
+        application_root_dir().unwrap().to_str().unwrap()
+    );
     let input_bundle =
         InputBundle::<StringBindings>::new().with_bindings_from_file(binding_path)?;
 

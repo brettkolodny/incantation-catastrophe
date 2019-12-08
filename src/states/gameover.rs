@@ -49,7 +49,6 @@ fn initialize_score_text(world: &mut World, score: u32) {
     let font = world.read_resource::<Loader>().load(
         "textures/square.ttf",
         TtfFormat,
-        Default::default(),
         (),
         &world.read_resource(),
     );
@@ -57,12 +56,12 @@ fn initialize_score_text(world: &mut World, score: u32) {
     let text_transform = UiTransform::new(
         "INCANTATION CATASTROPHE".to_string(),
         Anchor::Middle,
-        0.,
+        Anchor::Middle,
         0.,
         1.,
         1000.,
         50.,
-        0,
+        0.,
     );
 
     world

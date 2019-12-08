@@ -1,4 +1,4 @@
-use amethyst::core::{transform::Transform, math::Vector3};
+use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::prelude::*;
 use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
@@ -27,7 +27,11 @@ impl Player {
 
     pub fn initialize(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
         let mut local_transform = Transform::default();
-        local_transform.set_translation_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
+        local_transform.set_translation_xyz(
+            GAMEPLAY_AREA_WIDTH / 2.,
+            GAMEPLAY_AREA_HEIGHT / 2.,
+            0.,
+        );
         local_transform.set_scale(Vector3::new(1., 1., 1.));
 
         let sprite_render = {

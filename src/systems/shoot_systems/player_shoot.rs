@@ -1,4 +1,4 @@
-use amethyst::core::{timing::Time, Transform, math::Vector3};
+use amethyst::core::{math::Vector3, timing::Time, Transform};
 use amethyst::ecs::{Entities, Join, System};
 use amethyst::ecs::{Read, WriteStorage};
 use amethyst::input::{InputHandler, StringBindings};

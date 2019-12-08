@@ -2,7 +2,8 @@ use amethyst::assets::{AssetStorage, Loader};
 use amethyst::core::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::{
-    sprite::SpriteSheetHandle, rendy::texture::image::ImageFormat::PNG, SpriteSheet, SpriteSheetFormat, Texture
+    formats::texture::ImageFormat, sprite::SpriteSheetHandle, SpriteSheet,
+    SpriteSheetFormat, Texture,
 };
 
 use crate::components::Size;
@@ -17,21 +18,15 @@ pub fn load_sprite_sheet(
 ) -> SpriteSheetHandle {
     let texture_handle = {
         let loader = _world.read_resource::<Loader>();
-        let texture_storage = _world.read_resource::<AssetStorage<Texture>>();
-        loader.load(
-            _sprite_sheet,
-            PNG,
-            (),
-            &texture_storage,
-        )
+        let texture_storage = _world.read_resource::<AssetStorage<Texture>>(); 
+        loader.load(_sprite_sheet, ImageFormat::default(), (), &texture_storage)
     };
 
     let loader = _world.read_resource::<Loader>();
     let sprite_sheet_store = _world.read_resource::<AssetStorage<SpriteSheet>>();
     loader.load(
         _sprite_sheet_ron,
-        SpriteSheetFormat,
-        texture_handle,
+        SpriteSheetFormat(texture_handle),
         (),
         &sprite_sheet_store,
     )
@@ -66,39 +61,3 @@ pub fn did_hit(object_1: (&Size, &Transform), object_2: (&Size, &Transform)) -> 
 
     true
 }
-
-// pub fn initialize_text_middle<T>(world: &mut World, x: f32, y: f32, text: &str, tag: T)
-// where
-//     T: Component,
-// {
-//     let font = world.read_resource::<Loader>().load(
-//         "font/square.ttf",
-//         TtfFormat,
-//         Default::default(),
-//         (),
-//         &world.read_resource(),
-//     );
-
-//     let text_transform = UiTransform::new(
-//         "PAUSE".to_string(),
-//         Anchor::Middle,
-//         0.,
-//         0.,
-//         1.,
-//         200.,
-//         50.,
-//         0,
-//     );
-
-//     world
-//         .create_entity()
-//         .with(text_transform)
-//         .with(UiText::new(
-//             font,
-//             "PAUSE".to_string(),
-//             [1., 1., 1., 1.],
-//             50.,
-//         ))
-//         .with(tag)
-//         .build();
-// }

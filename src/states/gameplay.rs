@@ -1,4 +1,4 @@
-use amethyst::core::{transform::Transform, math::Vector3};
+use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::Entity;
 use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
@@ -60,14 +60,16 @@ impl SimpleState for GameplayState {
 
 fn initialize_camera(_world: &mut World) {
     let mut transform = Transform::default();
-    transform.set_z(1.0);
+    transform.set_translation_z(1.0);
     _world
         .create_entity()
         .with(Camera::from(Projection::orthographic(
-            0.0,
+            0.,
             GAMEPLAY_AREA_WIDTH,
-            0.0,
+            0.,
             GAMEPLAY_AREA_HEIGHT,
+            0.,
+            0.,
         )))
         .with(transform)
         .build();
@@ -75,7 +77,11 @@ fn initialize_camera(_world: &mut World) {
 
 pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
-    local_transform.set_translation_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., -1000.);
+    local_transform.set_translation_xyz(
+        GAMEPLAY_AREA_WIDTH / 2.,
+        GAMEPLAY_AREA_HEIGHT / 2.,
+        -1000.,
+    );
     local_transform.set_scale(Vector3::new(1.5, 1.5, 1.));
 
     let sprite_render = {
