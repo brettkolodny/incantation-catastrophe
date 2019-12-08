@@ -1,7 +1,7 @@
-use amethyst::core::transform::Transform;
+use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::prelude::*;
-use amethyst::renderer::{SpriteRender, SpriteSheetHandle};
+use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
 
 use crate::components::{tags::GameplayItem, CurrentDirection, Health, Size, Speed};
 use crate::resources::PlayerResource;
@@ -27,8 +27,12 @@ impl Player {
 
     pub fn initialize(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
         let mut local_transform = Transform::default();
-        local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
-        local_transform.set_scale(1., 1., 1.);
+        local_transform.set_translation_xyz(
+            GAMEPLAY_AREA_WIDTH / 2.,
+            GAMEPLAY_AREA_HEIGHT / -2.,
+            0.,
+        );
+        local_transform.set_scale(Vector3::new(1., 1., 1.));
 
         let sprite_render = {
             SpriteRender {
@@ -51,7 +55,7 @@ impl Player {
                 .build(),
         );
 
-        world.add_resource(PlayerResource { player });
+        world.insert(PlayerResource { player });
     }
 }
 

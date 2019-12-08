@@ -1,13 +1,15 @@
-extern crate amethyst;
-
-use amethyst::core::transform::TransformBundle;
-use amethyst::input::InputBundle;
-use amethyst::prelude::*;
-use amethyst::renderer::{
-    ColorMask, DisplayConfig, DrawFlat2D, Pipeline, RenderBundle, Stage, ALPHA,
+use amethyst::{
+    core::transform::TransformBundle,
+    input::{InputBundle, StringBindings},
+    prelude::*,
+    renderer::{
+        plugins::{RenderFlat2D, RenderToWindow},
+        types::DefaultBackend,
+        RenderingBundle,
+    },
+    ui::{UiBundle, RenderUi},
+    utils::application_root_dir,
 };
-use amethyst::ui::{DrawUi, UiBundle};
-use amethyst::utils::application_root_dir;
 
 mod components;
 mod resources;
@@ -20,25 +22,31 @@ use crate::states::GameplayState;
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
 
-    let path = format!("{}/resources/display_config.ron", application_root_dir());
-    let config = DisplayConfig::load(&path);
+    let app_root = application_root_dir()?;
 
-    let pipe = Pipeline::build().with_stage(
-        Stage::with_backbuffer()
-            .clear_target([0.0, 0.0, 0.0, 1.0], 1.0)
-            .with_pass(DrawFlat2D::new().with_transparency(ColorMask::all(), ALPHA, None))
-            .with_pass(DrawUi::new()),
+    let resources = app_root.join("resources");
+    let display_config = resources.join("display_config.ron");
+
+    let binding_path = format!(
+        "{}/resources/bindings_config.ron",
+        application_root_dir().unwrap().to_str().unwrap()
     );
-
-    let binding_path = format!("{}/resources/bindings_config.ron", application_root_dir());
     let input_bundle =
-        InputBundle::<String, String>::new().with_bindings_from_file(binding_path)?;
+        InputBundle::<StringBindings>::new().with_bindings_from_file(binding_path)?;
 
     let game_data = GameDataBuilder::default()
-        .with_bundle(RenderBundle::new(pipe, Some(config)).with_sprite_sheet_processor())?
         .with_bundle(TransformBundle::new())?
+        .with_bundle(
+            RenderingBundle::<DefaultBackend>::new()
+                .with_plugin(
+                    RenderToWindow::from_config_path(display_config)
+                        .with_clear([0.34, 0.36, 0.52, 1.0]),
+                )
+                .with_plugin(RenderFlat2D::default())
+                .with_plugin(RenderUi::default()),
+        )?
         .with_bundle(input_bundle)?
-        .with_bundle(UiBundle::<String, String>::new())?
+        .with_bundle(UiBundle::<StringBindings>::new())?
         .with(systems::PlayerDeathSystem, "player_death", &[])
         .with(systems::PlayerMoveSystem, "player_move", &["player_death"])
         .with(
@@ -111,8 +119,8 @@ fn main() -> amethyst::Result<()> {
             "player_hit",
             &["pawn_move", "bishop_shoot", "player_death"],
         );
-    let mut game = Application::new("./", GameplayState {}, game_data)?;
 
+    let mut game = Application::new("./", GameplayState {}, game_data)?;
     game.run();
 
     Ok(())

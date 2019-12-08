@@ -36,7 +36,7 @@ impl<'s> System<'s> for BoundarySystem {
             let entity_y = transform.translation().y;
 
             if (entity_x - (GAMEPLAY_AREA_WIDTH / 2.)).powi(2)
-                + (entity_y - (GAMEPLAY_AREA_HEIGHT / 2.)).powi(2)
+                + (entity_y - (GAMEPLAY_AREA_HEIGHT / -2.)).powi(2)
                 > radius.powi(2)
             {
                 if let Err(e) = entities.delete(entity) {
@@ -55,7 +55,7 @@ impl<'s> System<'s> for BoundarySystem {
             };
 
             if (player_x - (GAMEPLAY_AREA_WIDTH / 2.)).powi(2)
-                + (player_y - (GAMEPLAY_AREA_HEIGHT / 2.)).powi(2)
+                + (player_y - (GAMEPLAY_AREA_HEIGHT / -2.)).powi(2)
                 > radius.powi(2)
             {
                 player_resource.player = None;

@@ -1,7 +1,7 @@
-use amethyst::core::{timing::Time, Transform};
+use amethyst::core::{math::Vector3, timing::Time, Transform};
 use amethyst::ecs::{Entities, Join, System};
 use amethyst::ecs::{Read, WriteStorage};
-use amethyst::input::InputHandler;
+use amethyst::input::{InputHandler, StringBindings};
 use amethyst::renderer::SpriteRender;
 
 use crate::components::{
@@ -26,7 +26,7 @@ impl<'s> System<'s> for PlayerShootSystem {
         WriteStorage<'s, SpriteRender>,
         Read<'s, SpriteSheet>,
         Entities<'s>,
-        Read<'s, InputHandler<String, String>>,
+        Read<'s, InputHandler<StringBindings>>,
         Read<'s, Time>,
         Read<'s, CurrentState>,
     );
@@ -77,7 +77,7 @@ impl<'s> System<'s> for PlayerShootSystem {
             };
 
             for (mut transform, direction) in player_transforms_directions {
-                transform.set_scale(0.75, 0.75, 1.);
+                transform.set_scale(Vector3::new(0.75, 0.75, 1.));
                 entities
                     .build_entity()
                     .with(GameplayItem::default(), &mut gameplay_items)

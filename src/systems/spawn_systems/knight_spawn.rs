@@ -1,4 +1,4 @@
-use amethyst::core::{nalgebra::Unit, Time, Transform};
+use amethyst::core::{math::Unit, Time, Transform};
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
@@ -58,11 +58,11 @@ impl<'s> System<'s> for KnightSpawnSystem {
 
                 let (x, y) = (
                     (radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.),
-                    (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / 2.),
+                    (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.),
                 );
 
                 let mut local_transform = Transform::default();
-                local_transform.set_xyz(x, y, 0.);
+                local_transform.set_translation_xyz(x, y, 0.);
 
                 let sprite_render = {
                     SpriteRender {

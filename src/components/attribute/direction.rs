@@ -1,4 +1,4 @@
-use amethyst::core::nalgebra::{Unit, Vector3};
+use amethyst::core::math::{Unit, Vector3};
 use amethyst::ecs::prelude::{Component, VecStorage};
 
 #[derive(Copy, Clone)]

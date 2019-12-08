@@ -1,7 +1,7 @@
 mod bishop;
 mod enemy;
-mod pawn;
 mod knight;
+mod pawn;
 mod rook;
 
-pub use self::{bishop::Bishop, enemy::Enemy, pawn::Pawn, rook::Rook, knight::Knight};
+pub use self::{bishop::Bishop, enemy::Enemy, knight::Knight, pawn::Pawn, rook::Rook};

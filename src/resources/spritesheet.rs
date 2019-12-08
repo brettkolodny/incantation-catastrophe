@@ -1,4 +1,4 @@
-use amethyst::renderer::SpriteSheetHandle;
+use amethyst::renderer::sprite::SpriteSheetHandle;
 
 pub struct SpriteSheet {
     pub sprite_sheet: Option<SpriteSheetHandle>,

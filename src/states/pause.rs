@@ -1,8 +1,7 @@
 use amethyst::assets::Loader;
 use amethyst::ecs::Join;
-use amethyst::input::is_key_down;
+use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
-use amethyst::renderer::VirtualKeyCode;
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
 
 use crate::components::PauseItem;
@@ -45,20 +44,13 @@ fn initialize_pause_text(world: &mut World) {
     let font = world.read_resource::<Loader>().load(
         "textures/square.ttf",
         TtfFormat,
-        Default::default(),
         (),
         &world.read_resource(),
     );
 
     let text_transform = UiTransform::new(
-        "PAUSE".to_string(),
-        Anchor::Middle,
-        0.,
-        0.,
-        1.,
-        200.,
-        50.,
-        0,
+        "PAUSE".to_string(), Anchor::Middle, Anchor::Middle,
+                0., 0., 1., 200., 50.,
     );
 
     world

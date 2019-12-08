@@ -1,8 +1,8 @@
-use amethyst::core::transform::Transform;
+use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::Entity;
-use amethyst::input::is_key_down;
+use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
-use amethyst::renderer::{Camera, Projection, SpriteRender, SpriteSheetHandle, VirtualKeyCode};
+use amethyst::renderer::{camera::Projection, sprite::SpriteSheetHandle, Camera, SpriteRender};
 
 use crate::components::{Background, GameplayItem, Player, Size};
 use crate::resources::{CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet};
@@ -22,7 +22,7 @@ impl SimpleState for GameplayState {
         ));
 
         world.write_resource::<SpriteSheet>().sprite_sheet = Some(spritesheet_handle.unwrap());
-        world.add_resource(ScoreResource { score: 0 });
+        world.insert(ScoreResource { score: 0 });
 
         let spritesheet = world
             .read_resource::<SpriteSheet>()
@@ -60,14 +60,16 @@ impl SimpleState for GameplayState {
 
 fn initialize_camera(_world: &mut World) {
     let mut transform = Transform::default();
-    transform.set_z(1.0);
+    transform.set_translation_z(1.0);
     _world
         .create_entity()
         .with(Camera::from(Projection::orthographic(
-            0.0,
+            0.,
             GAMEPLAY_AREA_WIDTH,
-            0.0,
+            0.,
             GAMEPLAY_AREA_HEIGHT,
+            0.,
+            20.,
         )))
         .with(transform)
         .build();
@@ -75,8 +77,12 @@ fn initialize_camera(_world: &mut World) {
 
 pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
-    local_transform.set_xyz(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., -1000.);
-    local_transform.set_scale(1.5, 1.5, 1.);
+    local_transform.set_translation_xyz(
+        GAMEPLAY_AREA_WIDTH / 2.0,
+        GAMEPLAY_AREA_HEIGHT / -2.0, 
+        -1.,
+    );
+    local_transform.set_scale(Vector3::new(1.5, 1.5, 1.));
 
     let sprite_render = {
         SpriteRender {
@@ -97,8 +103,8 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
 
 pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
-    local_transform.set_xyz(100., 1000., 0.);
-    local_transform.set_scale(0.1, 0.1, 1.);
+    local_transform.set_translation_xyz(100., -50., 0.);
+    local_transform.set_scale(Vector3::new(0.1, 0.1, 1.));
 
     let sprite_render = {
         SpriteRender {
@@ -120,8 +126,8 @@ pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHand
                 .build(),
         );
 
-        local_transform.set_x(local_transform.translation().x + 50.);
+        local_transform.set_translation_x(local_transform.translation().x + 50.);
     }
 
-    world.add_resource(Hearts { hearts });
+    world.insert(Hearts { hearts });
 }

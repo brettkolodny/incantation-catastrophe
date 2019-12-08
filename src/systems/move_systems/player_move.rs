@@ -1,6 +1,6 @@
 use amethyst::core::Transform;
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
-use amethyst::input::InputHandler;
+use amethyst::input::{InputHandler, StringBindings};
 use std::f32::consts::{FRAC_PI_2, PI};
 
 use crate::components::{CurrentDirection, Player, Speed};
@@ -14,7 +14,7 @@ impl<'s> System<'s> for PlayerMoveSystem {
         ReadStorage<'s, Speed>,
         WriteStorage<'s, CurrentDirection>,
         ReadStorage<'s, Player>,
-        Read<'s, InputHandler<String, String>>,
+        Read<'s, InputHandler<StringBindings>>,
         Read<'s, CurrentState>,
     );
 
@@ -79,8 +79,8 @@ impl<'s> System<'s> for PlayerMoveSystem {
                 change_y = new_y;
             }
 
-            transform.set_x(transform.translation().x + change_x);
-            transform.set_y(transform.translation().y + change_y);
+            transform.set_translation_x(transform.translation().x + change_x);
+            transform.set_translation_y(transform.translation().y + change_y);
         }
     }
 }

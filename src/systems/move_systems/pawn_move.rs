@@ -1,4 +1,4 @@
-use amethyst::core::{nalgebra, timing::Time, Transform};
+use amethyst::core::{math, timing::Time, Transform};
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
 use std::f32::consts::{FRAC_PI_2, PI};
 
@@ -35,8 +35,8 @@ impl<'s> System<'s> for PawnMoveSystem {
                 let pawn_vector = pawn_transform.translation();
 
                 let new_vector = player_vector - pawn_vector;
-                let new_vector = nalgebra::base::Matrix::normalize(&new_vector);
-                let new_vector = nalgebra::Unit::new_unchecked(new_vector);
+                let new_vector = math::base::Matrix::normalize(&new_vector);
+                let new_vector = math::Unit::new_unchecked(new_vector);
 
                 if new_vector.x.abs() > new_vector.y.abs() {
                     if new_vector.x < 0. {
@@ -57,7 +57,7 @@ impl<'s> System<'s> for PawnMoveSystem {
                 }
 
                 pawn_transform
-                    .move_along_global(new_vector, time.delta_seconds() * pawn_speed.speed);
+                    .prepend_translation_along(new_vector, time.delta_seconds() * pawn_speed.speed);
             }
         }
     }

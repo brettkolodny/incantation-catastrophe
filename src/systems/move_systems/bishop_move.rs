@@ -1,5 +1,5 @@
 use amethyst::core::{
-    nalgebra::{base::Matrix, Unit, Vector3},
+    math::{base::Matrix, Unit, Vector3},
     timing::Time,
     Transform,
 };
@@ -33,14 +33,14 @@ impl<'s> System<'s> for BishopMoveSystem {
 
                 let circle_vector = {
                     let x = radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
-                    let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / 2.;
+                    let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
                     let z = 0.;
 
                     let circle_vector = Vector3::new(x, y, z);
                     circle_vector
                 };
 
-                transform.set_xyz(circle_vector.x, circle_vector.y, circle_vector.z);
+                transform.set_translation_xyz(circle_vector.x, circle_vector.y, circle_vector.z);
 
                 let center_vector =
                     Vector3::new(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
@@ -49,7 +49,7 @@ impl<'s> System<'s> for BishopMoveSystem {
 
                 let distance = rand::thread_rng().gen_range(0, GAMEPLAY_AREA_HEIGHT as i32) as f32;
 
-                transform.move_along_global(Unit::new_unchecked(move_vector), distance);
+                transform.prepend_translation_along(Unit::new_unchecked(move_vector), distance);
                 bishop.time_since_move = 0.;
             } else {
                 bishop.time_since_move += time.delta_seconds();

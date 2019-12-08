@@ -33,7 +33,7 @@ impl<'s> System<'s> for KnightPushSystem {
                     let mut player_transform = transforms.get(player).unwrap().clone();
                     if let Direction::Custom(vector) = direction.current_direction {
                         player_transform
-                            .move_along_global(vector, time.delta_seconds() * speed.speed);
+                            .prepend_translation_along(vector, time.delta_seconds() * speed.speed);
                         player_transform_new = Some(player_transform);
                     }
                 }
@@ -49,7 +49,7 @@ impl<'s> System<'s> for KnightPushSystem {
 
                     (x, y, z)
                 };
-                player_transform.set_xyz(x, y, z);
+                player_transform.set_translation_xyz(x, y, z);
             }
         }
     }

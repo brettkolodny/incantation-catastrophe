@@ -1,4 +1,4 @@
-use amethyst::core::{Time, Transform};
+use amethyst::core::{math::Vector3, Time, Transform};
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
@@ -55,12 +55,12 @@ impl<'s> System<'s> for RookSpawnSystem {
 
             let (x, y) = (
                 (radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.),
-                (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / 2.),
+                (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.),
             );
 
             let mut local_transform = Transform::default();
-            local_transform.set_xyz(x, y, 0.);
-            local_transform.set_scale(3., 3., 1.);
+            local_transform.set_translation_xyz(x, y, 0.);
+            local_transform.set_scale(Vector3::new(3., 3., 1.));
 
             let sprite_render = {
                 SpriteRender {

@@ -1,5 +1,5 @@
 use amethyst::core::{
-    nalgebra::{Unit, Vector3},
+    math::{Unit, Vector3},
     Time, Transform,
 };
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
@@ -54,7 +54,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
 
             let circle_vector = {
                 let x = radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
-                let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / 2.;
+                let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
                 let z = 0.;
 
                 let circle_vector = Vector3::new(x, y, z);
@@ -62,8 +62,8 @@ impl<'s> System<'s> for BishopSpawnSystem {
             };
 
             let mut bishop_transform = Transform::default();
-            bishop_transform.set_scale(2., 2., 1.);
-            bishop_transform.move_global(circle_vector);
+            bishop_transform.set_scale(Vector3::new(2., 2., 1.));
+            bishop_transform.prepend_translation(circle_vector);
 
             let center_vector =
                 Vector3::new(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
@@ -72,7 +72,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
 
             let distance = rand::thread_rng().gen_range(0, GAMEPLAY_AREA_HEIGHT as i32) as f32;
 
-            bishop_transform.move_along_global(Unit::new_normalize(spawn_vector), distance);
+            bishop_transform.prepend_translation_along(Unit::new_normalize(spawn_vector), distance);
 
             let sprite_render = {
                 SpriteRender {
