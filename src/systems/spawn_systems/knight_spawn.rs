@@ -58,7 +58,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
 
                 let (x, y) = (
                     (radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.),
-                    (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / 2.),
+                    (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.),
                 );
 
                 let mut local_transform = Transform::default();

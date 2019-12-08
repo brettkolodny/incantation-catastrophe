@@ -54,7 +54,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
 
             let circle_vector = {
                 let x = radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
-                let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / 2.;
+                let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
                 let z = 0.;
 
                 let circle_vector = Vector3::new(x, y, z);

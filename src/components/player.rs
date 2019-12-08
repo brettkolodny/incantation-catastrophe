@@ -29,7 +29,7 @@ impl Player {
         let mut local_transform = Transform::default();
         local_transform.set_translation_xyz(
             GAMEPLAY_AREA_WIDTH / 2.,
-            GAMEPLAY_AREA_HEIGHT / 2.,
+            GAMEPLAY_AREA_HEIGHT / -2.,
             0.,
         );
         local_transform.set_scale(Vector3::new(1., 1., 1.));
