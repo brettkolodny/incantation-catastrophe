@@ -27,24 +27,25 @@ impl<'s> System<'s> for KnightMoveSystem {
         for (_, transform, speed, direction) in
             (&knights, &mut transforms, &speeds, &directions).join()
         {
-            let knight_loc = transform.translation();
+            let knight_loc_x = transform.translation().x;
+            let knight_loc_y = transform.translation().y;
 
             match direction.current_direction {
                 Direction::Up => {
                     transform
-                        .set_translation_y(knight_loc.y + (speed.speed * time.delta_seconds()));
+                        .set_translation_y(knight_loc_y + (speed.speed * time.delta_seconds()));
                 }
                 Direction::Down => {
                     transform
-                        .set_translation_y(knight_loc.y - (speed.speed * time.delta_seconds()));
+                        .set_translation_y(knight_loc_y - (speed.speed * time.delta_seconds()));
                 }
                 Direction::Right => {
                     transform
-                        .set_translation_x(knight_loc.x + (speed.speed * time.delta_seconds()));
+                        .set_translation_x(knight_loc_x + (speed.speed * time.delta_seconds()));
                 }
                 Direction::Left => {
                     transform
-                        .set_translation_x(knight_loc.x - (speed.speed * time.delta_seconds()));
+                        .set_translation_x(knight_loc_x - (speed.speed * time.delta_seconds()));
                 }
                 Direction::Custom(vector) => {
                     transform.prepend_translation_along(vector, time.delta_seconds() * speed.speed);
