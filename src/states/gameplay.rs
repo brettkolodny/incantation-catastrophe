@@ -69,7 +69,7 @@ fn initialize_camera(_world: &mut World) {
             0.,
             GAMEPLAY_AREA_HEIGHT,
             0.,
-            0.,
+            20.,
         )))
         .with(transform)
         .build();
