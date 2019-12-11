@@ -79,7 +79,7 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
     let mut local_transform = Transform::default();
     local_transform.set_translation_xyz(
         GAMEPLAY_AREA_WIDTH / 2.0,
-        GAMEPLAY_AREA_HEIGHT / -2.0, 
+        GAMEPLAY_AREA_HEIGHT / -2.0,
         -1.,
     );
     local_transform.set_scale(Vector3::new(3.0, 3.0, 1.));

@@ -57,7 +57,7 @@ impl<'s> System<'s> for RookMoveSystem {
                     }
                 }
                 */
-                
+
                 rook_transform
                     .prepend_translation_along(new_vector, time.delta_seconds() * rook_speed.speed);
             }

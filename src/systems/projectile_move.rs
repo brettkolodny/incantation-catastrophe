@@ -27,7 +27,6 @@ impl<'s> System<'s> for ProjectileMoveSystem {
         for (_, transform, speed, direction) in
             (&projectiles, &mut transforms, &speeds, &directions).join()
         {
-
             let projectile_loc_x = transform.translation().x;
             let projectile_loc_y = transform.translation().y;
 

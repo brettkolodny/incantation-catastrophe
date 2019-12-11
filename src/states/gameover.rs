@@ -54,8 +54,14 @@ fn initialize_score_text(world: &mut World, score: u32) {
     );
 
     let text_transform = UiTransform::new(
-        "SCORE".to_string(), Anchor::Middle, Anchor::Middle,
-                0., 0., 1., 200., 50.,
+        "SCORE".to_string(),
+        Anchor::Middle,
+        Anchor::Middle,
+        0.,
+        0.,
+        1.,
+        200.,
+        50.,
     );
 
     world

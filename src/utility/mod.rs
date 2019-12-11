@@ -2,8 +2,8 @@ use amethyst::assets::{AssetStorage, Loader};
 use amethyst::core::Transform;
 use amethyst::prelude::*;
 use amethyst::renderer::{
-    formats::texture::ImageFormat, sprite::SpriteSheetHandle, SpriteSheet,
-    SpriteSheetFormat, Texture,
+    formats::texture::ImageFormat, sprite::SpriteSheetHandle, SpriteSheet, SpriteSheetFormat,
+    Texture,
 };
 
 use crate::components::Size;
@@ -18,7 +18,7 @@ pub fn load_sprite_sheet(
 ) -> SpriteSheetHandle {
     let texture_handle = {
         let loader = _world.read_resource::<Loader>();
-        let texture_storage = _world.read_resource::<AssetStorage<Texture>>(); 
+        let texture_storage = _world.read_resource::<AssetStorage<Texture>>();
         loader.load(_sprite_sheet, ImageFormat::default(), (), &texture_storage)
     };
 

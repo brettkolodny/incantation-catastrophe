@@ -1,4 +1,7 @@
-use amethyst::core::{math::{Unit, Vector3}, Time, Transform};
+use amethyst::core::{
+    math::{Unit, Vector3},
+    Time, Transform,
+};
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;

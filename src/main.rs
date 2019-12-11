@@ -7,7 +7,7 @@ use amethyst::{
         types::DefaultBackend,
         RenderingBundle,
     },
-    ui::{UiBundle, RenderUi},
+    ui::{RenderUi, UiBundle},
     utils::application_root_dir,
 };
 
