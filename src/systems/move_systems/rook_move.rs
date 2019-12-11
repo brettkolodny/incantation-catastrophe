@@ -38,6 +38,7 @@ impl<'s> System<'s> for RookMoveSystem {
                 let new_vector = math::base::Matrix::normalize(&new_vector);
                 let new_vector = math::Unit::new_unchecked(new_vector);
 
+                /*
                 if new_vector.x.abs() > new_vector.y.abs() {
                     if new_vector.x < 0. {
                         direction.turn_right();
@@ -55,7 +56,8 @@ impl<'s> System<'s> for RookMoveSystem {
                         rook_transform.set_rotation_euler(0., 0., PI);
                     }
                 }
-
+                */
+                
                 rook_transform
                     .prepend_translation_along(new_vector, time.delta_seconds() * rook_speed.speed);
             }

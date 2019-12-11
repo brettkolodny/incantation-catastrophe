@@ -1,4 +1,4 @@
-use amethyst::core::{Time, Transform};
+use amethyst::core::{Time, Transform, math::Vector3};
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
@@ -60,6 +60,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
 
             let mut local_transform = Transform::default();
             local_transform.set_translation_xyz(x, y, 0.);
+           local_transform.set_scale(Vector3::new(2.75, 2.75, 1.0));
 
             let sprite_render = {
                 SpriteRender {

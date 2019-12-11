@@ -62,7 +62,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
             };
 
             let mut bishop_transform = Transform::default();
-            bishop_transform.set_scale(Vector3::new(2., 2., 1.));
+            bishop_transform.set_scale(Vector3::new(2.5, 2.5, 1.));
             bishop_transform.prepend_translation(circle_vector);
 
             let center_vector =
@@ -77,7 +77,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 5,
+                    sprite_number: 1,
                 }
             };
 

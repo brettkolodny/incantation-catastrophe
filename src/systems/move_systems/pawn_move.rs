@@ -38,6 +38,7 @@ impl<'s> System<'s> for PawnMoveSystem {
                 let new_vector = math::base::Matrix::normalize(&new_vector);
                 let new_vector = math::Unit::new_unchecked(new_vector);
 
+                /*
                 if new_vector.x.abs() > new_vector.y.abs() {
                     if new_vector.x < 0. {
                         direction.turn_right();
@@ -55,6 +56,7 @@ impl<'s> System<'s> for PawnMoveSystem {
                         pawn_transform.set_rotation_euler(0., 0., PI);
                     }
                 }
+                */
 
                 pawn_transform
                     .prepend_translation_along(new_vector, time.delta_seconds() * pawn_speed.speed);

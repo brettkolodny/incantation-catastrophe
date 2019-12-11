@@ -32,7 +32,7 @@ impl Player {
             GAMEPLAY_AREA_HEIGHT / -2.,
             0.,
         );
-        local_transform.set_scale(Vector3::new(1., 1., 1.));
+        local_transform.set_scale(Vector3::new(2.5, 2.5, 1.));
 
         let sprite_render = {
             SpriteRender {

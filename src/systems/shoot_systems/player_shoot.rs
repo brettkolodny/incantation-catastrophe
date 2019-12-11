@@ -72,12 +72,12 @@ impl<'s> System<'s> for PlayerShootSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 6,
+                    sprite_number: 7,
                 }
             };
 
             for (mut transform, direction) in player_transforms_directions {
-                transform.set_scale(Vector3::new(0.75, 0.75, 1.));
+                transform.set_scale(Vector3::new(1., 1., 1.));
                 entities
                     .build_entity()
                     .with(GameplayItem::default(), &mut gameplay_items)

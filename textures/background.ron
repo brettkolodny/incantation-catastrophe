@@ -1,0 +1,13 @@
+(
+    texture_width: 640,
+    texture_height: 360,
+    sprites: [
+        (
+            x: 0,
+            y: 0,
+            width: 640,
+            height: 360,
+            offsets: None,
+        ),
+    ],
+)

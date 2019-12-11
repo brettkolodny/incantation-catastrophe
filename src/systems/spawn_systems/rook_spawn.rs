@@ -65,7 +65,7 @@ impl<'s> System<'s> for RookSpawnSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 6,
+                    sprite_number: 2,
                 }
             };
 

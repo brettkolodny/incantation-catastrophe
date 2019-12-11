@@ -82,7 +82,7 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
         GAMEPLAY_AREA_HEIGHT / -2.0, 
         -1.,
     );
-    local_transform.set_scale(Vector3::new(1.5, 1.5, 1.));
+    local_transform.set_scale(Vector3::new(3.0, 3.0, 1.));
 
     let sprite_render = {
         SpriteRender {
@@ -104,12 +104,12 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
 pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
     local_transform.set_translation_xyz(100., -50., 0.);
-    local_transform.set_scale(Vector3::new(0.1, 0.1, 1.));
+    local_transform.set_scale(Vector3::new(2.0, 2.0, 1.0));
 
     let sprite_render = {
         SpriteRender {
             sprite_sheet: sprite_sheet_handle,
-            sprite_number: 2,
+            sprite_number: 6,
         }
     };
 

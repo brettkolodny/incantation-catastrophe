@@ -64,7 +64,7 @@ impl<'s> System<'s> for BishopShootSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 6,
+                    sprite_number: 8,
                 }
             };
 
@@ -74,7 +74,7 @@ impl<'s> System<'s> for BishopShootSystem {
                     Unit::new_normalize(new_direction)
                 };
 
-                transform.set_scale(Vector3::new(2., 2., 1.));
+                transform.set_scale(Vector3::new(5., 5., 1.));
                 entities
                     .build_entity()
                     .with(transform, &mut transforms)
