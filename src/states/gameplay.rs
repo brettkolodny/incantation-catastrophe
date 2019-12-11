@@ -1,5 +1,5 @@
 use amethyst::core::{math::Vector3, transform::Transform};
-use amethyst::ecs::Entity;
+use amethyst::ecs::{Entity, Join};
 use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
 use amethyst::renderer::{camera::Projection, sprite::SpriteSheetHandle, Camera, SpriteRender};
@@ -53,9 +53,21 @@ impl SimpleState for GameplayState {
         let mut state = data.world.write_resource::<CurrentState>();
         if let None = player.player {
             state.pause();
-            return Trans::Push(Box::new(GameOverState));
+            return Trans::Switch(Box::new(GameOverState));
         }
         Trans::None
+    }
+    
+    fn on_stop(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
+        let world = _data.world;
+        let gameplay_state_items = world.read_storage::<GameplayItem>();
+        let entities = world.entities();
+
+        for (entity, _) in (&*entities, &gameplay_state_items).join() {
+            entities
+                .delete(entity)
+                .expect("Unable to delete gameplay menu entitiy");
+        }
     }
 }
 
@@ -151,6 +163,7 @@ pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHand
                 .with(sprite_render.clone())
                 .with(transform)
                 .with(Background)
+                .with(GameplayItem)
                 .build(),
         );
 

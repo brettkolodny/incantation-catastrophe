@@ -3,7 +3,7 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, Health, Rook, Size, Speed};
+use crate::components::{CurrentDirection, Enemy, Health, Rook, Size, Speed, GameplayItem};
 use crate::resources::{CurrentState, SpriteSheet};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, ROOK_SPRITE_NUMBER, RADIUS};
 
@@ -14,6 +14,7 @@ pub struct RookSpawnSystem {
 
 impl<'s> System<'s> for RookSpawnSystem {
     type SystemData = (
+        WriteStorage<'s, GameplayItem>,
         WriteStorage<'s, Transform>,
         WriteStorage<'s, Speed>,
         WriteStorage<'s, Size>,
@@ -31,6 +32,7 @@ impl<'s> System<'s> for RookSpawnSystem {
     fn run(
         &mut self,
         (
+            mut gameplay_items,
             mut transforms,
             mut speeds,
             mut sizes,
@@ -78,6 +80,7 @@ impl<'s> System<'s> for RookSpawnSystem {
                 .with(Rook, &mut rooks)
                 .with(Enemy, &mut enemies)
                 .with(Health::rook(), &mut healths)
+                .with(GameplayItem, &mut gameplay_items)
                 .build();
 
             self.time_since_spawn = 0.;

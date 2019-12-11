@@ -14,32 +14,6 @@ impl SimpleState for GameOverState {
         initialize_score_text(world, score);
     }
 
-    // fn handle_event(&mut self, _data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
-    //   if let StateEvent::Window(event) = &event {
-    //     if is_key_down(&event, VirtualKeyCode::Space) {
-    //       let mut game_state = _data.world.write_resource::<CurrentState>();
-    //       game_state.resume();
-    //       return Trans::Push(Box::new(GameplayState));
-    //     }
-    //   }
-    //   Trans::None
-    // }
-
-    // fn update(&mut self, _data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
-    //   Trans::None
-    // }
-
-    // fn on_stop(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
-    //   let world = _data.world;
-    //   let main_menu_state_items = world.read_storage::<MainMenuItem>();
-    //   let entities = world.entities();
-
-    //   for (entity, _) in (&*entities, &main_menu_state_items).join() {
-    //     entities
-    //       .delete(entity)
-    //       .expect("Unable to delete pause menu entitiy");
-    //   }
-    // }
 }
 
 fn initialize_score_text(world: &mut World, score: u32) {

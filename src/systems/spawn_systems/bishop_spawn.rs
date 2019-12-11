@@ -6,7 +6,7 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{Bishop, Enemy, Health, Size};
+use crate::components::{Bishop, Enemy, Health, Size, GameplayItem};
 use crate::resources::{CurrentState, SpriteSheet};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, BISHOP_SPRITE_NUMBER, RADIUS};
 
@@ -17,6 +17,7 @@ pub struct BishopSpawnSystem {
 
 impl<'s> System<'s> for BishopSpawnSystem {
     type SystemData = (
+        WriteStorage<'s, GameplayItem>,
         WriteStorage<'s, Enemy>,
         WriteStorage<'s, Bishop>,
         WriteStorage<'s, Size>,
@@ -32,6 +33,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
     fn run(
         &mut self,
         (
+            mut gameplay_items,
             mut enemies,
             mut bishops,
             mut sizes,
@@ -95,6 +97,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
                 .with(bishop_transform, &mut transforms)
                 .with(sprite_render, &mut sprite_renders)
                 .with(Health::bishop(), &mut healths)
+                .with(GameplayItem, &mut gameplay_items)
                 .build();
 
             self.time_since_spawn = 0.;
