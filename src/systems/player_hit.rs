@@ -1,5 +1,5 @@
 use crate::components::{Background, Health, Player, PlayerProjectile, Size};
-use crate::resources::{Hearts, PlayerResource, CurrentState};
+use crate::resources::{CurrentState, Hearts, PlayerResource};
 use crate::utility::did_hit;
 use amethyst::core::{timing::Time, Transform};
 use amethyst::ecs::{Entities, Join, Read, ReadStorage, System, Write, WriteStorage};

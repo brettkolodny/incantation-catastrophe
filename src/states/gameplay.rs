@@ -7,7 +7,10 @@ use amethyst::renderer::{camera::Projection, sprite::SpriteSheetHandle, Camera, 
 use crate::components::{Background, GameplayItem, Player, Size};
 use crate::resources::{CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet};
 use crate::states::{GameOverState, PauseState};
-use crate::utility::{load_sprite_sheet, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, HEART_SPRITE_NUMBER, BACKGROUND_SPRITE_NUMBER, CIRCLE_SPRITE_NUMBER};
+use crate::utility::{
+    load_sprite_sheet, BACKGROUND_SPRITE_NUMBER, CIRCLE_SPRITE_NUMBER, GAMEPLAY_AREA_HEIGHT,
+    GAMEPLAY_AREA_WIDTH, HEART_SPRITE_NUMBER,
+};
 
 pub struct GameplayState;
 
@@ -57,7 +60,7 @@ impl SimpleState for GameplayState {
         }
         Trans::None
     }
-    
+
     fn on_stop(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
         let world = _data.world;
         let gameplay_state_items = world.read_storage::<GameplayItem>();
@@ -113,7 +116,6 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
         .with(Size::new(1000., 1000.))
         .build();
 }
-
 
 pub fn initialize_circle(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();

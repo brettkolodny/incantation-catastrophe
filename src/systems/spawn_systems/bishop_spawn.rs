@@ -6,9 +6,9 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{Bishop, Enemy, Health, Size, GameplayItem};
+use crate::components::{Bishop, Enemy, GameplayItem, Health, Size};
 use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, BISHOP_SPRITE_NUMBER, RADIUS};
+use crate::utility::{BISHOP_SPRITE_NUMBER, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct BishopSpawnSystem {
     pub spawn_timer: f32,

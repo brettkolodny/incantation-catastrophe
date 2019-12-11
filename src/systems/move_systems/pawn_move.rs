@@ -16,19 +16,14 @@ impl<'s> System<'s> for PawnMoveSystem {
         Read<'s, CurrentState>,
     );
 
-    fn run(
-        &mut self,
-        (player, pawns, speeds, mut transforms, time, state): Self::SystemData,
-    ) {
+    fn run(&mut self, (player, pawns, speeds, mut transforms, time, state): Self::SystemData) {
         if state.is_paused() {
             return;
         }
 
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
-            for (pawn_transform, pawn_speed, _) in
-                (&mut transforms, &speeds, &pawns).join()
-            {
+            for (pawn_transform, pawn_speed, _) in (&mut transforms, &speeds, &pawns).join() {
                 let player_vector = player_transform.translation();
                 let pawn_vector = pawn_transform.translation();
 

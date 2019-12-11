@@ -13,7 +13,6 @@ impl SimpleState for GameOverState {
 
         initialize_score_text(world, score);
     }
-
 }
 
 fn initialize_score_text(world: &mut World, score: u32) {

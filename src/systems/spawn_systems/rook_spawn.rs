@@ -3,9 +3,9 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, Health, Rook, Size, Speed, GameplayItem};
+use crate::components::{CurrentDirection, Enemy, GameplayItem, Health, Rook, Size, Speed};
 use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, ROOK_SPRITE_NUMBER, RADIUS};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS, ROOK_SPRITE_NUMBER};
 
 pub struct RookSpawnSystem {
     pub spawn_timer: f32,

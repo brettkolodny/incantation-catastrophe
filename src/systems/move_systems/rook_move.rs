@@ -16,19 +16,14 @@ impl<'s> System<'s> for RookMoveSystem {
         Read<'s, CurrentState>,
     );
 
-    fn run(
-        &mut self,
-        (player, rooks, speeds, mut transforms, time, state): Self::SystemData,
-    ) {
+    fn run(&mut self, (player, rooks, speeds, mut transforms, time, state): Self::SystemData) {
         if state.is_paused() {
             return;
         }
 
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
-            for (rook_transform, rook_speed, _) in
-                (&mut transforms, &speeds, &rooks).join()
-            {
+            for (rook_transform, rook_speed, _) in (&mut transforms, &speeds, &rooks).join() {
                 let player_vector = player_transform.translation();
                 let rook_vector = rook_transform.translation();
 
