@@ -5,7 +5,7 @@ use rand::Rng;
 
 use crate::components::{CurrentDirection, Enemy, Health, Pawn, Size, Speed};
 use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, PAWN_SPRITE_NUMBER, RADIUS};
 
 pub struct PawnSpawnSystem {
     pub spawn_timer: f32,
@@ -50,12 +50,11 @@ impl<'s> System<'s> for PawnSpawnSystem {
         }
 
         if self.time_since_spawn >= self.spawn_timer {
-            let radius = (GAMEPLAY_AREA_HEIGHT) / 2.;
             let angle = rand::thread_rng().gen_range(0, 360) as f32;
 
             let (x, y) = (
-                (radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.),
-                (radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.),
+                (RADIUS * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.),
+                (RADIUS * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.),
             );
 
             let mut local_transform = Transform::default();
@@ -65,7 +64,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 5,
+                    sprite_number: PAWN_SPRITE_NUMBER,
                 }
             };
 

@@ -8,6 +8,7 @@ use crate::components::{
     CurrentDirection, GameplayItem, Player, PlayerProjectile, Projectile, Size, Speed,
 };
 use crate::resources::{CurrentState, SpriteSheet};
+use crate::utility::PLAYER_SHOT_SPRITE_NUMBER;
 
 pub struct PlayerShootSystem {
     pub is_shooting: bool,
@@ -72,7 +73,7 @@ impl<'s> System<'s> for PlayerShootSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 7,
+                    sprite_number: PLAYER_SHOT_SPRITE_NUMBER,
                 }
             };
 

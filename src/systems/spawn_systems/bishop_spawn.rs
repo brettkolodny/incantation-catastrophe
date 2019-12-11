@@ -8,7 +8,7 @@ use rand::Rng;
 
 use crate::components::{Bishop, Enemy, Health, Size};
 use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, BISHOP_SPRITE_NUMBER, RADIUS};
 
 pub struct BishopSpawnSystem {
     pub spawn_timer: f32,
@@ -49,12 +49,11 @@ impl<'s> System<'s> for BishopSpawnSystem {
         }
 
         if self.time_since_spawn >= self.spawn_timer {
-            let radius = (GAMEPLAY_AREA_HEIGHT) / 2.;
             let angle = rand::thread_rng().gen_range(0, 360) as f32;
 
             let circle_vector = {
-                let x = radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
-                let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
+                let x = RADIUS * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
+                let y = RADIUS * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
                 let z = 0.;
 
                 let circle_vector = Vector3::new(x, y, z);
@@ -77,7 +76,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: 1,
+                    sprite_number: BISHOP_SPRITE_NUMBER,
                 }
             };
 

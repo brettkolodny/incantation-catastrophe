@@ -8,8 +8,21 @@ use amethyst::renderer::{
 
 use crate::components::Size;
 
-pub const GAMEPLAY_AREA_WIDTH: f32 = 1920.;
-pub const GAMEPLAY_AREA_HEIGHT: f32 = 1080.;
+pub const GAMEPLAY_AREA_WIDTH: f32 = 1280.;
+pub const GAMEPLAY_AREA_HEIGHT: f32 = 960.;
+
+pub const PAWN_SPRITE_NUMBER: usize = 6;
+pub const KNIGHT_SPRITE_NUMBER: usize = 4;
+pub const BISHOP_SPRITE_NUMBER: usize = 2;
+pub const BACKGROUND_SPRITE_NUMBER: usize = 1;
+pub const CIRCLE_SPRITE_NUMBER: usize = 0;
+pub const ROOK_SPRITE_NUMBER: usize = 3;
+pub const HEART_SPRITE_NUMBER: usize = 7;
+pub const PLAYER_SHOT_SPRITE_NUMBER: usize = 8;
+pub const BISHOP_SHOT_SPRITE_NUMBER: usize = 9;
+pub const PLAYER_SPRITE_NUMBER: usize = 5;
+
+pub const RADIUS: f32 = 422.;
 
 pub fn load_sprite_sheet(
     _world: &mut World,

@@ -5,7 +5,7 @@ use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
 
 use crate::components::{tags::GameplayItem, CurrentDirection, Health, Size, Speed};
 use crate::resources::PlayerResource;
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, PLAYER_SPRITE_NUMBER};
 
 #[derive(Default)]
 pub struct Player {
@@ -37,7 +37,7 @@ impl Player {
         let sprite_render = {
             SpriteRender {
                 sprite_sheet: sprite_sheet_handle,
-                sprite_number: 4,
+                sprite_number: PLAYER_SPRITE_NUMBER,
             }
         };
 

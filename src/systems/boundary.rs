@@ -3,7 +3,7 @@ use amethyst::ecs::{Entities, Join, ReadStorage, System, Write};
 
 use crate::components::{Background, GameplayItem, Player};
 use crate::resources::PlayerResource;
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct BoundarySystem;
 
@@ -21,8 +21,6 @@ impl<'s> System<'s> for BoundarySystem {
         &mut self,
         (transforms, entities, gameplay_items, backgrounds, players, mut player_resource): Self::SystemData,
     ) {
-        let radius = GAMEPLAY_AREA_HEIGHT / 2.;
-
         for (transform, entity, _, _, _) in (
             &transforms,
             &entities,
@@ -37,7 +35,7 @@ impl<'s> System<'s> for BoundarySystem {
 
             if (entity_x - (GAMEPLAY_AREA_WIDTH / 2.)).powi(2)
                 + (entity_y - (GAMEPLAY_AREA_HEIGHT / -2.)).powi(2)
-                > radius.powi(2)
+                > RADIUS.powi(2)
             {
                 if let Err(e) = entities.delete(entity) {
                     dbg!(e);
@@ -56,7 +54,7 @@ impl<'s> System<'s> for BoundarySystem {
 
             if (player_x - (GAMEPLAY_AREA_WIDTH / 2.)).powi(2)
                 + (player_y - (GAMEPLAY_AREA_HEIGHT / -2.)).powi(2)
-                > radius.powi(2)
+                > RADIUS.powi(2)
             {
                 player_resource.player = None;
                 if let Err(e) = entities.delete(player) {
