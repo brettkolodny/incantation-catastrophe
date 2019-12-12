@@ -3,6 +3,7 @@ mod enemy;
 mod player;
 mod projectile;
 mod tags;
+mod current_frame;
 
 pub use self::{
     attribute::*,
@@ -10,4 +11,5 @@ pub use self::{
     player::Player,
     projectile::{PlayerProjectile, Projectile},
     tags::{Background, GameplayItem, MainMenuItem, PauseItem, Tag},
+    current_frame::CurrentFrame,
 };

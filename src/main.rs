@@ -118,7 +118,8 @@ fn main() -> amethyst::Result<()> {
             systems::PlayerHitSystem::default(),
             "player_hit",
             &["pawn_move", "bishop_shoot", "player_death"],
-        );
+        )
+        .with(systems::PawnRunSystem, "pawn_run", &["pawn_spawn"]);
 
     let mut game = Application::new("./", GameplayState {}, game_data)?;
     game.run();

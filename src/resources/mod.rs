@@ -3,8 +3,9 @@ mod heart_health;
 mod player_resource;
 mod score_resource;
 mod spritesheet;
+mod animation_spritesheets;
 
 pub use self::{
     game_state::CurrentState, heart_health::Hearts, player_resource::PlayerResource,
-    score_resource::ScoreResource, spritesheet::SpriteSheet,
+    score_resource::ScoreResource, spritesheet::SpriteSheet, animation_spritesheets::{AnimationSpriteSheets}, 
 };

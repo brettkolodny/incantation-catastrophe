@@ -5,7 +5,7 @@ use amethyst::prelude::*;
 use amethyst::renderer::{camera::Projection, sprite::SpriteSheetHandle, Camera, SpriteRender};
 
 use crate::components::{Background, GameplayItem, Player, Size};
-use crate::resources::{CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet};
+use crate::resources::{CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet, AnimationSpriteSheets};
 use crate::states::{GameOverState, PauseState};
 use crate::utility::{
     load_sprite_sheet, BACKGROUND_SPRITE_NUMBER, CIRCLE_SPRITE_NUMBER, GAMEPLAY_AREA_HEIGHT,
@@ -37,6 +37,7 @@ impl SimpleState for GameplayState {
         initialize_arena(world, spritesheet.clone());
         initialize_circle(world, spritesheet.clone());
         initialize_camera(world);
+        initialize_animation_resource(world);
         Player::initialize(world, spritesheet.clone());
     }
 
@@ -173,4 +174,15 @@ pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHand
     }
 
     world.insert(Hearts { hearts });
+}
+
+pub fn initialize_animation_resource(world: &mut World) { 
+    let pawn_spritesheet_handle = load_sprite_sheet(
+        world,
+        "textures/animations/pawn/pawn_run.png",
+        "textures/animations/pawn/pawn_run.ron",
+    );
+
+    let animations = &mut world.write_resource::<AnimationSpriteSheets>().sprite_sheets;
+    animations.insert("pawn".to_string(), pawn_spritesheet_handle); 
 }
