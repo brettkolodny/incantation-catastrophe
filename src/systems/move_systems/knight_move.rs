@@ -20,7 +20,7 @@ impl<'s> System<'s> for KnightMoveSystem {
         &mut self,
         (mut transforms, knights, speeds, directions, time, state): Self::SystemData,
     ) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

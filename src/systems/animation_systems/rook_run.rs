@@ -16,7 +16,7 @@ impl<'s> System<'s> for RookRunSystem {
     );
 
     fn run(&mut self, (rooks, mut frames, mut sprite_renders, state, time): Self::SystemData) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

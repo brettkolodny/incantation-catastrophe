@@ -22,7 +22,7 @@ impl<'s> System<'s> for PawnMoveSystem {
         &mut self,
         (mut directions, player, pawns, speeds, mut transforms, time, state): Self::SystemData,
     ) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

@@ -53,7 +53,7 @@ impl<'s> System<'s> for PlayerShootSystem {
             state,
         ): Self::SystemData,
     ) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

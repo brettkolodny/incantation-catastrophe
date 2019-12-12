@@ -22,7 +22,7 @@ impl<'s> System<'s> for RookMoveSystem {
         &mut self,
         (mut directions, player, rooks, speeds, mut transforms, time, state): Self::SystemData,
     ) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

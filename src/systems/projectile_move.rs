@@ -20,7 +20,7 @@ impl<'s> System<'s> for ProjectileMoveSystem {
         &mut self,
         (mut transforms, projectiles, speeds, directions, time, state): Self::SystemData,
     ) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

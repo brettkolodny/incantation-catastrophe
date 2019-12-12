@@ -22,7 +22,7 @@ impl<'s> System<'s> for PlayerMoveSystem {
         &mut self,
         (mut transforms, speeds, mut directions, players, input, state): Self::SystemData,
     ) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

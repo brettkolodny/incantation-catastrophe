@@ -2,6 +2,7 @@ pub enum GameState {
     Gameplay,
     Pause,
     MainMenu,
+    Gameover,
 }
 
 impl Default for GameState {
@@ -17,7 +18,7 @@ pub struct CurrentState {
 impl Default for CurrentState {
     fn default() -> Self {
         CurrentState {
-            current_state: GameState::Pause,
+            current_state: GameState::MainMenu,
         }
     }
 }
@@ -31,8 +32,20 @@ impl CurrentState {
         self.current_state = GameState::Gameplay;
     }
 
-    pub fn is_paused(&self) -> bool {
-        if let GameState::Pause = self.current_state {
+    pub fn gameover(&mut self) {
+        self.current_state = GameState::Gameover;
+    }
+
+    pub fn is_gameplay(&self) -> bool {
+        if let GameState::Gameplay = self.current_state {
+            return true;
+        }
+
+        false
+    }
+
+    pub fn is_gameover(&self) -> bool {
+        if let GameState::Gameover = self.current_state {
             return true;
         }
 

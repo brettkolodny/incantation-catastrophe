@@ -56,7 +56,7 @@ impl SimpleState for GameplayState {
         let player = data.world.read_resource::<PlayerResource>();
         let mut state = data.world.write_resource::<CurrentState>();
         if let None = player.player {
-            state.pause();
+            state.gameover();
             return Trans::Switch(Box::new(GameOverState));
         }
         Trans::None

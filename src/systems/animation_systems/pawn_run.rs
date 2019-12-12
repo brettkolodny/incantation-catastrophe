@@ -16,7 +16,7 @@ impl<'s> System<'s> for PawnRunSystem {
     );
 
     fn run(&mut self, (pawns, mut frames, mut sprite_renders, state, time): Self::SystemData) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
 

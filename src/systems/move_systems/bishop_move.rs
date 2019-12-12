@@ -23,7 +23,7 @@ impl<'s> System<'s> for BishopMoveSystem {
     );
 
     fn run(&mut self, (mut transforms, mut bishops, time, state): Self::SystemData) {
-        if state.is_paused() {
+        if !state.is_gameplay() {
             return;
         }
         for (mut bishop, transform) in (&mut bishops, &mut transforms).join() {
