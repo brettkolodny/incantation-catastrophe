@@ -33,14 +33,12 @@ impl<'s> System<'s> for RookMoveSystem {
                 let new_vector = math::base::Matrix::normalize(&new_vector);
                 let new_vector = math::Unit::new_unchecked(new_vector);
 
-                if new_vector.x.abs() > new_vector.y.abs() {
-                    if new_vector.x < 0. {
+                if player_vector.x < rook_vector.x { 
                         direction.turn_right();
                         rook_transform.set_rotation_y_axis(PI);
-                    } else {
+                } else {
                         direction.turn_left();
                         rook_transform.set_rotation_y_axis(0.);
-                    }
                 }
 
                 rook_transform

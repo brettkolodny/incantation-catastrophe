@@ -36,14 +36,12 @@ impl<'s> System<'s> for PawnMoveSystem {
                 let new_vector = math::base::Matrix::normalize(&new_vector);
                 let new_vector = math::Unit::new_unchecked(new_vector);
 
-                if new_vector.x.abs() > new_vector.y.abs() {
-                    if new_vector.x < 0. {
+                if player_vector.x < pawn_vector.x { 
                         direction.turn_right();
                         pawn_transform.set_rotation_y_axis(PI);
-                    } else {
+                } else {
                         direction.turn_left();
                         pawn_transform.set_rotation_y_axis(0.);
-                    }
                 }
 
                 pawn_transform
