@@ -2,7 +2,7 @@ use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::{Entity, Join};
 use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
-use amethyst::renderer::{camera::Projection, sprite::SpriteSheetHandle, Camera, SpriteRender};
+use amethyst::renderer::{sprite::SpriteSheetHandle, Camera, SpriteRender};
 
 use crate::components::{Background, GameplayItem, Player, Size};
 use crate::resources::{
@@ -38,7 +38,6 @@ impl SimpleState for GameplayState {
         initialize_hearts(world, spritesheet.clone());
         initialize_arena(world, spritesheet.clone());
         initialize_circle(world, spritesheet.clone());
-        initialize_camera(world);
         initialize_animation_resource(world);
     }
 
@@ -76,22 +75,6 @@ impl SimpleState for GameplayState {
     }
 }
 
-fn initialize_camera(_world: &mut World) {
-    let mut transform = Transform::default();
-    transform.set_translation_z(1.0);
-    _world
-        .create_entity()
-        .with(Camera::from(Projection::orthographic(
-            0.,
-            GAMEPLAY_AREA_WIDTH,
-            0.,
-            GAMEPLAY_AREA_HEIGHT,
-            0.,
-            20.,
-        )))
-        .with(transform)
-        .build();
-}
 
 pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();

@@ -17,7 +17,7 @@ mod states;
 mod systems;
 mod utility;
 
-use crate::states::GameplayState;
+use crate::states::TitleState;
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -40,7 +40,7 @@ fn main() -> amethyst::Result<()> {
             RenderingBundle::<DefaultBackend>::new()
                 .with_plugin(
                     RenderToWindow::from_config_path(display_config)
-                        .with_clear([0.1, 0.1, 0.1, 1.0]),
+                        .with_clear([0., 0., 0., 1.0]),
                 )
                 .with_plugin(RenderFlat2D::default())
                 .with_plugin(RenderUi::default()),
@@ -128,7 +128,7 @@ fn main() -> amethyst::Result<()> {
         )
         .with(systems::KnightRunSystem, "knight_run", &["knight_spawn"]);
 
-    let mut game = Application::new("./", GameplayState {}, game_data)?;
+    let mut game = Application::new("./", TitleState {}, game_data)?;
     game.run();
 
     Ok(())
