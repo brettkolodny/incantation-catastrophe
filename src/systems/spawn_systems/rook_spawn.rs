@@ -6,7 +6,7 @@ use rand::Rng;
 use crate::components::{
     CurrentDirection, CurrentFrame, Enemy, GameplayItem, Health, Rook, Size, Speed,
 };
-use crate::resources::{AnimationSpriteSheets, CurrentState, };
+use crate::resources::{AnimationSpriteSheets, CurrentState};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct RookSpawnSystem {
@@ -53,7 +53,6 @@ impl<'s> System<'s> for RookSpawnSystem {
     ) {
         if !state.is_gameplay() {
             if self.time_since_spawn != 0. {
-                
                 if state.is_gameover() {
                     self.time_since_spawn = 0.;
                 }
