@@ -16,7 +16,7 @@ impl SimpleState for GameOverState {
 }
 
 fn initialize_score_text(world: &mut World, score: u32) {
-    let score_string = format!("SCORE:{}", score);
+    let score_string = format!("SCORE: {}", score);
     println!("Your score was: {}!", score);
 
     let font = world.read_resource::<Loader>().load(
