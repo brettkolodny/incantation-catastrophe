@@ -31,9 +31,14 @@ impl<'s> System<'s> for PlayerAnimationSystem {
         for (_, frame, sprite_render) in (&players, &mut frames, &mut sprite_renders).join() {
             if horizontal_movement != Some(0.) || vertical_movement != Some(0.) {
                 if time.absolute_time_seconds() - frame.time > 0.15 {
-                    if frame.current_frame == 4 {
-                        sprite_render.sprite_number = 1;
-                        frame.current_frame = 1;
+                    if frame.current_frame < 4 {
+                        sprite_render.sprite_number = 4;
+                        frame.current_frame = 4;
+
+                    } else if frame.current_frame == 7 {
+                        sprite_render.sprite_number = 4;
+                        frame.current_frame = 4;
+
                     } else {
                         sprite_render.sprite_number = frame.current_frame + 1;
                         frame.current_frame += 1;
@@ -42,8 +47,22 @@ impl<'s> System<'s> for PlayerAnimationSystem {
                     frame.time = time.absolute_time_seconds();
                 }
             } else {
-                sprite_render.sprite_number = 0;
-                frame.current_frame = 1;
+                if time.absolute_time_seconds() - frame.time > 0.15 {
+                    if frame.current_frame > 3 {
+                        sprite_render.sprite_number = 0;
+                        frame.current_frame = 0;
+
+                    } else if frame.current_frame == 7 {
+                        sprite_render.sprite_number = 4;
+                        frame.current_frame = 4;
+
+                    } else {
+                        sprite_render.sprite_number = frame.current_frame + 1;
+                        frame.current_frame += 1;
+                    }
+                    
+                    frame.time = time.absolute_time_seconds();
+                }
             }
         }
     }

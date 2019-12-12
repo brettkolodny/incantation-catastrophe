@@ -8,7 +8,7 @@ use rand::Rng;
 
 use crate::components::Bishop;
 use crate::resources::CurrentState;
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct BishopMoveSystem {
     pub move_timer: f32,
@@ -28,12 +28,11 @@ impl<'s> System<'s> for BishopMoveSystem {
         }
         for (mut bishop, transform) in (&mut bishops, &mut transforms).join() {
             if bishop.time_since_move >= self.move_timer {
-                let radius = GAMEPLAY_AREA_HEIGHT / 2.;
                 let angle = rand::thread_rng().gen_range(0, 360) as f32;
 
                 let circle_vector = {
-                    let x = radius * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
-                    let y = radius * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
+                    let x = RADIUS * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
+                    let y = RADIUS * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
                     let z = 0.;
 
                     let circle_vector = Vector3::new(x, y, z);
@@ -43,11 +42,12 @@ impl<'s> System<'s> for BishopMoveSystem {
                 transform.set_translation_xyz(circle_vector.x, circle_vector.y, circle_vector.z);
 
                 let center_vector =
-                    Vector3::new(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
+                    //Vector3::new(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
+                    Vector3::new(RADIUS, RADIUS, 0.);
 
                 let move_vector = Matrix::normalize(&(center_vector - circle_vector));
 
-                let distance = rand::thread_rng().gen_range(0, GAMEPLAY_AREA_HEIGHT as i32) as f32;
+                let distance = rand::thread_rng().gen_range(0, RADIUS as i32) as f32;
 
                 transform.prepend_translation_along(Unit::new_unchecked(move_vector), distance);
                 bishop.time_since_move = 0.;
