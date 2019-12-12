@@ -1,11 +1,11 @@
 use amethyst::assets::Loader;
+use amethyst::ecs::Join;
+use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
-use amethyst::input::{is_key_down, VirtualKeyCode};
-use amethyst::ecs::Join;
 
-use crate::resources::{ScoreResource, CurrentState};
 use crate::components::GameoverItem;
+use crate::resources::{CurrentState, ScoreResource};
 use crate::states::GameplayState;
 
 pub struct GameOverState;
@@ -98,7 +98,8 @@ fn initialize_play_again_text(world: &mut World) {
         50.,
     );
 
-    world.create_entity()
+    world
+        .create_entity()
         .with(text_transform)
         .with(UiText::new(
             font,

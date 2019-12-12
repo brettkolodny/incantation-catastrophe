@@ -1,23 +1,18 @@
-use amethyst::core::{math::Vector3, transform::Transform};
-use amethyst::ecs::{Entity, Join};
+use amethyst::assets::Loader;
+use amethyst::core::transform::Transform;
+use amethyst::ecs::Join;
 use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
-use amethyst::renderer::{sprite::SpriteSheetHandle, Camera, SpriteRender};
-use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
 use amethyst::renderer::camera::Projection;
-use amethyst::assets::Loader;
+use amethyst::renderer::Camera;
+use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
 
-use crate::components::{Background, TitleItem, Player, Size};
-use crate::resources::{
-    AnimationSpriteSheets, CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet,
-};
-use crate::states::{GameplayState};
-use crate::utility::{
-    load_sprite_sheet, BACKGROUND_SPRITE_NUMBER, CIRCLE_SPRITE_NUMBER, GAMEPLAY_AREA_HEIGHT,
-    GAMEPLAY_AREA_WIDTH, HEART_SPRITE_NUMBER,
-};
+use crate::components::TitleItem;
+use crate::resources::CurrentState;
+use crate::states::GameplayState;
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
-pub struct TitleState ;
+pub struct TitleState;
 
 impl SimpleState for TitleState {
     fn on_start(&mut self, _data: StateData<'_, GameData<'_, '_>>) {
@@ -105,7 +100,6 @@ fn initialize_title_text(world: &mut World) {
         .with(TitleItem)
         .build();
 }
-
 
 fn initialize_camera(_world: &mut World) {
     let mut transform = Transform::default();

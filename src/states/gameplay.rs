@@ -2,7 +2,7 @@ use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::{Entity, Join};
 use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
-use amethyst::renderer::{sprite::SpriteSheetHandle, Camera, SpriteRender};
+use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
 
 use crate::components::{Background, GameplayItem, Player, Size};
 use crate::resources::{
@@ -74,7 +74,6 @@ impl SimpleState for GameplayState {
         }
     }
 }
-
 
 pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();

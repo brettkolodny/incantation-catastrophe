@@ -5,7 +5,7 @@ use crate::components::Tag;
 #[derive(Default)]
 pub struct TitleItem;
 
-impl Component for TitleItem{
+impl Component for TitleItem {
     type Storage = NullStorage<Self>;
 }
 
