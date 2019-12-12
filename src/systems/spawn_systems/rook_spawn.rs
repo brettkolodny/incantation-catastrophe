@@ -75,7 +75,7 @@ impl<'s> System<'s> for RookSpawnSystem {
                 .with(local_transform, &mut transforms)
                 .with(sprite_render, &mut sprite_renders)
                 .with(CurrentDirection::default(), &mut directions)
-                .with(Size::new(64., 64.), &mut sizes)
+                .with(Size::new(32., 34.), &mut sizes)
                 .with(Speed::new(50.), &mut speeds)
                 .with(Rook, &mut rooks)
                 .with(Enemy, &mut enemies)

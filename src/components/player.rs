@@ -48,7 +48,7 @@ impl Player {
                 .with(local_transform)
                 .with(Player::new())
                 .with(Speed::new(5.))
-                .with(Size::new(50., 50.))
+                .with(Size::new(16., 28.))
                 .with(CurrentDirection::default())
                 .with(GameplayItem)
                 .with(Health::default())

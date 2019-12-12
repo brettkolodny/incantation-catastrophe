@@ -85,7 +85,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
                     .build_entity()
                     .with(local_transform, &mut transforms)
                     .with(sprite_render, &mut sprite_renders)
-                    .with(Size::new(32., 32.), &mut sizes)
+                    .with(Size::new(16., 28.), &mut sizes)
                     .with(Speed::new(600.), &mut speeds)
                     .with(CurrentDirection::custom(direction), &mut directions)
                     .with(Knight, &mut knights)

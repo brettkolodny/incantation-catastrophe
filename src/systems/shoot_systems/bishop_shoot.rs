@@ -82,7 +82,7 @@ impl<'s> System<'s> for BishopShootSystem {
                     .with(Projectile, &mut projectiles)
                     .with(CurrentDirection::custom(direction), &mut directions)
                     .with(Speed::new(500.), &mut speeds)
-                    .with(Size::new(52., 52.), &mut sizes)
+                    .with(Size::new(40., 40.), &mut sizes)
                     .with(sprite_render.clone(), &mut sprite_renders)
                     .with(GameplayItem, &mut gameplay_items)
                     .build();

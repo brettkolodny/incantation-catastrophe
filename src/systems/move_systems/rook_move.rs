@@ -18,14 +18,19 @@ impl<'s> System<'s> for RookMoveSystem {
         Read<'s, CurrentState>,
     );
 
-    fn run(&mut self, (mut directions, player, rooks, speeds, mut transforms, time, state): Self::SystemData) {
+    fn run(
+        &mut self,
+        (mut directions, player, rooks, speeds, mut transforms, time, state): Self::SystemData,
+    ) {
         if state.is_paused() {
             return;
         }
 
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
-            for (rook_transform, rook_speed, direction, _) in (&mut transforms, &speeds, &mut directions, &rooks).join() {
+            for (rook_transform, rook_speed, direction, _) in
+                (&mut transforms, &speeds, &mut directions, &rooks).join()
+            {
                 let player_vector = player_transform.translation();
                 let rook_vector = rook_transform.translation();
 
@@ -33,12 +38,12 @@ impl<'s> System<'s> for RookMoveSystem {
                 let new_vector = math::base::Matrix::normalize(&new_vector);
                 let new_vector = math::Unit::new_unchecked(new_vector);
 
-                if player_vector.x < rook_vector.x { 
-                        direction.turn_right();
-                        rook_transform.set_rotation_y_axis(PI);
+                if player_vector.x < rook_vector.x {
+                    direction.turn_right();
+                    rook_transform.set_rotation_y_axis(PI);
                 } else {
-                        direction.turn_left();
-                        rook_transform.set_rotation_y_axis(0.);
+                    direction.turn_left();
+                    rook_transform.set_rotation_y_axis(0.);
                 }
 
                 rook_transform

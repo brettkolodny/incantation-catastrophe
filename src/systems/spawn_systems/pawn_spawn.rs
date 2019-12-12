@@ -75,7 +75,7 @@ impl<'s> System<'s> for PawnSpawnSystem {
                 .with(local_transform, &mut transforms)
                 .with(sprite_render, &mut sprite_renders)
                 .with(CurrentDirection::default(), &mut directions)
-                .with(Size::new(32., 32.), &mut sizes)
+                .with(Size::new(16., 24.), &mut sizes)
                 .with(Speed::new(100.), &mut speeds)
                 .with(Pawn, &mut pawns)
                 .with(Enemy, &mut enemies)

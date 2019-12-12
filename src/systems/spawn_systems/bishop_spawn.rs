@@ -93,7 +93,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
                     &mut bishops,
                 )
                 .with(Enemy, &mut enemies)
-                .with(Size::new(32., 32.), &mut sizes)
+                .with(Size::new(32., 36.), &mut sizes)
                 .with(bishop_transform, &mut transforms)
                 .with(sprite_render, &mut sprite_renders)
                 .with(Health::bishop(), &mut healths)

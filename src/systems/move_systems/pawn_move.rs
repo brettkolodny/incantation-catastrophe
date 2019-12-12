@@ -28,7 +28,9 @@ impl<'s> System<'s> for PawnMoveSystem {
 
         if let Some(player) = player.player {
             let player_transform = transforms.get(player).unwrap().clone();
-            for (pawn_transform, pawn_speed, direction, _) in (&mut transforms, &speeds, &mut directions, &pawns).join() {
+            for (pawn_transform, pawn_speed, direction, _) in
+                (&mut transforms, &speeds, &mut directions, &pawns).join()
+            {
                 let player_vector = player_transform.translation();
                 let pawn_vector = pawn_transform.translation();
 
@@ -36,12 +38,12 @@ impl<'s> System<'s> for PawnMoveSystem {
                 let new_vector = math::base::Matrix::normalize(&new_vector);
                 let new_vector = math::Unit::new_unchecked(new_vector);
 
-                if player_vector.x < pawn_vector.x { 
-                        direction.turn_right();
-                        pawn_transform.set_rotation_y_axis(PI);
+                if player_vector.x < pawn_vector.x {
+                    direction.turn_right();
+                    pawn_transform.set_rotation_y_axis(PI);
                 } else {
-                        direction.turn_left();
-                        pawn_transform.set_rotation_y_axis(0.);
+                    direction.turn_left();
+                    pawn_transform.set_rotation_y_axis(0.);
                 }
 
                 pawn_transform
