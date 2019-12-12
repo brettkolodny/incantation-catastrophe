@@ -10,7 +10,7 @@ mod shoot_systems;
 mod spawn_systems;
 
 pub use self::{
-    animation_systems::{KnightRunSystem, PawnRunSystem, PlayerAnimationSystem, RookRunSystem},
+    animation_systems::{KnightRunSystem, PawnRunSystem, PlayerAnimationSystem, RookRunSystem, BishopAnimationSystem},
     boundary::BoundarySystem,
     enemy_hit::EnemyHitSystem,
     knight_push::KnightPushSystem,

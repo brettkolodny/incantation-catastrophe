@@ -184,6 +184,12 @@ pub fn initialize_animation_resource(world: &mut World) {
         "textures/animations/player/player_run.ron",
     );
 
+    let bishop_spritesheet_handle = load_sprite_sheet(
+        world,
+        "textures/animations/bishop/bishop.png",
+        "textures/animations/bishop/bishop.ron",
+    );
+
     Player::initialize(world, player_spritesheet_handle.clone());
 
     let animations = &mut world
@@ -193,4 +199,5 @@ pub fn initialize_animation_resource(world: &mut World) {
     animations.insert("rook".to_string(), rook_spritesheet_handle);
     animations.insert("knight".to_string(), knight_spritesheet_handle);
     animations.insert("player".to_string(), player_spritesheet_handle);
+    animations.insert("bishop".to_string(), bishop_spritesheet_handle);
 }

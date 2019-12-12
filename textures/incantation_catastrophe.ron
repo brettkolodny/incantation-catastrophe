@@ -1,5 +1,5 @@
 (
-    texture_width: 1502,
+    texture_width: 1390,
     texture_height: 734,
     sprites: [
         (
@@ -19,54 +19,19 @@
         (
             x: 1364,
             y: 0,
-            width: 32,
-            height: 36,
-            offsets: None,
-        ),
-        (
-            x: 1396,
-            y: 0,
-            width: 32,
-            height: 34,
-            offsets: None,
-        ),
-        (
-            x: 1428,
-            y: 0,
-            width: 16,
-            height: 28,
-            offsets: None,
-        ),
-        (
-            x: 1444,
-            y: 0,
-            width: 16,
-            height: 28,
-            offsets: None,
-        ),
-        (
-            x: 1460,
-            y: 0,
-            width: 16,
-            height: 24,
-            offsets: None,
-        ),
-        (
-            x: 1476,
-            y: 0,
             width: 16,
             height: 16,
             offsets: None,
         ),
         (
-            x: 1492,
+            x: 1380,
             y: 0,
             width: 10,
             height: 21,
             offsets: None,
         ),
         (
-            x: 1476,
+            x: 1364,
             y: 16,
             width: 8,
             height: 8,

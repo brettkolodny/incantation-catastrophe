@@ -120,6 +120,7 @@ fn main() -> amethyst::Result<()> {
         )
         .with(systems::PawnRunSystem, "pawn_run", &["pawn_spawn"])
         .with(systems::RookRunSystem, "rook_run", &["rook_spawn"])
+        .with(systems::BishopAnimationSystem, "bishop_animation", &["bishop_spawn", "bishop_shoot"])
         .with(
             systems::PlayerAnimationSystem,
             "player_animation",

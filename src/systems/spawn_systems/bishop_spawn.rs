@@ -5,9 +5,9 @@ use rand::Rng;
 
 use std::f32::consts::PI;
 
-use crate::components::{Bishop, Enemy, GameplayItem, Health, Size};
-use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::{BISHOP_SPRITE_NUMBER, GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
+use crate::components::{Bishop, CurrentFrame, Enemy, GameplayItem, Health, Size};
+use crate::resources::{CurrentState, AnimationSpriteSheets};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct BishopSpawnSystem {
     pub spawn_timer: f32,
@@ -16,6 +16,7 @@ pub struct BishopSpawnSystem {
 
 impl<'s> System<'s> for BishopSpawnSystem {
     type SystemData = (
+        WriteStorage<'s, CurrentFrame>,
         WriteStorage<'s, GameplayItem>,
         WriteStorage<'s, Enemy>,
         WriteStorage<'s, Bishop>,
@@ -23,7 +24,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
         WriteStorage<'s, SpriteRender>,
         WriteStorage<'s, Transform>,
         WriteStorage<'s, Health>,
-        Read<'s, SpriteSheet>,
+        Read<'s, AnimationSpriteSheets>,
         Read<'s, Time>,
         Entities<'s>,
         Read<'s, CurrentState>,
@@ -32,6 +33,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
     fn run(
         &mut self,
         (
+            mut frames,
             mut gameplay_items,
             mut enemies,
             mut bishops,
@@ -39,7 +41,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
             mut sprite_renders,
             mut transforms,
             mut healths,
-            spritesheet,
+            animation_spritesheets,
             time,
             entities,
             state,
@@ -69,8 +71,8 @@ impl<'s> System<'s> for BishopSpawnSystem {
 
             let sprite_render = {
                 SpriteRender {
-                    sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: BISHOP_SPRITE_NUMBER,
+                    sprite_sheet: animation_spritesheets.sprite_sheets["bishop"].clone(),
+                    sprite_number: 0,
                 }
             };
 
@@ -90,6 +92,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
                 .with(sprite_render, &mut sprite_renders)
                 .with(Health::bishop(), &mut healths)
                 .with(GameplayItem, &mut gameplay_items)
+                .with(CurrentFrame::new(time.absolute_time_seconds()), &mut frames)
                 .build();
 
             self.time_since_spawn = 0.;
