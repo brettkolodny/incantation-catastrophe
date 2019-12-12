@@ -3,9 +3,9 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, GameplayItem, Health, Rook, Size, Speed};
-use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS, ROOK_SPRITE_NUMBER};
+use crate::components::{CurrentDirection, CurrentFrame, Enemy, GameplayItem, Health, Rook, Size, Speed};
+use crate::resources::{CurrentState, AnimationSpriteSheets};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct RookSpawnSystem {
     pub spawn_timer: f32,
@@ -14,6 +14,7 @@ pub struct RookSpawnSystem {
 
 impl<'s> System<'s> for RookSpawnSystem {
     type SystemData = (
+        WriteStorage<'s, CurrentFrame>,
         WriteStorage<'s, GameplayItem>,
         WriteStorage<'s, Transform>,
         WriteStorage<'s, Speed>,
@@ -23,7 +24,7 @@ impl<'s> System<'s> for RookSpawnSystem {
         WriteStorage<'s, Enemy>,
         WriteStorage<'s, SpriteRender>,
         WriteStorage<'s, Health>,
-        Read<'s, SpriteSheet>,
+        Read<'s, AnimationSpriteSheets>,
         Read<'s, Time>,
         Entities<'s>,
         Read<'s, CurrentState>,
@@ -32,6 +33,7 @@ impl<'s> System<'s> for RookSpawnSystem {
     fn run(
         &mut self,
         (
+            mut frames,
             mut gameplay_items,
             mut transforms,
             mut speeds,
@@ -41,7 +43,7 @@ impl<'s> System<'s> for RookSpawnSystem {
             mut enemies,
             mut sprite_renders,
             mut healths,
-            spritesheet,
+            animation_spritesheets,
             time,
             entities,
             state,
@@ -65,8 +67,8 @@ impl<'s> System<'s> for RookSpawnSystem {
 
             let sprite_render = {
                 SpriteRender {
-                    sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: ROOK_SPRITE_NUMBER,
+                    sprite_sheet: animation_spritesheets.sprite_sheets["rook"].clone(),
+                    sprite_number: 0,
                 }
             };
 
@@ -81,6 +83,7 @@ impl<'s> System<'s> for RookSpawnSystem {
                 .with(Enemy, &mut enemies)
                 .with(Health::rook(), &mut healths)
                 .with(GameplayItem, &mut gameplay_items)
+                .with(CurrentFrame::new(time.absolute_time_seconds()), &mut frames)
                 .build();
 
             self.time_since_spawn = 0.;

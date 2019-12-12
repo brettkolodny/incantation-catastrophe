@@ -15,7 +15,6 @@ pub const KNIGHT_SPRITE_NUMBER: usize = 4;
 pub const BISHOP_SPRITE_NUMBER: usize = 2;
 pub const BACKGROUND_SPRITE_NUMBER: usize = 1;
 pub const CIRCLE_SPRITE_NUMBER: usize = 0;
-pub const ROOK_SPRITE_NUMBER: usize = 3;
 pub const HEART_SPRITE_NUMBER: usize = 7;
 pub const PLAYER_SHOT_SPRITE_NUMBER: usize = 8;
 pub const BISHOP_SHOT_SPRITE_NUMBER: usize = 9;

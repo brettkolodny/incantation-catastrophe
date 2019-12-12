@@ -183,6 +183,13 @@ pub fn initialize_animation_resource(world: &mut World) {
         "textures/animations/pawn/pawn_run.ron",
     );
 
+    let rook_spritesheet_handle = load_sprite_sheet(
+        world,
+        "textures/animations/rook/rook_run.png",
+        "textures/animations/rook/rook_run.ron",
+    );
+
     let animations = &mut world.write_resource::<AnimationSpriteSheets>().sprite_sheets;
     animations.insert("pawn".to_string(), pawn_spritesheet_handle); 
+    animations.insert("rook".to_string(), rook_spritesheet_handle);
 }
