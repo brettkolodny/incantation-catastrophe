@@ -62,7 +62,7 @@ fn initialize_title_text(world: &mut World) {
         0.,
         1.,
         1000.,
-        50.,
+        80.,
     );
 
     let start_transform = UiTransform::new(
@@ -83,7 +83,7 @@ fn initialize_title_text(world: &mut World) {
             font.clone(),
             "INCANTATION CATASTROPHE".to_string(),
             [1., 1., 1., 1.],
-            50.,
+            75.,
         ))
         .with(TitleItem)
         .build();

@@ -1,10 +1,9 @@
-use amethyst::core::{
-    math::{Unit, Vector3},
-    Time, Transform,
-};
+use amethyst::core::{math::Vector3, Time, Transform};
 use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
+
+use std::f32::consts::PI;
 
 use crate::components::{Bishop, Enemy, GameplayItem, Health, Size};
 use crate::resources::{CurrentState, SpriteSheet};
@@ -57,29 +56,16 @@ impl<'s> System<'s> for BishopSpawnSystem {
         }
 
         if self.time_since_spawn >= self.spawn_timer {
-            let angle = rand::thread_rng().gen_range(0, 360) as f32;
+            let angle = (rand::thread_rng().gen_range(0, 99) as f32 / 100.) * 2. * PI;
+            let r = RADIUS * (rand::thread_rng().gen_range(0, 99) as f32 / 100.).sqrt();
 
-            let circle_vector = {
-                let x = RADIUS * angle.sin() + GAMEPLAY_AREA_WIDTH / 2.;
-                let y = RADIUS * angle.cos() + GAMEPLAY_AREA_HEIGHT / -2.;
-                let z = 0.;
-
-                let circle_vector = Vector3::new(x, y, z);
-                circle_vector
-            };
+            let x = r * angle.cos() + GAMEPLAY_AREA_WIDTH / 2.;
+            let y = r * angle.sin() - GAMEPLAY_AREA_HEIGHT / 2.;
 
             let mut bishop_transform = Transform::default();
             bishop_transform.set_scale(Vector3::new(2.5, 2.5, 1.));
-            bishop_transform.prepend_translation(circle_vector);
-
-            let center_vector =
-                Vector3::new(GAMEPLAY_AREA_WIDTH / 2., GAMEPLAY_AREA_HEIGHT / 2., 0.);
-
-            let spawn_vector = center_vector - circle_vector;
-
-            let distance = rand::thread_rng().gen_range(0, GAMEPLAY_AREA_HEIGHT as i32) as f32;
-
-            bishop_transform.prepend_translation_along(Unit::new_normalize(spawn_vector), distance);
+            bishop_transform.set_translation_x(x);
+            bishop_transform.set_translation_y(y);
 
             let sprite_render = {
                 SpriteRender {
