@@ -7,13 +7,19 @@ pub struct CurrentFrame {
 
 impl CurrentFrame {
     pub fn new(time: f64) -> Self {
-        CurrentFrame { current_frame: 0, time }
+        CurrentFrame {
+            current_frame: 0,
+            time,
+        }
     }
 }
 
 impl Default for CurrentFrame {
     fn default() -> Self {
-        CurrentFrame { current_frame: 0, time: 0. }
+        CurrentFrame {
+            current_frame: 0,
+            time: 0.,
+        }
     }
 }
 

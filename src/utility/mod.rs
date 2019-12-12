@@ -17,7 +17,6 @@ pub const CIRCLE_SPRITE_NUMBER: usize = 0;
 pub const HEART_SPRITE_NUMBER: usize = 7;
 pub const PLAYER_SHOT_SPRITE_NUMBER: usize = 8;
 pub const BISHOP_SHOT_SPRITE_NUMBER: usize = 9;
-pub const PLAYER_SPRITE_NUMBER: usize = 5;
 
 pub const RADIUS: f32 = 422.;
 

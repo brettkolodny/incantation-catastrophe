@@ -1,9 +1,9 @@
-mod pawn_run;
-mod rook_run;
 mod knight_run;
+mod pawn_run;
+mod player_animation;
+mod rook_run;
 
 pub use self::{
-    pawn_run::PawnRunSystem,
+    knight_run::KnightRunSystem, pawn_run::PawnRunSystem, player_animation::PlayerAnimationSystem,
     rook_run::RookRunSystem,
-    knight_run::KnightRunSystem,
 };

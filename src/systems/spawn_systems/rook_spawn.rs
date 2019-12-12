@@ -3,8 +3,10 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, CurrentFrame, Enemy, GameplayItem, Health, Rook, Size, Speed};
-use crate::resources::{CurrentState, AnimationSpriteSheets};
+use crate::components::{
+    CurrentDirection, CurrentFrame, Enemy, GameplayItem, Health, Rook, Size, Speed,
+};
+use crate::resources::{AnimationSpriteSheets, CurrentState};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct RookSpawnSystem {

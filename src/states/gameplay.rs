@@ -5,7 +5,9 @@ use amethyst::prelude::*;
 use amethyst::renderer::{camera::Projection, sprite::SpriteSheetHandle, Camera, SpriteRender};
 
 use crate::components::{Background, GameplayItem, Player, Size};
-use crate::resources::{CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet, AnimationSpriteSheets};
+use crate::resources::{
+    AnimationSpriteSheets, CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet,
+};
 use crate::states::{GameOverState, PauseState};
 use crate::utility::{
     load_sprite_sheet, BACKGROUND_SPRITE_NUMBER, CIRCLE_SPRITE_NUMBER, GAMEPLAY_AREA_HEIGHT,
@@ -38,7 +40,6 @@ impl SimpleState for GameplayState {
         initialize_circle(world, spritesheet.clone());
         initialize_camera(world);
         initialize_animation_resource(world);
-        Player::initialize(world, spritesheet.clone());
     }
 
     fn handle_event(&mut self, data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
@@ -176,7 +177,7 @@ pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHand
     world.insert(Hearts { hearts });
 }
 
-pub fn initialize_animation_resource(world: &mut World) { 
+pub fn initialize_animation_resource(world: &mut World) {
     let pawn_spritesheet_handle = load_sprite_sheet(
         world,
         "textures/animations/pawn/pawn_run.png",
@@ -195,8 +196,19 @@ pub fn initialize_animation_resource(world: &mut World) {
         "textures/animations/knight/knight_run.ron",
     );
 
-    let animations = &mut world.write_resource::<AnimationSpriteSheets>().sprite_sheets;
-    animations.insert("pawn".to_string(), pawn_spritesheet_handle); 
+    let player_spritesheet_handle = load_sprite_sheet(
+        world,
+        "textures/animations/player/player_run.png",
+        "textures/animations/player/player_run.ron",
+    );
+
+    Player::initialize(world, player_spritesheet_handle.clone());
+
+    let animations = &mut world
+        .write_resource::<AnimationSpriteSheets>()
+        .sprite_sheets;
+    animations.insert("pawn".to_string(), pawn_spritesheet_handle);
     animations.insert("rook".to_string(), rook_spritesheet_handle);
     animations.insert("knight".to_string(), knight_spritesheet_handle);
+    animations.insert("player".to_string(), player_spritesheet_handle);
 }

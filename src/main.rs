@@ -121,6 +121,11 @@ fn main() -> amethyst::Result<()> {
         )
         .with(systems::PawnRunSystem, "pawn_run", &["pawn_spawn"])
         .with(systems::RookRunSystem, "rook_run", &["rook_spawn"])
+        .with(
+            systems::PlayerAnimationSystem,
+            "player_animation",
+            &["player_move"],
+        )
         .with(systems::KnightRunSystem, "knight_run", &["knight_spawn"]);
 
     let mut game = Application::new("./", GameplayState {}, game_data)?;

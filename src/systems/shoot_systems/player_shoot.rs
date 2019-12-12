@@ -4,7 +4,7 @@ use amethyst::ecs::{Read, WriteStorage};
 use amethyst::input::{InputHandler, StringBindings};
 use amethyst::renderer::SpriteRender;
 
-use std::f32::consts::{PI, FRAC_PI_2};
+use std::f32::consts::{FRAC_PI_2, PI};
 
 use crate::components::{
     CurrentDirection, Direction, GameplayItem, Player, PlayerProjectile, Projectile, Size, Speed,
@@ -80,16 +80,16 @@ impl<'s> System<'s> for PlayerShootSystem {
             };
 
             for (mut transform, direction) in player_transforms_directions {
-                transform.set_scale(Vector3::new(1., 1., 1.));  
-                
+                transform.set_scale(Vector3::new(1., 1., 1.));
+
                 match direction.current_direction {
-                    Direction::Up => transform.set_rotation_euler(0., 0., 0.), 
-                    Direction::Down => transform.set_rotation_euler(0., 0., PI), 
-                    Direction::Left => transform.set_rotation_euler(0., 0., FRAC_PI_2), 
+                    Direction::Up => transform.set_rotation_euler(0., 0., 0.),
+                    Direction::Down => transform.set_rotation_euler(0., 0., PI),
+                    Direction::Left => transform.set_rotation_euler(0., 0., FRAC_PI_2),
                     Direction::Right => transform.set_rotation_euler(0., 0., PI + FRAC_PI_2),
                     _ => &transform,
                 };
-                
+
                 entities
                     .build_entity()
                     .with(GameplayItem::default(), &mut gameplay_items)

@@ -1,3 +1,4 @@
+mod animation_systems;
 mod boundary;
 mod enemy_hit;
 mod knight_push;
@@ -7,9 +8,9 @@ mod player_hit;
 mod projectile_move;
 mod shoot_systems;
 mod spawn_systems;
-mod animation_systems;
 
 pub use self::{
+    animation_systems::{KnightRunSystem, PawnRunSystem, PlayerAnimationSystem, RookRunSystem},
     boundary::BoundarySystem,
     enemy_hit::EnemyHitSystem,
     knight_push::KnightPushSystem,
@@ -21,5 +22,4 @@ pub use self::{
     projectile_move::ProjectileMoveSystem,
     shoot_systems::{BishopShootSystem, PlayerShootSystem},
     spawn_systems::{BishopSpawnSystem, KnightSpawnSystem, PawnSpawnSystem, RookSpawnSystem},
-    animation_systems::{PawnRunSystem, RookRunSystem, KnightRunSystem}
 };

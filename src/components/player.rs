@@ -3,9 +3,9 @@ use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::prelude::*;
 use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
 
-use crate::components::{tags::GameplayItem, CurrentDirection, Health, Size, Speed};
+use crate::components::{tags::GameplayItem, CurrentDirection, CurrentFrame, Health, Size, Speed};
 use crate::resources::PlayerResource;
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, PLAYER_SPRITE_NUMBER};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH};
 
 #[derive(Default)]
 pub struct Player {
@@ -37,7 +37,7 @@ impl Player {
         let sprite_render = {
             SpriteRender {
                 sprite_sheet: sprite_sheet_handle,
-                sprite_number: PLAYER_SPRITE_NUMBER,
+                sprite_number: 0,
             }
         };
 
@@ -52,6 +52,7 @@ impl Player {
                 .with(CurrentDirection::default())
                 .with(GameplayItem)
                 .with(Health::default())
+                .with(CurrentFrame::new(0.))
                 .build(),
         );
 

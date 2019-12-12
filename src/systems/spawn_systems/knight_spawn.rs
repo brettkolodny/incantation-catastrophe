@@ -6,8 +6,8 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, GameplayItem, Knight, Size, CurrentFrame, Speed};
-use crate::resources::{CurrentState, PlayerResource, AnimationSpriteSheets};
+use crate::components::{CurrentDirection, CurrentFrame, Enemy, GameplayItem, Knight, Size, Speed};
+use crate::resources::{AnimationSpriteSheets, CurrentState, PlayerResource};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct KnightSpawnSystem {
