@@ -21,5 +21,5 @@ pub use self::{
     projectile_move::ProjectileMoveSystem,
     shoot_systems::{BishopShootSystem, PlayerShootSystem},
     spawn_systems::{BishopSpawnSystem, KnightSpawnSystem, PawnSpawnSystem, RookSpawnSystem},
-    animation_systems::{PawnRunSystem, RookRunSystem}
+    animation_systems::{PawnRunSystem, RookRunSystem, KnightRunSystem}
 };

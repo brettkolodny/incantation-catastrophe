@@ -120,7 +120,8 @@ fn main() -> amethyst::Result<()> {
             &["pawn_move", "bishop_shoot", "player_death"],
         )
         .with(systems::PawnRunSystem, "pawn_run", &["pawn_spawn"])
-        .with(systems::RookRunSystem, "rook_run", &["rook_spawn"]);
+        .with(systems::RookRunSystem, "rook_run", &["rook_spawn"])
+        .with(systems::KnightRunSystem, "knight_run", &["knight_spawn"]);
 
     let mut game = Application::new("./", GameplayState {}, game_data)?;
     game.run();

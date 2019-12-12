@@ -6,9 +6,9 @@ use amethyst::ecs::{Entities, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 use rand::Rng;
 
-use crate::components::{CurrentDirection, Enemy, GameplayItem, Knight, Size, Speed};
-use crate::resources::{CurrentState, PlayerResource, SpriteSheet};
-use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, KNIGHT_SPRITE_NUMBER, RADIUS};
+use crate::components::{CurrentDirection, Enemy, GameplayItem, Knight, Size, CurrentFrame, Speed};
+use crate::resources::{CurrentState, PlayerResource, AnimationSpriteSheets};
+use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct KnightSpawnSystem {
     pub spawn_timer: f32,
@@ -17,6 +17,7 @@ pub struct KnightSpawnSystem {
 
 impl<'s> System<'s> for KnightSpawnSystem {
     type SystemData = (
+        WriteStorage<'s, CurrentFrame>,
         WriteStorage<'s, GameplayItem>,
         WriteStorage<'s, Transform>,
         WriteStorage<'s, Speed>,
@@ -25,7 +26,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
         WriteStorage<'s, Knight>,
         WriteStorage<'s, Enemy>,
         WriteStorage<'s, SpriteRender>,
-        Read<'s, SpriteSheet>,
+        Read<'s, AnimationSpriteSheets>,
         Read<'s, PlayerResource>,
         Read<'s, Time>,
         Entities<'s>,
@@ -35,6 +36,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
     fn run(
         &mut self,
         (
+            mut frames,
             mut gameplay_items,
             mut transforms,
             mut speeds,
@@ -43,7 +45,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
             mut knights,
             mut enemies,
             mut sprite_renders,
-            spritesheet,
+            animation_spritesheets,
             player,
             time,
             entities,
@@ -69,8 +71,8 @@ impl<'s> System<'s> for KnightSpawnSystem {
 
                 let sprite_render = {
                     SpriteRender {
-                        sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                        sprite_number: KNIGHT_SPRITE_NUMBER,
+                        sprite_sheet: animation_spritesheets.sprite_sheets["knight"].clone(),
+                        sprite_number: 0,
                     }
                 };
 
@@ -91,6 +93,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
                     .with(Knight, &mut knights)
                     .with(Enemy, &mut enemies)
                     .with(GameplayItem, &mut gameplay_items)
+                    .with(CurrentFrame::new(time.absolute_time_seconds()), &mut frames)
                     .build();
 
                 self.time_since_spawn = 0.;
