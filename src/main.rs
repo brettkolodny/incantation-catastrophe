@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 use amethyst::{
     core::transform::TransformBundle,
     input::{InputBundle, StringBindings},
@@ -27,7 +28,7 @@ fn main() -> amethyst::Result<()> {
     let resources = app_root.join("resources");
     let display_config = resources.join("display_config.ron");
 
-    let binding_path = resources.join("bindings_config.ron"); 
+    let binding_path = resources.join("bindings_config.ron");
 
     let input_bundle =
         InputBundle::<StringBindings>::new().with_bindings_from_file(binding_path)?;
@@ -118,7 +119,11 @@ fn main() -> amethyst::Result<()> {
         )
         .with(systems::PawnRunSystem, "pawn_run", &["pawn_spawn"])
         .with(systems::RookRunSystem, "rook_run", &["rook_spawn"])
-        .with(systems::BishopAnimationSystem, "bishop_animation", &["bishop_spawn", "bishop_shoot"])
+        .with(
+            systems::BishopAnimationSystem,
+            "bishop_animation",
+            &["bishop_spawn", "bishop_shoot"],
+        )
         .with(
             systems::PlayerAnimationSystem,
             "player_animation",

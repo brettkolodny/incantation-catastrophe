@@ -52,7 +52,7 @@ fn initialize_score_text(world: &mut World, score: u32) {
     let font_path = app_root.join("textures").join("square.ttf");
 
     let font = world.read_resource::<Loader>().load(
-        font_path.to_str().unwrap(), 
+        font_path.to_str().unwrap(),
         TtfFormat,
         (),
         &world.read_resource(),

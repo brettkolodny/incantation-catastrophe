@@ -6,7 +6,7 @@ use rand::Rng;
 use std::f32::consts::PI;
 
 use crate::components::{Bishop, CurrentFrame, Enemy, GameplayItem, Health, Size};
-use crate::resources::{CurrentState, AnimationSpriteSheets};
+use crate::resources::{AnimationSpriteSheets, CurrentState};
 use crate::utility::{GAMEPLAY_AREA_HEIGHT, GAMEPLAY_AREA_WIDTH, RADIUS};
 
 pub struct BishopSpawnSystem {

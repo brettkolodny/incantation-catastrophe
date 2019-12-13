@@ -1,4 +1,4 @@
-use crate::components::{CurrentFrame, Bishop};
+use crate::components::{Bishop, CurrentFrame};
 use crate::resources::CurrentState;
 use amethyst::core::Time;
 use amethyst::ecs::{Join, Read, ReadStorage, System, WriteStorage};
@@ -22,13 +22,11 @@ impl<'s> System<'s> for BishopAnimationSystem {
 
         for (bishop, frame, sprite_render) in (&pawns, &mut frames, &mut sprite_renders).join() {
             if bishop.time_since_shot > 3. {
-               sprite_render.sprite_number = 4; 
-
+                sprite_render.sprite_number = 4;
             } else if time.absolute_time_seconds() - frame.time > 0.15 {
                 if frame.current_frame == 3 {
                     sprite_render.sprite_number = 0;
                     frame.current_frame = 0;
-
                 } else {
                     sprite_render.sprite_number = frame.current_frame + 1;
                     frame.current_frame += 1;
