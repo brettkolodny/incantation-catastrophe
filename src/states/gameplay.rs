@@ -139,7 +139,7 @@ pub fn initialize_circle(_world: &mut World, _sprite_sheet_handle: SpriteSheetHa
 
 pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
-    local_transform.set_translation_xyz(100., -50., 0.);
+    local_transform.set_translation_xyz(50., -50., 0.);
     local_transform.set_scale(Vector3::new(2.0, 2.0, 1.0));
 
     let sprite_render = {
