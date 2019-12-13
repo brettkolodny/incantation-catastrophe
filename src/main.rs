@@ -27,10 +27,8 @@ fn main() -> amethyst::Result<()> {
     let resources = app_root.join("resources");
     let display_config = resources.join("display_config.ron");
 
-    let binding_path = format!(
-        "{}/resources/bindings_config.ron",
-        application_root_dir().unwrap().to_str().unwrap()
-    );
+    let binding_path = resources.join("bindings_config.ron"); 
+
     let input_bundle =
         InputBundle::<StringBindings>::new().with_bindings_from_file(binding_path)?;
 
@@ -128,7 +126,7 @@ fn main() -> amethyst::Result<()> {
         )
         .with(systems::KnightRunSystem, "knight_run", &["knight_spawn"]);
 
-    let mut game = Application::new("./", TitleState {}, game_data)?;
+    let mut game = Application::new(app_root, TitleState {}, game_data)?;
     game.run();
 
     Ok(())

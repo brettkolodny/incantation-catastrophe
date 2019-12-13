@@ -65,8 +65,6 @@ impl<'s> System<'s> for EnemyHitSystem {
                             score.score += 10;
                         }
 
-                        dbg! {&score.score};
-
                         if let Err(e) = entities.delete(enemy_entity) {
                             dbg!(e);
                         }

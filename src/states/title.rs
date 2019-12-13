@@ -6,6 +6,7 @@ use amethyst::prelude::*;
 use amethyst::renderer::camera::Projection;
 use amethyst::renderer::Camera;
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
+use amethyst::utils::application_root_dir;
 
 use crate::components::TitleItem;
 use crate::resources::CurrentState;
@@ -47,8 +48,11 @@ impl SimpleState for TitleState {
 }
 
 fn initialize_title_text(world: &mut World) {
+    let app_root = application_root_dir().unwrap();
+    let font_path = app_root.join("textures").join("square.ttf");
+
     let font = world.read_resource::<Loader>().load(
-        "textures/square.ttf",
+        font_path.to_str().unwrap(),
         TtfFormat,
         (),
         &world.read_resource(),

@@ -3,6 +3,7 @@ use amethyst::ecs::Join;
 use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
 use amethyst::ui::{Anchor, TtfFormat, UiText, UiTransform};
+use amethyst::utils::application_root_dir;
 
 use crate::components::GameoverItem;
 use crate::resources::{CurrentState, ScoreResource};
@@ -46,10 +47,12 @@ impl SimpleState for GameOverState {
 
 fn initialize_score_text(world: &mut World, score: u32) {
     let score_string = format!("SCORE: {}", score);
-    println!("Your score was: {}!", score);
+
+    let app_root = application_root_dir().unwrap();
+    let font_path = app_root.join("textures").join("square.ttf");
 
     let font = world.read_resource::<Loader>().load(
-        "textures/square.ttf",
+        font_path.to_str().unwrap(), 
         TtfFormat,
         (),
         &world.read_resource(),

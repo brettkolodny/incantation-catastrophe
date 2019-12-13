@@ -4,6 +4,7 @@ use amethyst::input::{is_key_down, VirtualKeyCode};
 use amethyst::prelude::*;
 use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
 
+use amethyst::utils::application_root_dir;
 use crate::components::{Background, GameplayItem, Player, Size};
 use crate::resources::{
     AnimationSpriteSheets, CurrentState, Hearts, PlayerResource, ScoreResource, SpriteSheet,
@@ -18,12 +19,13 @@ pub struct GameplayState;
 
 impl SimpleState for GameplayState {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        let app_root = application_root_dir().unwrap();
         let world = data.world;
 
         let spritesheet_handle = Some(load_sprite_sheet(
             world,
-            "textures/incantation_catastrophe.png",
-            "textures/incantation_catastrophe.ron",
+            app_root.join("textures").join("incantation_catastrophe.png").to_str().unwrap(),
+            app_root.join("textures").join("incantation_catastrophe.ron").to_str().unwrap(),
         ));
 
         world.write_resource::<SpriteSheet>().sprite_sheet = Some(spritesheet_handle.unwrap());
@@ -160,34 +162,36 @@ pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHand
 }
 
 pub fn initialize_animation_resource(world: &mut World) {
+    let app_root = application_root_dir().unwrap();
+
     let pawn_spritesheet_handle = load_sprite_sheet(
         world,
-        "textures/animations/pawn/pawn_run.png",
-        "textures/animations/pawn/pawn_run.ron",
+        app_root.join("textures").join("animations").join("pawn").join("pawn_run.png").to_str().unwrap(),
+        app_root.join("textures").join("animations").join("pawn").join("pawn_run.ron").to_str().unwrap(),
     );
 
     let rook_spritesheet_handle = load_sprite_sheet(
         world,
-        "textures/animations/rook/rook_run.png",
-        "textures/animations/rook/rook_run.ron",
+        app_root.join("textures").join("animations").join("rook").join("rook_run.png").to_str().unwrap(),
+        app_root.join("textures").join("animations").join("rook").join("rook_run.ron").to_str().unwrap(),
     );
 
     let knight_spritesheet_handle = load_sprite_sheet(
         world,
-        "textures/animations/knight/knight_run.png",
-        "textures/animations/knight/knight_run.ron",
+        app_root.join("textures").join("animations").join("knight").join("knight_run.png").to_str().unwrap(),
+        app_root.join("textures").join("animations").join("knight").join("knight_run.ron").to_str().unwrap(),
     );
 
     let player_spritesheet_handle = load_sprite_sheet(
         world,
-        "textures/animations/player/player_run.png",
-        "textures/animations/player/player_run.ron",
+        app_root.join("textures").join("animations").join("player").join("player_run.png").to_str().unwrap(),
+        app_root.join("textures").join("animations").join("player").join("player_run.ron").to_str().unwrap(),
     );
 
     let bishop_spritesheet_handle = load_sprite_sheet(
         world,
-        "textures/animations/bishop/bishop.png",
-        "textures/animations/bishop/bishop.ron",
+        app_root.join("textures").join("animations").join("bishop").join("bishop.png").to_str().unwrap(),
+        app_root.join("textures").join("animations").join("bishop").join("bishop.ron").to_str().unwrap(),
     );
 
     Player::initialize(world, player_spritesheet_handle.clone());
