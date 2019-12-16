@@ -3,6 +3,7 @@ use crate::resources::{CurrentState, Hearts, PlayerResource};
 use crate::utility::did_hit;
 use amethyst::core::{timing::Time, Transform};
 use amethyst::ecs::{Entities, Join, Read, ReadStorage, System, Write, WriteStorage};
+use amethyst::renderer::{resources::Tint, palette::Srgba};
 
 pub struct PlayerHitSystem {
     player_immune: bool,
@@ -22,6 +23,7 @@ impl Default for PlayerHitSystem {
 
 impl<'s> System<'s> for PlayerHitSystem {
     type SystemData = (
+        WriteStorage<'s, Tint>,
         Read<'s, Time>,
         Write<'s, PlayerResource>,
         ReadStorage<'s, Transform>,
@@ -38,6 +40,7 @@ impl<'s> System<'s> for PlayerHitSystem {
     fn run(
         &mut self,
         (
+            mut tints,
             time,
             player,
             transforms,
@@ -52,6 +55,11 @@ impl<'s> System<'s> for PlayerHitSystem {
         ): Self::SystemData,
     ) {
         if !state.is_gameplay() {
+            if state.is_gameover() {
+               self.player_immune = false;
+               self.time_since_hit = 0.;
+            }
+
             return;
         }
 
@@ -79,23 +87,23 @@ impl<'s> System<'s> for PlayerHitSystem {
                 }
             }
 
-            //let mut player_sprite_render = sprite_render.get_mut(player).unwrap();
             if self.player_immune {
                 self.time_since_hit += time.delta_seconds();
-                //if self.time_since_hit % 0.5 >= 0.25 {
-                //let sprite_number = player_sprite_render.sprite_number;
-                // if sprite_number == 1 {
-                //     //player_sprite_render.sprite_number = 2;
-                // } else {
-                //     //player_sprite_render.sprite_number = 1;
-                // }
-                //}
+                let tint = tints.get_mut(player).unwrap();
+
                 if self.time_since_hit >= self.player_immune_time {
                     self.player_immune = false;
                     self.time_since_hit = 0.;
+                    tint.0 = Srgba::new(1., 1., 1., 1.);
+
+                } else {
+                    if self.time_since_hit % 0.5 < 0.25 {
+                        tint.0 = Srgba::new(0.5, 0.5, 0.5, 1.);
+
+                    } else {
+                        tint.0 = Srgba::new(1., 1., 1., 1.);
+                    }
                 }
-            } else {
-                //player_sprite_render.sprite_number = 2;
             }
         }
     }

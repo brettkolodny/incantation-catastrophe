@@ -1,7 +1,8 @@
 use amethyst::core::{math::Vector3, transform::Transform};
 use amethyst::ecs::prelude::{Component, DenseVecStorage};
 use amethyst::prelude::*;
-use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender};
+use amethyst::renderer::{sprite::SpriteSheetHandle, SpriteRender, palette::Srgba,
+    resources::Tint,};
 
 use crate::components::{tags::GameplayItem, CurrentDirection, CurrentFrame, Health, Size, Speed};
 use crate::resources::PlayerResource;
@@ -41,6 +42,8 @@ impl Player {
             }
         };
 
+        let tint = Tint(Srgba::new(1., 1., 1., 1.,));
+
         let player = Some(
             world
                 .create_entity()
@@ -53,6 +56,7 @@ impl Player {
                 .with(GameplayItem)
                 .with(Health::default())
                 .with(CurrentFrame::new(0.))
+                .with(tint)
                 .build(),
         );
 

@@ -6,5 +6,5 @@ mod rook_run;
 
 pub use self::{
     bishop_animation::BishopAnimationSystem, knight_run::KnightRunSystem, pawn_run::PawnRunSystem,
-    player_animation::PlayerAnimationSystem, rook_run::RookRunSystem,
+    player_animation::PlayerAnimationSystem, rook_run::RookRunSystem 
 };

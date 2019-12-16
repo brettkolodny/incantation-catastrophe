@@ -1,4 +1,3 @@
-#![windows_subsystem = "windows"]
 use amethyst::{
     core::transform::TransformBundle,
     input::{InputBundle, StringBindings},
