@@ -11,8 +11,8 @@ mod spawn_systems;
 
 pub use self::{
     animation_systems::{
-        BishopAnimationSystem, KnightRunSystem, PawnRunSystem, PlayerAnimationSystem,
-        PlayerProjectileAnimationSystem, RookRunSystem,
+        BishopAnimationSystem, BishopProjectileAnimationSystem, KnightRunSystem, PawnRunSystem,
+        PlayerAnimationSystem, PlayerProjectileAnimationSystem, RookRunSystem,
     },
     boundary::BoundarySystem,
     enemy_hit::EnemyHitSystem,

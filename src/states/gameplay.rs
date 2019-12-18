@@ -21,6 +21,7 @@ impl SimpleState for GameplayState {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let app_root = application_root_dir().unwrap();
         let world = data.world;
+        world.insert(SpriteSheet::default());
 
         let spritesheet_handle = Some(load_sprite_sheet(
             world,
@@ -280,6 +281,24 @@ pub fn initialize_animation_resource(world: &mut World) {
             .unwrap(),
     );
 
+    let bishop_projectile_spritesheet_handle = load_sprite_sheet(
+        world,
+        app_root
+            .join("textures")
+            .join("animations")
+            .join("bishop")
+            .join("bishop_projectile.png")
+            .to_str()
+            .unwrap(),
+        app_root
+            .join("textures")
+            .join("animations")
+            .join("bishop")
+            .join("bishop_projectile.ron")
+            .to_str()
+            .unwrap(),
+    );
+
     Player::initialize(world, player_spritesheet_handle.clone());
 
     let animations = &mut world
@@ -293,5 +312,9 @@ pub fn initialize_animation_resource(world: &mut World) {
     animations.insert(
         "player_projectile".to_string(),
         player_projectile_spritesheet_handle,
+    );
+    animations.insert(
+        "bishop_projectile".to_string(),
+        bishop_projectile_spritesheet_handle,
     );
 }
