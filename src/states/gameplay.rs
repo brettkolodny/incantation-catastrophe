@@ -262,6 +262,24 @@ pub fn initialize_animation_resource(world: &mut World) {
             .unwrap(),
     );
 
+    let player_projectile_spritesheet_handle = load_sprite_sheet(
+        world,
+        app_root
+            .join("textures")
+            .join("animations")
+            .join("player")
+            .join("player_projectile.png")
+            .to_str()
+            .unwrap(),
+        app_root
+            .join("textures")
+            .join("animations")
+            .join("player")
+            .join("player_projectile.ron")
+            .to_str()
+            .unwrap(),
+    );
+
     Player::initialize(world, player_spritesheet_handle.clone());
 
     let animations = &mut world
@@ -272,4 +290,8 @@ pub fn initialize_animation_resource(world: &mut World) {
     animations.insert("knight".to_string(), knight_spritesheet_handle);
     animations.insert("player".to_string(), player_spritesheet_handle);
     animations.insert("bishop".to_string(), bishop_spritesheet_handle);
+    animations.insert(
+        "player_projectile".to_string(),
+        player_projectile_spritesheet_handle,
+    );
 }

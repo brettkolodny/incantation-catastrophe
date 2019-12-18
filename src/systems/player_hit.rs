@@ -3,7 +3,7 @@ use crate::resources::{CurrentState, Hearts, PlayerResource};
 use crate::utility::did_hit;
 use amethyst::core::{timing::Time, Transform};
 use amethyst::ecs::{Entities, Join, Read, ReadStorage, System, Write, WriteStorage};
-use amethyst::renderer::{resources::Tint, palette::Srgba};
+use amethyst::renderer::{palette::Srgba, resources::Tint};
 
 pub struct PlayerHitSystem {
     player_immune: bool,
@@ -56,8 +56,8 @@ impl<'s> System<'s> for PlayerHitSystem {
     ) {
         if !state.is_gameplay() {
             if state.is_gameover() {
-               self.player_immune = false;
-               self.time_since_hit = 0.;
+                self.player_immune = false;
+                self.time_since_hit = 0.;
             }
 
             return;
@@ -95,11 +95,9 @@ impl<'s> System<'s> for PlayerHitSystem {
                     self.player_immune = false;
                     self.time_since_hit = 0.;
                     tint.0 = Srgba::new(1., 1., 1., 1.);
-
                 } else {
                     if self.time_since_hit % 0.5 < 0.25 {
                         tint.0 = Srgba::new(0.5, 0.5, 0.5, 1.);
-
                     } else {
                         tint.0 = Srgba::new(1., 1., 1., 1.);
                     }

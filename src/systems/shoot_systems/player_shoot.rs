@@ -7,10 +7,10 @@ use amethyst::renderer::SpriteRender;
 use std::f32::consts::{FRAC_PI_2, PI};
 
 use crate::components::{
-    CurrentDirection, Direction, GameplayItem, Player, PlayerProjectile, Projectile, Size, Speed,
+    CurrentDirection, CurrentFrame, Direction, GameplayItem, Player, PlayerProjectile, Projectile,
+    Size, Speed,
 };
-use crate::resources::{CurrentState, SpriteSheet};
-use crate::utility::PLAYER_SHOT_SPRITE_NUMBER;
+use crate::resources::{AnimationSpriteSheets, CurrentState};
 
 pub struct PlayerShootSystem {
     pub is_shooting: bool,
@@ -18,6 +18,7 @@ pub struct PlayerShootSystem {
 
 impl<'s> System<'s> for PlayerShootSystem {
     type SystemData = (
+        WriteStorage<'s, CurrentFrame>,
         WriteStorage<'s, GameplayItem>,
         WriteStorage<'s, Projectile>,
         WriteStorage<'s, PlayerProjectile>,
@@ -27,7 +28,7 @@ impl<'s> System<'s> for PlayerShootSystem {
         WriteStorage<'s, Size>,
         WriteStorage<'s, CurrentDirection>,
         WriteStorage<'s, SpriteRender>,
-        Read<'s, SpriteSheet>,
+        Read<'s, AnimationSpriteSheets>,
         Entities<'s>,
         Read<'s, InputHandler<StringBindings>>,
         Read<'s, Time>,
@@ -37,6 +38,7 @@ impl<'s> System<'s> for PlayerShootSystem {
     fn run(
         &mut self,
         (
+            mut frames,
             mut gameplay_items,
             mut projectiles,
             mut player_projectiles,
@@ -46,7 +48,7 @@ impl<'s> System<'s> for PlayerShootSystem {
             mut sizes,
             mut directions,
             mut sprite_renders,
-            spritesheet,
+            animation_spritesheets,
             entities,
             input,
             time,
@@ -74,8 +76,8 @@ impl<'s> System<'s> for PlayerShootSystem {
 
             let sprite_render = {
                 SpriteRender {
-                    sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),
-                    sprite_number: PLAYER_SHOT_SPRITE_NUMBER,
+                    sprite_sheet: animation_spritesheets.sprite_sheets["player_projectile"].clone(),
+                    sprite_number: 0,
                 }
             };
 
@@ -83,10 +85,10 @@ impl<'s> System<'s> for PlayerShootSystem {
                 transform.set_scale(Vector3::new(1., 1., 1.));
 
                 match direction.current_direction {
-                    Direction::Up => transform.set_rotation_euler(0., 0., 0.),
-                    Direction::Down => transform.set_rotation_euler(0., 0., PI),
-                    Direction::Left => transform.set_rotation_euler(0., 0., FRAC_PI_2),
-                    Direction::Right => transform.set_rotation_euler(0., 0., PI + FRAC_PI_2),
+                    Direction::Right => transform.set_rotation_euler(0., 0., 0.),
+                    Direction::Left => transform.set_rotation_euler(0., 0., PI),
+                    Direction::Up => transform.set_rotation_euler(0., 0., FRAC_PI_2),
+                    Direction::Down => transform.set_rotation_euler(0., 0., PI + FRAC_PI_2),
                     _ => &transform,
                 };
 
@@ -99,7 +101,8 @@ impl<'s> System<'s> for PlayerShootSystem {
                     .with(transform, &mut transforms)
                     .with(direction, &mut directions)
                     .with(sprite_render.clone(), &mut sprite_renders)
-                    .with(Speed::default(), &mut speeds)
+                    .with(Speed::new(750.), &mut speeds)
+                    .with(CurrentFrame::new(time.absolute_time_seconds()), &mut frames)
                     .build();
             }
         } else {
