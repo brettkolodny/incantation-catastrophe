@@ -26,7 +26,7 @@ impl<'s> System<'s> for PlayerProjectileAnimationSystem {
         for (_, frame, sprite_render) in
             (&player_projectiles, &mut frames, &mut sprite_renders).join()
         {
-            if time.absolute_time_seconds() - frame.time > 0.02 {
+            if time.absolute_time_seconds() - frame.time > 0.1 {
                 if frame.current_frame == 44 {
                     sprite_render.sprite_number = 0;
                     frame.current_frame = 0;

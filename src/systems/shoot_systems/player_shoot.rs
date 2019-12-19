@@ -82,7 +82,7 @@ impl<'s> System<'s> for PlayerShootSystem {
             };
 
             for (mut transform, direction) in player_transforms_directions {
-                transform.set_scale(Vector3::new(1., 1., 1.));
+                transform.set_scale(Vector3::new(1.2, 1.2, 1.));
 
                 match direction.current_direction {
                     Direction::Right => transform.set_rotation_euler(0., 0., 0.),

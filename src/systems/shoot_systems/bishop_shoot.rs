@@ -1,4 +1,7 @@
-use amethyst::core::{math::Unit, Time, Transform};
+use amethyst::core::{
+    math::{Unit, Vector3},
+    Time, Transform,
+};
 use amethyst::ecs::{Entities, Join, Read, System, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
@@ -84,6 +87,7 @@ impl<'s> System<'s> for BishopShootSystem {
                 let angle = (player_y - transform_y).atan2(player_x - transform_x);
 
                 transform.set_rotation_z_axis(angle);
+                transform.set_scale(Vector3::new(1.5, 1.5, 1.5));
 
                 entities
                     .build_entity()
