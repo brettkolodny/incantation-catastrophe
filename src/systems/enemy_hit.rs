@@ -1,4 +1,4 @@
-use amethyst::core::Transform;
+use amethyst::core::{math::Vector3, Transform};
 use amethyst::ecs::{Entities, Join, Read, ReadStorage, System, Write, WriteStorage};
 use amethyst::renderer::SpriteRender;
 
@@ -109,7 +109,10 @@ impl<'s> System<'s> for EnemyHitSystem {
                 }
             }
         }
-        if let Some(transform) = potion_transform {
+        if let Some(mut transform) = potion_transform {
+            transform.set_scale(Vector3::new(2.5, 2.5, 1.));
+            transform.set_translation_z(-3.);
+
             let sprite_render = {
                 SpriteRender {
                     sprite_sheet: spritesheet.sprite_sheet.clone().unwrap(),

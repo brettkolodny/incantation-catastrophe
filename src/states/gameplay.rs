@@ -91,7 +91,7 @@ pub fn initialize_arena(_world: &mut World, _sprite_sheet_handle: SpriteSheetHan
     local_transform.set_translation_xyz(
         GAMEPLAY_AREA_WIDTH / 2.0,
         GAMEPLAY_AREA_HEIGHT / -2.0,
-        -2.,
+        -5.,
     );
     local_transform.set_scale(Vector3::new(2.0, 2.0, 1.));
 
@@ -117,7 +117,7 @@ pub fn initialize_circle(_world: &mut World, _sprite_sheet_handle: SpriteSheetHa
     local_transform.set_translation_xyz(
         GAMEPLAY_AREA_WIDTH / 2.0,
         GAMEPLAY_AREA_HEIGHT / -2.0,
-        -1.,
+        -4.,
     );
     local_transform.set_scale(Vector3::new(1.15, 1.15, 1.));
 
@@ -140,7 +140,7 @@ pub fn initialize_circle(_world: &mut World, _sprite_sheet_handle: SpriteSheetHa
 
 pub fn initialize_hearts(world: &mut World, sprite_sheet_handle: SpriteSheetHandle) {
     let mut local_transform = Transform::default();
-    local_transform.set_translation_xyz(50., -50., 0.);
+    local_transform.set_translation_xyz(50., -50., -3.);
     local_transform.set_scale(Vector3::new(2.0, 2.0, 1.0));
 
     let sprite_render = {

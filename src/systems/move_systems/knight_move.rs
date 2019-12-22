@@ -49,6 +49,7 @@ impl<'s> System<'s> for KnightMoveSystem {
                 }
                 Direction::Custom(vector) => {
                     transform.prepend_translation_along(vector, time.delta_seconds() * speed.speed);
+                    transform.set_translation_z(-2.);
                 }
             }
         }
