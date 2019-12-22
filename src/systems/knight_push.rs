@@ -45,9 +45,8 @@ impl<'s> System<'s> for KnightPushSystem {
                     let translation = new_transform.translation();
                     let x = translation.x;
                     let y = translation.y;
-                    let z = translation.z;
 
-                    (x, y, z)
+                    (x, y, 0.)
                 };
                 player_transform.set_translation_xyz(x, y, z);
             }

@@ -11,5 +11,7 @@ pub use self::{
     enemy::{Bishop, Enemy, Knight, Pawn, Rook},
     player::Player,
     projectile::{PlayerProjectile, Projectile},
-    tags::{Background, GameoverItem, GameplayItem, MainMenuItem, PauseItem, Tag, TitleItem},
+    tags::{
+        Background, GameoverItem, GameplayItem, MainMenuItem, PauseItem, Potion, Tag, TitleItem,
+    },
 };

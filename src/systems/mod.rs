@@ -3,6 +3,7 @@ mod boundary;
 mod enemy_hit;
 mod knight_push;
 mod move_systems;
+mod pickup_potion;
 mod player_death;
 mod player_hit;
 mod projectile_move;
@@ -20,6 +21,7 @@ pub use self::{
     move_systems::{
         BishopMoveSystem, KnightMoveSystem, PawnMoveSystem, PlayerMoveSystem, RookMoveSystem,
     },
+    pickup_potion::PotionPickupSystem,
     player_death::PlayerDeathSystem,
     player_hit::PlayerHitSystem,
     projectile_move::ProjectileMoveSystem,

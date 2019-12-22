@@ -72,7 +72,7 @@ impl<'s> System<'s> for KnightSpawnSystem {
                 );
 
                 let mut local_transform = Transform::default();
-                local_transform.set_translation_xyz(x, y, 0.);
+                local_transform.set_translation_xyz(x, y, -1.);
                 local_transform.set_scale(Vector3::new(3., 3., 1.0));
 
                 let sprite_render = {

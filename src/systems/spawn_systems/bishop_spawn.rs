@@ -68,6 +68,7 @@ impl<'s> System<'s> for BishopSpawnSystem {
             bishop_transform.set_scale(Vector3::new(2.5, 2.5, 1.));
             bishop_transform.set_translation_x(x);
             bishop_transform.set_translation_y(y);
+            bishop_transform.set_translation_z(-1.);
 
             let sprite_render = {
                 SpriteRender {

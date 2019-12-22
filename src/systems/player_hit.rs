@@ -1,4 +1,4 @@
-use crate::components::{Background, Health, Player, PlayerProjectile, Size};
+use crate::components::{Background, Health, Player, PlayerProjectile, Potion, Size};
 use crate::resources::{CurrentState, Hearts, PlayerResource};
 use crate::utility::did_hit;
 use amethyst::core::{timing::Time, Transform};
@@ -35,6 +35,7 @@ impl<'s> System<'s> for PlayerHitSystem {
         Write<'s, Hearts>,
         Entities<'s>,
         Read<'s, CurrentState>,
+        ReadStorage<'s, Potion>,
     );
 
     fn run(
@@ -52,6 +53,7 @@ impl<'s> System<'s> for PlayerHitSystem {
             mut hearts,
             entities,
             state,
+            potions,
         ): Self::SystemData,
     ) {
         if !state.is_gameplay() {
@@ -67,12 +69,13 @@ impl<'s> System<'s> for PlayerHitSystem {
             let player_info = { (sizes.get(player).unwrap(), transforms.get(player).unwrap()) };
             let mut player_health = healths.get_mut(player).unwrap();
 
-            for (size, transform, _, _, _) in (
+            for (size, transform, _, _, _, _) in (
                 &sizes,
                 &transforms,
                 !&player_projectiles,
                 !&players,
                 !&backgrounds,
+                !&potions,
             )
                 .join()
             {

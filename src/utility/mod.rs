@@ -11,9 +11,10 @@ use crate::components::Size;
 pub const GAMEPLAY_AREA_WIDTH: f32 = 1280.;
 pub const GAMEPLAY_AREA_HEIGHT: f32 = 960.;
 
-pub const BACKGROUND_SPRITE_NUMBER: usize = 1;
 pub const CIRCLE_SPRITE_NUMBER: usize = 0;
+pub const BACKGROUND_SPRITE_NUMBER: usize = 1;
 pub const HEART_SPRITE_NUMBER: usize = 2;
+pub const FLASK_SPRITE_NUMBER: usize = 3;
 
 pub const RADIUS: f32 = 422.;
 

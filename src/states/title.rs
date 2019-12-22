@@ -25,7 +25,7 @@ impl SimpleState for TitleState {
 
     fn handle_event(&mut self, _data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
         if let StateEvent::Window(event) = &event {
-            if is_key_down(&event, VirtualKeyCode::Space) {
+            if is_key_down(&event, VirtualKeyCode::Escape) {
                 let mut game_state = _data.world.write_resource::<CurrentState>();
                 game_state.resume();
                 return Trans::Switch(Box::new(GameplayState));
@@ -97,7 +97,7 @@ fn initialize_title_text(world: &mut World) {
         .with(start_transform)
         .with(UiText::new(
             font,
-            "PRESS SPACE TO START".to_string(),
+            "PRESS ESCAPE TO START".to_string(),
             [1., 1., 1., 1.],
             50.,
         ))

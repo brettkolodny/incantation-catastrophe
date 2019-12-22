@@ -23,7 +23,7 @@ impl SimpleState for GameOverState {
 
     fn handle_event(&mut self, _data: StateData<GameData>, event: StateEvent) -> SimpleTrans {
         if let StateEvent::Window(event) = &event {
-            if is_key_down(&event, VirtualKeyCode::Space) {
+            if is_key_down(&event, VirtualKeyCode::Escape) {
                 let mut game_state = _data.world.write_resource::<CurrentState>();
                 game_state.resume();
                 return Trans::Switch(Box::new(GameplayState));
@@ -106,7 +106,7 @@ fn initialize_play_again_text(world: &mut World) {
         .with(text_transform)
         .with(UiText::new(
             font,
-            "Press Space to Play Again".to_string(),
+            "Press ESCAPE to Play Again".to_string(),
             [1., 1., 1., 1.],
             50.,
         ))

@@ -138,6 +138,7 @@ fn main() -> amethyst::Result<()> {
             "bishop_projectile_animation",
             &["bishop_shoot"],
         )
+        .with(systems::PotionPickupSystem, "potion_pickup", &[])
         .with(systems::KnightRunSystem, "knight_run", &["knight_spawn"]);
 
     let mut game = Application::new(app_root, TitleState {}, game_data)?;
