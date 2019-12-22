@@ -53,10 +53,8 @@ impl<'s> System<'s> for KnightSpawnSystem {
         ): Self::SystemData,
     ) {
         if !state.is_gameplay() {
-            if self.time_since_spawn != 0. {
-                if state.is_gameover() {
-                    self.time_since_spawn = 0.;
-                }
+            if self.time_since_spawn != 0. && state.is_gameover() {
+                self.time_since_spawn = 0.;
             }
 
             return;

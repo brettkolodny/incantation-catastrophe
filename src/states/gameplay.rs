@@ -66,7 +66,7 @@ impl SimpleState for GameplayState {
     fn update(&mut self, data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
         let player = data.world.read_resource::<PlayerResource>();
         let mut state = data.world.write_resource::<CurrentState>();
-        if let None = player.player {
+        if player.player.is_none() {
             state.gameover();
             return Trans::Switch(Box::new(GameOverState));
         }

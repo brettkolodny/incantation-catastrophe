@@ -98,12 +98,12 @@ impl<'s> System<'s> for PlayerHitSystem {
                     self.player_immune = false;
                     self.time_since_hit = 0.;
                     tint.0 = Srgba::new(1., 1., 1., 1.);
+
+                } else if self.time_since_hit % 0.5 < 0.25 {
+                    tint.0 = Srgba::new(0.5, 0.5, 0.5, 1.);
+
                 } else {
-                    if self.time_since_hit % 0.5 < 0.25 {
-                        tint.0 = Srgba::new(0.5, 0.5, 0.5, 1.);
-                    } else {
-                        tint.0 = Srgba::new(1., 1., 1., 1.);
-                    }
+                    tint.0 = Srgba::new(1., 1., 1., 1.);
                 }
             }
         }

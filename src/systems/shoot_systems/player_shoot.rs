@@ -66,7 +66,7 @@ impl<'s> System<'s> for PlayerShootSystem {
                 (&mut players, &transforms, &directions).join()
             {
                 if !self.is_shooting {
-                    player_transforms_directions.push((transform.clone(), direction.clone()));
+                    player_transforms_directions.push((transform.clone(), *direction));
                     player.time_since_shot = 0.;
                     self.is_shooting = true;
                 } else {

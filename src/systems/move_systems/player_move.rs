@@ -67,10 +67,10 @@ impl<'s> System<'s> for PlayerMoveSystem {
                 let mut new_x = temp;
                 let mut new_y = temp;
                 if change_x < 0. {
-                    new_x = new_x * -1.;
+                    new_x *= -1.;
                 }
                 if change_y < 0. {
-                    new_y = new_y * -1.;
+                    new_y *= -1.;
                 }
 
                 change_x = new_x;

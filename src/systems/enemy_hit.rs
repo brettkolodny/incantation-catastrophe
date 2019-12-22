@@ -77,17 +77,17 @@ impl<'s> System<'s> for EnemyHitSystem {
 
                         let mut drop_potion = false;
 
-                        if let Some(_) = pawns.get(enemy_entity) {
+                        if pawns.get(enemy_entity).is_some() {
                             score.score += 1;
                             if drop_roll > 0.95 {
                                 drop_potion = true;
                             }
-                        } else if let Some(_) = bishops.get(enemy_entity) {
+                        } else if bishops.get(enemy_entity).is_some() {
                             score.score += 5;
                             if drop_roll > 0.5 {
                                 drop_potion = true;
                             }
-                        } else if let Some(_) = rooks.get(enemy_entity) {
+                        } else if rooks.get(enemy_entity).is_some() {
                             score.score += 10;
                             if drop_roll > 0.75 {
                                 drop_potion = true;
