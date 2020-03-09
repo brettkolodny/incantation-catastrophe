@@ -31,7 +31,7 @@ impl<'s> System<'s> for PlayerMoveSystem {
         {
             let horizontal_movement = input.axis_value("horizontal");
             let vertical_movement = input.axis_value("vertical");
-
+            
             let mut change_x: f32 = {
                 if let Some(amount) = horizontal_movement {
                     speed.speed * amount as f32
